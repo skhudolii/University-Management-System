@@ -19,4 +19,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\University.Infrastructure\University.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
