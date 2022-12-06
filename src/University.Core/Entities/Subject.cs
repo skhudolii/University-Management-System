@@ -6,6 +6,9 @@ namespace University.Core.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
+
+        // n-n relationships
+        public List<AcademicEmployee_Subject> AcademicEmployees_Subjects { get; set; }
     }
 }
