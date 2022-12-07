@@ -9,6 +9,6 @@ namespace University.Core.Entities
         public string Name { get; set; }
 
         // n-n relationships
-        public List<AcademicEmployee_Subject> AcademicEmployees_Subjects { get; set; }
+        public List<SubjectAcademicEmployee> SubjectsAcademicEmployees { get; set; }
     }
 }

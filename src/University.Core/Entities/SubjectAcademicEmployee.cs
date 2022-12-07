@@ -1,6 +1,6 @@
 ﻿namespace University.Core.Entities
 {
-    public class AcademicEmployee_Subject
+    public class SubjectAcademicEmployee
     {
         public int AcademicEmployeeId { get; set; }
         public AcademicEmployee AcademicEmployee { get; set; }

@@ -12,20 +12,20 @@ namespace University.Infrastructure.Data
         public DbSet<Subject> Subjects { get; set; }
 
         // Aggregate
-        public DbSet<AcademicEmployee_Subject> AcademicEmployees_Subjects { get; set; }
+        public DbSet<SubjectAcademicEmployee> SubjectsAcademicEmployees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AcademicEmployee_Subject>().HasKey(aes => new
+            modelBuilder.Entity<SubjectAcademicEmployee>().HasKey(sa => new
             {
-                aes.AcademicEmployeeId,
-                aes.SubjectId
+                sa.SubjectId,
+                sa.AcademicEmployeeId                
             });
             
-            modelBuilder.Entity<AcademicEmployee_Subject>().HasOne(ae => ae.AcademicEmployee).WithMany(aes =>
-                aes.AcademicEmployees_Subjects).HasForeignKey(ae => ae.AcademicEmployeeId);
-            modelBuilder.Entity<AcademicEmployee_Subject>().HasOne(ae => ae.Subject).WithMany(aes =>
-                aes.AcademicEmployees_Subjects).HasForeignKey(ae => ae.SubjectId);
+            modelBuilder.Entity<SubjectAcademicEmployee>().HasOne(a => a.AcademicEmployee).WithMany(sa =>
+                sa.SubjectsAcademicEmployees).HasForeignKey(a => a.AcademicEmployeeId);
+            modelBuilder.Entity<SubjectAcademicEmployee>().HasOne(a => a.Subject).WithMany(sa =>
+                sa.SubjectsAcademicEmployees).HasForeignKey(a => a.SubjectId);
 
             base.OnModelCreating(modelBuilder);
         }

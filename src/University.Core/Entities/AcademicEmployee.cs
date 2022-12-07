@@ -8,7 +8,7 @@ namespace University.Core.Entities
         public AcademicPosition AcademicPosition { get; set; }
 
         // n-n relationships
-        public List<AcademicEmployee_Subject> AcademicEmployees_Subjects { get; set; }
+        public List<SubjectAcademicEmployee> SubjectsAcademicEmployees { get; set; }
 
         // Faculty
         public int FacultyId { get; set; }
