@@ -8,10 +8,13 @@ namespace University.Core.Entities
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-
-        // Faculty
+        
+        // n-1 relationships
         public int FacultyId { get; set; }
         [ForeignKey("FacultyId")]
         public Faculty Faculty { get;set; }
+
+        // n-n relationships
+        public List<SubjectGroup> SubjectsGroups { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace University.Core.Entities
         [ForeignKey("Faculty")]
         public int Id { get; set; }
         
-        // Faculty
+        // 0 or 1-1 relationships
         public Faculty Faculty { get; set; }
     }
 }

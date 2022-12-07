@@ -13,6 +13,7 @@ namespace University.Infrastructure.Data
 
         // Aggregate
         public DbSet<SubjectAcademicEmployee> SubjectsAcademicEmployees { get; set; }
+        public DbSet<SubjectGroup> SubjectsGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +27,17 @@ namespace University.Infrastructure.Data
                 sa.SubjectsAcademicEmployees).HasForeignKey(a => a.AcademicEmployeeId);
             modelBuilder.Entity<SubjectAcademicEmployee>().HasOne(a => a.Subject).WithMany(sa =>
                 sa.SubjectsAcademicEmployees).HasForeignKey(a => a.SubjectId);
+
+            modelBuilder.Entity<SubjectGroup>().HasKey(sa => new
+            {
+                sa.SubjectId,
+                sa.GroupId
+            });
+
+            modelBuilder.Entity<SubjectGroup>().HasOne(a => a.Group).WithMany(sa =>
+                sa.SubjectsGroups).HasForeignKey(a => a.GroupId);
+            modelBuilder.Entity<SubjectGroup>().HasOne(a => a.Subject).WithMany(sa =>
+                sa.SubjectsGroups).HasForeignKey(a => a.SubjectId);
 
             base.OnModelCreating(modelBuilder);
         }
