@@ -11,6 +11,11 @@ namespace University.Core.Entities
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
 
+        // n-1 relationships
+        public int ScheduleId { get; set; }
+        [ForeignKey("SheduleId")]
+        public Schedule Schedule { get; set; }
+
         // 1-1 relationships
         public Subject Subject { get; set; }
         public AcademicEmployee Teacher { get; set; }
@@ -18,10 +23,5 @@ namespace University.Core.Entities
 
         // 1-n relationships
         public List<Group> Groups { get; set; }
-
-        // n-1 relationships
-        public int ScheduleId { get; set; }
-        [ForeignKey("SheduleId")]
-        public Schedule Schedule { get; set; }
     }
 }
