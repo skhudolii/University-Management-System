@@ -11,5 +11,8 @@ namespace University.Core.Entities
         
         // 0 or 1-1 relationships
         public Faculty Faculty { get; set; }
+
+        // 1-n relationships
+        public List<Lecture> Lectures { get; set; }
     }
 }
