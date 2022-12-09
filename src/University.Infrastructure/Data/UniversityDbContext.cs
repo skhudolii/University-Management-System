@@ -5,11 +5,18 @@ namespace University.Infrastructure.Data
 {
     public class UniversityDbContext : DbContext
     {
-        public UniversityDbContext(DbContextOptions<UniversityDbContext> options) : base(options) { }
+        public UniversityDbContext(DbContextOptions<UniversityDbContext> options) : base(options)
+        { 
+        }
 
-        public DbSet<Faculty> Faculties { get; set; }
         public DbSet<AcademicEmployee> AcademicEmployees { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }        
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Lecture> Lectures { get; set; }
+        public DbSet<LectureRoom> LectureRooms { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Subject> Subjects { get; set; }        
 
         // Aggregate
         public DbSet<SubjectAcademicEmployee> SubjectsAcademicEmployees { get; set; }
