@@ -16,7 +16,7 @@ namespace University.Infrastructure.Data
         public DbSet<LectureRoom> LectureRooms { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<Subject> Subjects { get; set; }        
+        public DbSet<Subject> Subjects { get; set; }
 
         // Aggregate
         public DbSet<SubjectAcademicEmployee> SubjectsAcademicEmployees { get; set; }
