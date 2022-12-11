@@ -8,6 +8,7 @@ namespace University.Core.Entities
         [Key]
         [ForeignKey("Faculty")]
         public int Id { get; set; }
+        public string Name { get; set; }
         
         // 0 or 1-1 relationships
         public Faculty Faculty { get; set; }
