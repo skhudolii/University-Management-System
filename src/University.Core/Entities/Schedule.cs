@@ -6,11 +6,13 @@ namespace University.Core.Entities
     public class Schedule
     {
         [Key]
-        [ForeignKey("Faculty")]
         public int Id { get; set; }
         public string Name { get; set; }
-        
-        // 0 or 1-1 relationships
+        public bool IsCurrent { get; set; }
+
+        // n-1 relationships
+        public int FacultyId { get; set; }
+        [ForeignKey("FacultyId")]
         public Faculty Faculty { get; set; }
 
         // 1-n relationships

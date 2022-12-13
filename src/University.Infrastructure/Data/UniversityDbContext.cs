@@ -21,6 +21,7 @@ namespace University.Infrastructure.Data
         // Aggregate
         public DbSet<SubjectAcademicEmployee> SubjectsAcademicEmployees { get; set; }
         public DbSet<SubjectGroup> SubjectsGroups { get; set; }
+        public DbSet<LectureGroup> LecturesGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +46,17 @@ namespace University.Infrastructure.Data
                 sa.SubjectsGroups).HasForeignKey(a => a.GroupId);
             modelBuilder.Entity<SubjectGroup>().HasOne(a => a.Subject).WithMany(sa =>
                 sa.SubjectsGroups).HasForeignKey(a => a.SubjectId);
+
+            modelBuilder.Entity<LectureGroup>().HasKey(sa => new
+            {
+                sa.LectureId,
+                sa.GroupId
+            });
+
+            modelBuilder.Entity<LectureGroup>().HasOne(a => a.Group).WithMany(sa =>
+                sa.LecturesGroups).HasForeignKey(a => a.GroupId);
+            modelBuilder.Entity<LectureGroup>().HasOne(a => a.Lecture).WithMany(sa =>
+                sa.LecturesGroups).HasForeignKey(a => a.LectureId);
 
             base.OnModelCreating(modelBuilder);
         }

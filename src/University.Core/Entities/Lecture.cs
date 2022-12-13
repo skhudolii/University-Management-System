@@ -7,8 +7,12 @@ namespace University.Core.Entities
     {
         [Key]
         public int Id { get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
         public DateTime LectureDate { get; set; }
+        [DataType(DataType.Time)]
         public TimeSpan StartTime { get; set; }
+        [DataType(DataType.Time)]
         public TimeSpan EndTime { get; set; }
 
         // n-1 relationships
@@ -21,7 +25,7 @@ namespace University.Core.Entities
         public AcademicEmployee Teacher { get; set; }
         public LectureRoom LectureRoom { get; set; }
 
-        // 1-n relationships
-        public List<Group> Groups { get; set; }
+        // n-n relationships
+        public List<LectureGroup> LecturesGroups { get; set; }
     }
 }

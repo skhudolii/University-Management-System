@@ -12,7 +12,7 @@ using University.Infrastructure.Data;
 namespace University.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(UniversityDbContext))]
-    [Migration("20221211085445_Init")]
+    [Migration("20221213190747_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -98,9 +98,6 @@ namespace University.Infrastructure.Data.Migrations
                     b.Property<int>("FacultyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LectureId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -108,8 +105,6 @@ namespace University.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FacultyId");
-
-                    b.HasIndex("LectureId");
 
                     b.ToTable("Groups");
                 });
@@ -159,6 +154,21 @@ namespace University.Infrastructure.Data.Migrations
                     b.ToTable("Lectures");
                 });
 
+            modelBuilder.Entity("University.Core.Entities.LectureGroup", b =>
+                {
+                    b.Property<int>("LectureId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LectureId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("LecturesGroups");
+                });
+
             modelBuilder.Entity("University.Core.Entities.LectureRoom", b =>
                 {
                     b.Property<int>("Id")
@@ -170,18 +180,7 @@ namespace University.Infrastructure.Data.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LectureRooms");
-                });
-
-            modelBuilder.Entity("University.Core.Entities.Schedule", b =>
-                {
-                    b.Property<int>("Id")
+                    b.Property<int>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -189,6 +188,33 @@ namespace University.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
+
+                    b.ToTable("LectureRooms");
+                });
+
+            modelBuilder.Entity("University.Core.Entities.Schedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCurrent")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
 
                     b.ToTable("Schedules");
                 });
@@ -239,11 +265,16 @@ namespace University.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
 
                     b.ToTable("Subjects");
                 });
@@ -297,10 +328,6 @@ namespace University.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("University.Core.Entities.Lecture", null)
-                        .WithMany("Groups")
-                        .HasForeignKey("LectureId");
-
                     b.Navigation("Faculty");
                 });
 
@@ -339,11 +366,41 @@ namespace University.Infrastructure.Data.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("University.Core.Entities.LectureGroup", b =>
+                {
+                    b.HasOne("University.Core.Entities.Group", "Group")
+                        .WithMany("LecturesGroups")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("University.Core.Entities.Lecture", "Lecture")
+                        .WithMany("LecturesGroups")
+                        .HasForeignKey("LectureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Lecture");
+                });
+
+            modelBuilder.Entity("University.Core.Entities.LectureRoom", b =>
+                {
+                    b.HasOne("University.Core.Entities.Faculty", "Faculty")
+                        .WithMany("LectureRooms")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Faculty");
+                });
+
             modelBuilder.Entity("University.Core.Entities.Schedule", b =>
                 {
                     b.HasOne("University.Core.Entities.Faculty", "Faculty")
-                        .WithOne("Schedule")
-                        .HasForeignKey("University.Core.Entities.Schedule", "Id")
+                        .WithMany("Schedules")
+                        .HasForeignKey("FacultyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -359,6 +416,17 @@ namespace University.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("University.Core.Entities.Subject", b =>
+                {
+                    b.HasOne("University.Core.Entities.Faculty", "Faculty")
+                        .WithMany("Subjects")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Faculty");
                 });
 
             modelBuilder.Entity("University.Core.Entities.SubjectAcademicEmployee", b =>
@@ -410,12 +478,17 @@ namespace University.Infrastructure.Data.Migrations
 
                     b.Navigation("Groups");
 
-                    b.Navigation("Schedule")
-                        .IsRequired();
+                    b.Navigation("LectureRooms");
+
+                    b.Navigation("Schedules");
+
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("University.Core.Entities.Group", b =>
                 {
+                    b.Navigation("LecturesGroups");
+
                     b.Navigation("Students");
 
                     b.Navigation("SubjectsGroups");
@@ -423,7 +496,7 @@ namespace University.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("University.Core.Entities.Lecture", b =>
                 {
-                    b.Navigation("Groups");
+                    b.Navigation("LecturesGroups");
                 });
 
             modelBuilder.Entity("University.Core.Entities.Schedule", b =>

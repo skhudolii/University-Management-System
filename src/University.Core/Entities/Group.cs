@@ -19,5 +19,6 @@ namespace University.Core.Entities
 
         // n-n relationships
         public List<SubjectGroup> SubjectsGroups { get; set; }
+        public List<LectureGroup> LecturesGroups { get; set;}
     }
 }

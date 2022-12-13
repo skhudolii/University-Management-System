@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace University.Core.Entities
+namespace University.Core.Entities.Base
 {
     public class Person
     {

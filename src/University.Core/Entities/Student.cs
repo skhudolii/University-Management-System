@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using University.Core.Entities.Base;
 
 namespace University.Core.Entities
 {

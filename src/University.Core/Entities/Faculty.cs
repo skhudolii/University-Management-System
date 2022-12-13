@@ -10,11 +10,11 @@ namespace University.Core.Entities
         public string Name { get; set; }
         public string Logo { get; set; }
 
-        // 1-0 or 1 relationships
-        public Schedule Schedule { get; set; }
-
         // 1-n relationships
+        public List<Schedule> Schedules{ get; set; }
         public List<AcademicEmployee> AcademicEmployees { get; set; }
         public List<Group> Groups { get; set; }
+        public List<Subject> Subjects { get; set; }
+        public List<LectureRoom> LectureRooms { get;set; }
     }
 }
