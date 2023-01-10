@@ -92,27 +92,6 @@ namespace University.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Schedules",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCurrent = table.Column<bool>(type: "bit", nullable: false),
-                    FacultyId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Schedules", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Schedules_Faculties_FacultyId",
-                        column: x => x.FacultyId,
-                        principalTable: "Faculties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Subjects",
                 columns: table => new
                 {
@@ -153,7 +132,7 @@ namespace University.Infrastructure.Data.Migrations
                         column: x => x.GroupId,
                         principalTable: "Groups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -162,22 +141,28 @@ namespace University.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LectureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LectureDate = table.Column<DateTime>(type: "Date", nullable: false),
                     StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    ScheduleId = table.Column<int>(type: "int", nullable: false),
-                    SheduleId = table.Column<int>(type: "int", nullable: false),
+                    FacultyId = table.Column<int>(type: "int", nullable: false),
+                    FucultyId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false),
-                    LectureRoomId = table.Column<int>(type: "int", nullable: false)
+                    LectureRoomId = table.Column<int>(type: "int", nullable: false),
+                    AcademicEmployeeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lectures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Lectures_AcademicEmployees_TeacherId",
-                        column: x => x.TeacherId,
+                        name: "FK_Lectures_AcademicEmployees_AcademicEmployeeId",
+                        column: x => x.AcademicEmployeeId,
                         principalTable: "AcademicEmployees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Lectures_Faculties_FucultyId",
+                        column: x => x.FucultyId,
+                        principalTable: "Faculties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -185,19 +170,13 @@ namespace University.Infrastructure.Data.Migrations
                         column: x => x.LectureRoomId,
                         principalTable: "LectureRooms",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Lectures_Schedules_SheduleId",
-                        column: x => x.SheduleId,
-                        principalTable: "Schedules",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Lectures_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -215,13 +194,13 @@ namespace University.Infrastructure.Data.Migrations
                         column: x => x.AcademicEmployeeId,
                         principalTable: "AcademicEmployees",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SubjectsAcademicEmployees_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -239,13 +218,13 @@ namespace University.Infrastructure.Data.Migrations
                         column: x => x.GroupId,
                         principalTable: "Groups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SubjectsGroups_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,13 +242,13 @@ namespace University.Infrastructure.Data.Migrations
                         column: x => x.GroupId,
                         principalTable: "Groups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_LecturesGroups_Lectures_LectureId",
                         column: x => x.LectureId,
                         principalTable: "Lectures",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -288,14 +267,19 @@ namespace University.Infrastructure.Data.Migrations
                 column: "FacultyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Lectures_AcademicEmployeeId",
+                table: "Lectures",
+                column: "AcademicEmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lectures_FucultyId",
+                table: "Lectures",
+                column: "FucultyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Lectures_LectureRoomId",
                 table: "Lectures",
                 column: "LectureRoomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Lectures_SheduleId",
-                table: "Lectures",
-                column: "SheduleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lectures_SubjectId",
@@ -303,19 +287,9 @@ namespace University.Infrastructure.Data.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lectures_TeacherId",
-                table: "Lectures",
-                column: "TeacherId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LecturesGroups_GroupId",
                 table: "LecturesGroups",
                 column: "GroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Schedules_FacultyId",
-                table: "Schedules",
-                column: "FacultyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_GroupId",
@@ -364,9 +338,6 @@ namespace University.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "LectureRooms");
-
-            migrationBuilder.DropTable(
-                name: "Schedules");
 
             migrationBuilder.DropTable(
                 name: "Subjects");

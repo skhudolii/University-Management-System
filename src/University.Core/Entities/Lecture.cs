@@ -16,14 +16,18 @@ namespace University.Core.Entities
         public TimeSpan EndTime { get; set; }
 
         // n-1 relationships
-        public int ScheduleId { get; set; }
-        [ForeignKey("SheduleId")]
-        public Schedule Schedule { get; set; }
-
-        // 1-1 relationships
+        public int FacultyId { get; set; }
+        [ForeignKey("FacultyId")]
+        public Faculty Faculty { get; set; }        
+        public int SubjectId { get; set; }
+        [ForeignKey("SubjectId")]
         public Subject Subject { get; set; }
-        public AcademicEmployee Teacher { get; set; }
+        public int LectureRoomId { get; set; }
+        [ForeignKey("LectureRoomId")]
         public LectureRoom LectureRoom { get; set; }
+        public int AcademicEmployeeId { get; set; }
+        [ForeignKey("AcademicEmployeeId")]
+        public AcademicEmployee Teacher { get; set; }        
 
         // n-n relationships
         public List<LectureGroup> LecturesGroups { get; set; }

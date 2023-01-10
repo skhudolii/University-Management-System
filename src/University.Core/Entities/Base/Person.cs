@@ -2,7 +2,7 @@
 
 namespace University.Core.Entities.Base
 {
-    public class Person
+    public abstract class Person
     {
         [Key]
         public int Id { get; set; }

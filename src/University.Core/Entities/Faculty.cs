@@ -11,7 +11,7 @@ namespace University.Core.Entities
         public string Logo { get; set; }
 
         // 1-n relationships
-        public List<Schedule> Schedules{ get; set; }
+        public List<Lecture> Lectures { get; set; }
         public List<AcademicEmployee> AcademicEmployees { get; set; }
         public List<Group> Groups { get; set; }
         public List<Subject> Subjects { get; set; }

@@ -14,5 +14,8 @@ namespace University.Core.Entities
         public int FacultyId { get; set; }
         [ForeignKey("FacultyId")]
         public Faculty Faculty { get; set; }
+
+        // 1-n
+        public List<Lecture> Lectures { get; set; }
     }
 }
