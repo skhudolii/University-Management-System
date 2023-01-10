@@ -12,7 +12,7 @@ using University.Infrastructure.Data;
 namespace University.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(UniversityDbContext))]
-    [Migration("20230110222552_Init")]
+    [Migration("20230110225926_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -126,9 +126,6 @@ namespace University.Infrastructure.Data.Migrations
                     b.Property<int>("FacultyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FucultyId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("LectureDate")
                         .HasColumnType("Date");
 
@@ -145,7 +142,7 @@ namespace University.Infrastructure.Data.Migrations
 
                     b.HasIndex("AcademicEmployeeId");
 
-                    b.HasIndex("FucultyId");
+                    b.HasIndex("FacultyId");
 
                     b.HasIndex("LectureRoomId");
 
@@ -316,7 +313,7 @@ namespace University.Infrastructure.Data.Migrations
 
                     b.HasOne("University.Core.Entities.Faculty", "Faculty")
                         .WithMany("Lectures")
-                        .HasForeignKey("FucultyId")
+                        .HasForeignKey("FacultyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

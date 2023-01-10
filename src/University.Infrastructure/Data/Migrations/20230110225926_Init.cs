@@ -145,7 +145,6 @@ namespace University.Infrastructure.Data.Migrations
                     StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     FacultyId = table.Column<int>(type: "int", nullable: false),
-                    FucultyId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
                     LectureRoomId = table.Column<int>(type: "int", nullable: false),
                     AcademicEmployeeId = table.Column<int>(type: "int", nullable: false)
@@ -160,8 +159,8 @@ namespace University.Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Lectures_Faculties_FucultyId",
-                        column: x => x.FucultyId,
+                        name: "FK_Lectures_Faculties_FacultyId",
+                        column: x => x.FacultyId,
                         principalTable: "Faculties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -272,9 +271,9 @@ namespace University.Infrastructure.Data.Migrations
                 column: "AcademicEmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lectures_FucultyId",
+                name: "IX_Lectures_FacultyId",
                 table: "Lectures",
-                column: "FucultyId");
+                column: "FacultyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lectures_LectureRoomId",
