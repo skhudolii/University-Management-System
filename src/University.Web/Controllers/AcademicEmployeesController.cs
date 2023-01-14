@@ -15,7 +15,7 @@ namespace University.Web.Controllers
         public IActionResult Index()
         {
             var data = _context.AcademicEmployees.ToList();
-            return View();
+            return View(data);
         }
     }
 }

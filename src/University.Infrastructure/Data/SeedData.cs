@@ -62,7 +62,7 @@ namespace University.Infrastructure.Data
                         LastName = "Lezhen",
                         Email = "test@test.com",
                         PhoneNumber ="111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Professor,
                         FacultyId = 1
                     },
@@ -72,7 +72,7 @@ namespace University.Infrastructure.Data
                         LastName = "Kuzub",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/09/kuzub_nikolaj-removebg-preview.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Professor,
                         FacultyId = 1
                     },
@@ -82,7 +82,7 @@ namespace University.Infrastructure.Data
                         LastName = "Vynnychuk",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/09/andriyvynnychuk.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssociateProfessor,
                         FacultyId = 1
                     },
@@ -92,7 +92,7 @@ namespace University.Infrastructure.Data
                         LastName = "Karpenko",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/inzhener-programist-removebg-preview.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.SeniorResearcher,
                         FacultyId = 1
                     },
@@ -102,7 +102,7 @@ namespace University.Infrastructure.Data
                         LastName = "Gusev",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/anton-gusev-java-1.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Professor,
                         FacultyId = 2
                     },
@@ -112,7 +112,7 @@ namespace University.Infrastructure.Data
                         LastName = "Gogilchyn",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/gogilchinjava.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssociateProfessor,
                         FacultyId = 2
                     },
@@ -122,7 +122,7 @@ namespace University.Infrastructure.Data
                         LastName = "Iefimenko",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/09/efimenko_tatyana-removebg-preview.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
                         AcademicPosition = AcademicPosition.SeniorResearcher,
                         FacultyId = 2
                     },
@@ -132,7 +132,7 @@ namespace University.Infrastructure.Data
                         LastName = "Kolomiiets",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/kolomyecz.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssistantProfessor,
                         FacultyId = 2
                     },
@@ -142,7 +142,7 @@ namespace University.Infrastructure.Data
                         LastName = "Gladshtein",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/dan-gladshtejn-android.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Professor,
                         FacultyId = 3
                     },
@@ -152,7 +152,7 @@ namespace University.Infrastructure.Data
                         LastName = "Rudnyk",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/yaroslav_rudnyk-removebg-preview.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssociateProfessor,
                         FacultyId = 3
                     },
@@ -162,7 +162,7 @@ namespace University.Infrastructure.Data
                         LastName = "Kulbaka",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/natalya_kulbaka-removebg-preview-4.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
                         AcademicPosition = AcademicPosition.AssistantProfessor,
                         FacultyId = 3
                     },
@@ -172,7 +172,7 @@ namespace University.Infrastructure.Data
                         LastName = "Tytarenko",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/sergej-titarenko-pythom-2.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Professor,
                         FacultyId = 4
                     }, new AcademicEmployee
@@ -181,7 +181,7 @@ namespace University.Infrastructure.Data
                         LastName = "Serdiuk",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/serdyuk.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssociateProfessor,
                         FacultyId = 4
                     },
@@ -191,7 +191,7 @@ namespace University.Infrastructure.Data
                         LastName = "Chernyshov",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/evgenij-chernyshov-1.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.SeniorResearcher,
                         FacultyId = 4
                     },
@@ -201,7 +201,7 @@ namespace University.Infrastructure.Data
                         LastName = "Galkin",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/2.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Professor,
                         FacultyId = 5
                     }, new AcademicEmployee
@@ -210,7 +210,7 @@ namespace University.Infrastructure.Data
                         LastName = "Koryagin",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/koryagyn_pavel-removebg-preview.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssociateProfessor,
                         FacultyId = 5
                     },
@@ -220,7 +220,7 @@ namespace University.Infrastructure.Data
                         LastName = "Chestnykh",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/oleksij_chestnyh-removebg-preview.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.SeniorResearcher,
                         FacultyId = 5
                     },
@@ -230,7 +230,7 @@ namespace University.Infrastructure.Data
                         LastName = "Gurova",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/ilyana-gurova-qa-1-1.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
                         AcademicPosition = AcademicPosition.Professor,
                         FacultyId = 6
                     }, new AcademicEmployee
@@ -239,7 +239,7 @@ namespace University.Infrastructure.Data
                         LastName = "Matiash",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/matyash_ivan_olegovych-removebg-preview.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssociateProfessor,
                         FacultyId = 6
                     },
@@ -249,7 +249,7 @@ namespace University.Infrastructure.Data
                         LastName = "Dereka",
                         Email = "test@test.com",
                         PhoneNumber = "111-11-11",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/10/dereka_oleg_mykolajovych-removebg-preview.png",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.SeniorResearcher,
                         FacultyId = 6
                     }
@@ -266,7 +266,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student1",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 1
                     },
                     new Student
@@ -275,7 +275,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student2",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 1
                     },
                     new Student
@@ -284,7 +284,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student3",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 1
                     },
                     new Student
@@ -293,7 +293,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student4",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 1
                     },
                     new Student
@@ -302,7 +302,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student5",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 1
                     },
                     new Student
@@ -311,7 +311,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student6",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 2
                     },
                     new Student
@@ -320,7 +320,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student7",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 2
                     },
                     new Student
@@ -329,7 +329,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student8",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 2
                     },
                     new Student
@@ -338,7 +338,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student9",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 2
                     },
                     new Student
@@ -347,7 +347,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student10",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 2
                     },
                     new Student
@@ -356,7 +356,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student11",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 3
                     },
                     new Student
@@ -365,7 +365,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student12",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 3
                     },
                     new Student
@@ -374,7 +374,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student13",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 3
                     },
                     new Student
@@ -383,7 +383,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student14",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 3
                     },
                     new Student
@@ -392,7 +392,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student15",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 3
                     },
                     new Student
@@ -401,7 +401,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student16",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 4
                     },
                     new Student
@@ -410,7 +410,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student17",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 4
                     },
                     new Student
@@ -419,7 +419,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student18",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 4
                     },
                     new Student
@@ -428,7 +428,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student19",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 4
                     },
                     new Student
@@ -437,7 +437,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student20",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 4
                     },
                     new Student
@@ -446,7 +446,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student21",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 5
                     },
                     new Student
@@ -455,7 +455,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student22",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 5
                     },
                     new Student
@@ -464,7 +464,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student23",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 5
                     },
                     new Student
@@ -473,7 +473,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student24",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 6
                     },
                     new Student
@@ -482,7 +482,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student25",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 6
                     },
                     new Student
@@ -491,7 +491,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student26",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 6
                     },
                     new Student
@@ -500,7 +500,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student27",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 7
                     },
                     new Student
@@ -509,7 +509,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student28",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 7
                     },
                     new Student
@@ -518,7 +518,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student29",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 7
                     },
                     new Student
@@ -527,7 +527,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student30",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 7
                     },
                     new Student
@@ -536,7 +536,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student31",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 8
                     },
                     new Student
@@ -545,7 +545,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student32",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 8
                     },
                     new Student
@@ -554,7 +554,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student33",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 8
                     },
                     new Student
@@ -563,7 +563,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student34",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 9
                     },
                     new Student
@@ -572,7 +572,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student35",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 9
                     },
                     new Student
@@ -581,7 +581,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student36",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 9
                     },
                     new Student
@@ -590,7 +590,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student37",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 10
                     },
                     new Student
@@ -599,7 +599,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student38",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 10
                     },
                     new Student
@@ -608,7 +608,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student39",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 10
                     },
                     new Student
@@ -617,7 +617,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student40",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 10
                     },
                     new Student
@@ -626,7 +626,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student41",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 11
                     },
                     new Student
@@ -635,7 +635,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student42",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 11
                     },
                     new Student
@@ -644,7 +644,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student43",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 11
                     },
                     new Student
@@ -653,7 +653,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student44",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 12
                     },
                     new Student
@@ -662,7 +662,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student45",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 12
                     },
                     new Student
@@ -671,7 +671,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student46",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 12
                     },
                     new Student
@@ -680,7 +680,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student47",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 12
                     },
                     new Student
@@ -689,7 +689,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student48",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 12
                     },
                     new Student
@@ -698,7 +698,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student49",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 13
                     },
                     new Student
@@ -707,7 +707,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student50",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 13
                     },
                     new Student
@@ -716,7 +716,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student51",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 13
                     },
                     new Student
@@ -725,7 +725,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student52",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 14
                     },
                     new Student
@@ -734,7 +734,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student53",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 14
                     },
                     new Student
@@ -743,7 +743,7 @@ namespace University.Infrastructure.Data
                         LastName = "Student54",
                         Email = "student@test.com",
                         PhoneNumber = "222-22-22",
-                        ProfilePictureURL = "https://cdn-ckkcn.nitrocdn.com/zFBNvlNnhjnAtIruckhWUtdrrYcfdzYJ/assets/static/optimized/rev-d24a128/wp-content/uploads/2022/08/logo-subscribe.svg",
+                        ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 14
                     }
                     );

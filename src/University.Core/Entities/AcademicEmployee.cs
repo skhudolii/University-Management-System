@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 using University.Core.Entities.Base;
 using University.Core.Enums;
 
@@ -6,6 +8,7 @@ namespace University.Core.Entities
 {
     public class AcademicEmployee : Person
     {
+        [Display(Name = "Academic Position")]
         public AcademicPosition AcademicPosition { get; set; }
 
         // n-1 relationships
