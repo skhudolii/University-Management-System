@@ -10,6 +10,7 @@ namespace University.Core.Entities
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
         [Display(Name = "Lecture Date")]
+        [DisplayFormat(DataFormatString = "{0:ddd, dd MMM yy}")]
         public DateTime LectureDate { get; set; }
         [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
