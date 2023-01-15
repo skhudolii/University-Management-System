@@ -9,10 +9,13 @@ namespace University.Core.Entities
         public int Id { get; set; }
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
+        [Display(Name = "Lecture Date")]
         public DateTime LectureDate { get; set; }
         [DataType(DataType.Time)]
+        [Display(Name = "Start Time")]
         public TimeSpan StartTime { get; set; }
         [DataType(DataType.Time)]
+        [Display(Name = "End Time")]
         public TimeSpan EndTime { get; set; }
 
         // n-1 relationships

@@ -7,6 +7,7 @@ namespace University.Core.Entities
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Lecture Room Name")]
         public string Name { get; set; }
         public int Capacity { get; set; }
 

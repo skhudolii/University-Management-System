@@ -15,7 +15,7 @@ namespace University.Core.Entities.Base
         [Phone]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-        [Display(Name = "Profile Picture URL")]
+        [Display(Name = "Profile Picture")]
         public string ProfilePictureURL { get; set; }
 
     }

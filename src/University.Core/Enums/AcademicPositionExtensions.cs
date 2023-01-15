@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace University.Core.Enums
 {
+    // TO DO: make AssistantProfessor as Asst. Prof. and etc.
     public class AcademicPositionExtensions
     {
         public static string GetAcademicPositionAbbreviation(AcademicPosition academicPosition)

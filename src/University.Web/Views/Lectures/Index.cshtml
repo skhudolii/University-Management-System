@@ -1,7 +1,7 @@
-﻿@model IEnumerable<University.Core.Entities.AcademicEmployee>
+﻿@model IEnumerable<University.Core.Entities.Lecture>
 
 @{
-    ViewData["Title"] = "List of Academic Employees";
+    ViewData["Title"] = "List of Lectures";
 }
 
 <div class="row">
@@ -10,10 +10,9 @@
         <table class="table">
             <thead>
                 <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
-                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
-                    <th>@Html.DisplayNameFor(model => model.AcademicPosition)</th>
+                    <th>@Html.DisplayNameFor(model => model.LectureDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.StartTime)</th>
+                    <th>@Html.DisplayNameFor(model => model.EndTime)</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -22,16 +21,13 @@
                 {
                     <tr class="text-center">
                         <td class="align-middle">
-                            <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.LastName" style="max-width: 150px" />
+                            @Html.DisplayFor(modelItem => item.LectureDate)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.FirstName)
+                            @Html.DisplayFor(modelItem => item.StartTime)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.AcademicPosition)
+                            @Html.DisplayFor(modelItem => item.EndTime)
                         </td>
                         <td class="align-middle">
                             <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i> Edit </a> |
@@ -40,8 +36,10 @@
                         </td>
                     </tr>
                 }
-            </tbody>            
+            </tbody>
         </table>
 
     </div>
 </div>
+
+

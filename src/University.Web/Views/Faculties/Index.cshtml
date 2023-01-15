@@ -1,0 +1,33 @@
+﻿@model IEnumerable<University.Core.Entities.Faculty>
+
+@{
+    ViewData["Title"] = "List of Faculties";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.Logo)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@item.Logo" alt="@item.Name" style="max-width: 150px" />
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

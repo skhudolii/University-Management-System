@@ -22,12 +22,12 @@ namespace University.Infrastructure.Data
             if (!context.Faculties.Any())
             {
                 context.Faculties.AddRange(
-                    new Faculty { Name = "C#/.NET", Logo = "logo-1.png" },
-                    new Faculty { Name = "Java Spring", Logo = "logo-2.png" },
-                    new Faculty { Name = "Android", Logo = "logo-3.png" },
-                    new Faculty { Name = "Python", Logo = "logo-4.png" },
-                    new Faculty { Name = "Node.js", Logo = "logo-5.png" },
-                    new Faculty { Name = "QA Automation", Logo = "logo-6.png" }
+                    new Faculty { Name = "C#/.NET", Logo = "images/logos/logo-1.png" },
+                    new Faculty { Name = "Java Spring", Logo = "images/logos/logo-2.png" },
+                    new Faculty { Name = "Android", Logo = "images/logos/logo-3.png" },
+                    new Faculty { Name = "Python", Logo = "images/logos/logo-4.png" },
+                    new Faculty { Name = "Node.js", Logo = "images/logos/logo-5.png" },
+                    new Faculty { Name = "QA Automation", Logo = "images/logos/logo-6.png" }
                     );
                 context.SaveChanges();
             }

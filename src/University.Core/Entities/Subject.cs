@@ -7,6 +7,7 @@ namespace University.Core.Entities
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Subject Name")]
         public string Name { get; set; }
 
         // n-1 relationships

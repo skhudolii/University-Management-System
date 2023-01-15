@@ -16,7 +16,7 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var allFaculties = await _context.Faculties.ToListAsync();
-            return View();
+            return View(allFaculties);
         }
     }
 }
