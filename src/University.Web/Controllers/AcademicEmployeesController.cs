@@ -1,20 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using University.Core.Repositories;
 using University.Infrastructure.Data;
 
 namespace University.Web.Controllers
 {
     public class AcademicEmployeesController : Controller
     {
-        private readonly UniversityDbContext _context;
+        private readonly IAcademicEmployeesRepository _repository;
 
-        public AcademicEmployeesController(UniversityDbContext context)
+        public AcademicEmployeesController(IAcademicEmployeesRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var data = _context.AcademicEmployees.ToList();
+            var data = await _repository.GetAll();
             return View(data);
         }
     }

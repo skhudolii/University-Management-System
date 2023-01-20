@@ -5,18 +5,22 @@ using University.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register services here
+// REGISTER SERVICES HERE
 builder.Services.AddControllersWithViews();
+
+// use database
 builder.Services.AddDbContext<UniversityDbContext>(opts =>
 {
     opts.UseSqlServer(
         builder.Configuration["ConnectionStrings:UniversityConnection"]);
 });
-builder.Services.AddScoped<IFacultyRepository, EFFacultyRepository>();
+
+// add Infrastructure Layer
+builder.Services.AddScoped<IAcademicEmployeesRepository, AcademicEmployeesRepository>();
 
 var app = builder.Build();
 
-// Register middleware here
+// REGISTER MIDDLEWARE HERE
 app.UseStatusCodePages();
 app.UseStaticFiles();
 app.MapDefaultControllerRoute();
