@@ -18,5 +18,11 @@ namespace University.Web.Controllers
             var data = await _repository.GetAll();
             return View(data);
         }
+
+        // Get: AcademicEmployees/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
