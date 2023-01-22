@@ -43,9 +43,11 @@ namespace University.Infrastructure.Repositories
             return result;
         }
 
-        public AcademicEmployee Update(int id, AcademicEmployee academicEmployee)
+        public async Task<AcademicEmployee> UpdateAsync(int id, AcademicEmployee newAcademicEmployee)
         {
-            throw new NotImplementedException();
+            _context.Update(newAcademicEmployee);
+            await _context.SaveChangesAsync();
+            return newAcademicEmployee;
         }
     }
 }

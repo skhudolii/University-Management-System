@@ -7,7 +7,7 @@ namespace University.Core.Repositories
         Task<IEnumerable<AcademicEmployee>> GetAllAsync();
         Task<AcademicEmployee> GetByIdAsync(int id);
         Task AddAsync(AcademicEmployee academicEmployee);
-        AcademicEmployee Update(int id, AcademicEmployee academicEmployee);
+        Task<AcademicEmployee> UpdateAsync(int id, AcademicEmployee newAcademicEmployee);
         void Delete(int id);
     }
 }

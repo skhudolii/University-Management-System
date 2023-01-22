@@ -44,9 +44,32 @@ namespace University.Web.Controllers
 
             if (academicEmployeeDetails == null)
             {
-                return View("Empty");
+                return View("NotFound");
             }
             return View(academicEmployeeDetails);
+        }
+
+        // Get: AcademicEmployees/Create
+        public async Task<IActionResult> Edit(int id)
+        {
+            var academicEmployeeDetails = await _repository.GetByIdAsync(id);
+
+            if (academicEmployeeDetails == null)
+            {
+                return View("NotFound");
+            }
+            return View(academicEmployeeDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,ProfilePictureURL,Email,AcademicPosition,FacultyId")] AcademicEmployee academicEmployee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(academicEmployee);
+            }
+            await _repository.UpdateAsync(id, academicEmployee);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
