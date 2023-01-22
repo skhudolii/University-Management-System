@@ -22,7 +22,8 @@ namespace University.Infrastructure.Repositories
 
         public void Add(AcademicEmployee academicEmployee)
         {
-            throw new NotImplementedException();
+            _context.AcademicEmployees.Add(academicEmployee);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)

@@ -6,16 +6,18 @@ namespace University.Core.Entities.Base
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-        [EmailAddress]
-        public string Email { get; set; }
-        [Phone]
-        [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Full Name")]
+        [Required(ErrorMessage = "Full Name is required")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "First Name must be between 3 and 50 chars")]
+        public string FullName { get; set; }        
+
+        [EmailAddress(ErrorMessage = "Email format is incorrect")]
+        [Required(ErrorMessage = "Email is required")]
+        public string Email { get; set; }        
+
         [Display(Name = "Profile Picture")]
+        [Required(ErrorMessage = "Profile Picture is required")]
         public string ProfilePictureURL { get; set; }
 
     }

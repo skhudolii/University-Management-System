@@ -12,9 +12,11 @@ namespace University.Core.Entities
         [Display(Name = "Lecture Date")]
         [DisplayFormat(DataFormatString = "{0:ddd, dd MMM yy}")]
         public DateTime LectureDate { get; set; }
+
         [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
         public TimeSpan StartTime { get; set; }
+
         [DataType(DataType.Time)]
         [Display(Name = "End Time")]
         public TimeSpan EndTime { get; set; }

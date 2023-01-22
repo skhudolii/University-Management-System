@@ -1,10 +1,19 @@
-﻿namespace University.Core.Enums
+﻿using System.ComponentModel;
+
+namespace University.Core.Enums
 {
     public enum AcademicPosition
     {
-        AssistantProfessor = 1,
-        SeniorResearcher,
-        AssociateProfessor,
-        Professor
+        [Description("Assistant Professor")]
+        AsstProf = 1,
+
+        [Description("Senior Researcher")]
+        SrRsch,
+
+        [Description("Associate Professor")]
+        AssocProf,
+
+        [Description("Professor")]
+        Prof
     }
 }
