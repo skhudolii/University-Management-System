@@ -20,10 +20,10 @@ namespace University.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Add(AcademicEmployee academicEmployee)
+        public async Task AddAsync(AcademicEmployee academicEmployee)
         {
-            _context.AcademicEmployees.Add(academicEmployee);
-            _context.SaveChanges();
+            await _context.AcademicEmployees.AddAsync(academicEmployee);
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(int id)
@@ -31,15 +31,16 @@ namespace University.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<AcademicEmployee>> GetAll()
+        public async Task<IEnumerable<AcademicEmployee>> GetAllAsync()
         {
             var result = await _context.AcademicEmployees.ToListAsync();
             return result;
         }
 
-        public AcademicEmployee GetById(int id)
+        public async Task<AcademicEmployee> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.AcademicEmployees.FirstOrDefaultAsync(n => n.Id == id);
+            return result;
         }
 
         public AcademicEmployee Update(int id, AcademicEmployee academicEmployee)

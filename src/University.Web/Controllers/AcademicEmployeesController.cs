@@ -16,7 +16,7 @@ namespace University.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = await _repository.GetAll();
+            var data = await _repository.GetAllAsync();
             return View(data);
         }
 
@@ -33,8 +33,20 @@ namespace University.Web.Controllers
             {
                 return View(academicEmployee);
             }
-            _repository.Add(academicEmployee);
+            await _repository.AddAsync(academicEmployee);
             return RedirectToAction(nameof(Index));
+        }
+
+        // Get: AcademicEmployees/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var academicEmployeeDetails = await _repository.GetByIdAsync(id);
+
+            if (academicEmployeeDetails == null)
+            {
+                return View("Empty");
+            }
+            return View(academicEmployeeDetails);
         }
     }
 }
