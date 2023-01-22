@@ -49,7 +49,7 @@ namespace University.Web.Controllers
             return View(academicEmployeeDetails);
         }
 
-        // Get: AcademicEmployees/Create
+        // Get: AcademicEmployees/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
             var academicEmployeeDetails = await _repository.GetByIdAsync(id);
@@ -69,6 +69,31 @@ namespace University.Web.Controllers
                 return View(academicEmployee);
             }
             await _repository.UpdateAsync(id, academicEmployee);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Get: AcademicEmployees/Delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var academicEmployeeDetails = await _repository.GetByIdAsync(id);
+
+            if (academicEmployeeDetails == null)
+            {
+                return View("NotFound");
+            }
+            return View(academicEmployeeDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var academicEmployeeDetails = await _repository.GetByIdAsync(id);
+
+            if (academicEmployeeDetails == null)
+            {
+                return View("NotFound");
+            }
+            await _repository.DeleteAsync(id);            
             return RedirectToAction(nameof(Index));
         }
     }

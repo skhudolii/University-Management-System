@@ -8,6 +8,6 @@ namespace University.Core.Repositories
         Task<AcademicEmployee> GetByIdAsync(int id);
         Task AddAsync(AcademicEmployee academicEmployee);
         Task<AcademicEmployee> UpdateAsync(int id, AcademicEmployee newAcademicEmployee);
-        void Delete(int id);
+        Task DeleteAsync(int id);
     }
 }
