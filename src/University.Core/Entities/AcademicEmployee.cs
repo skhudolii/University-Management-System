@@ -17,6 +17,6 @@ namespace University.Core.Entities
         public Faculty? Faculty { get; set; }
 
         // 1-n
-        public List<Lecture> Lectures { get; set; }
+        public List<Lecture> Lectures { get; set; } = new List<Lecture>();
     }
 }
