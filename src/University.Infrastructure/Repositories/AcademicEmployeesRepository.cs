@@ -8,48 +8,12 @@ using System.Threading.Tasks;
 using University.Core.Entities;
 using University.Core.Repositories;
 using University.Infrastructure.Data;
+using University.Infrastructure.Repositories.Base;
 
 namespace University.Infrastructure.Repositories
 {
-    public class AcademicEmployeesRepository : IAcademicEmployeesRepository
+    public class AcademicEmployeesRepository : EntityBaseRepository<AcademicEmployee>, IAcademicEmployeesRepository
     {
-        private readonly UniversityDbContext _context;
-
-        public AcademicEmployeesRepository(UniversityDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task AddAsync(AcademicEmployee academicEmployee)
-        {
-            await _context.AcademicEmployees.AddAsync(academicEmployee);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var result = await _context.AcademicEmployees.FirstOrDefaultAsync(n => n.Id == id);
-            _context.AcademicEmployees.Remove(result);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<AcademicEmployee>> GetAllAsync()
-        {
-            var result = await _context.AcademicEmployees.ToListAsync();
-            return result;
-        }
-
-        public async Task<AcademicEmployee> GetByIdAsync(int id)
-        {
-            var result = await _context.AcademicEmployees.FirstOrDefaultAsync(n => n.Id == id);
-            return result;
-        }
-
-        public async Task<AcademicEmployee> UpdateAsync(int id, AcademicEmployee newAcademicEmployee)
-        {
-            _context.Update(newAcademicEmployee);
-            await _context.SaveChangesAsync();
-            return newAcademicEmployee;
-        }
+        public AcademicEmployeesRepository(UniversityDbContext context) : base(context) { }
     }
 }
