@@ -22,9 +22,9 @@ namespace University.Core.Entities
         public TimeSpan EndTime { get; set; }
 
         // n-1 relationships
-        public int FacultyId { get; set; }
+        public int? FacultyId { get; set; }
         [ForeignKey("FacultyId")]
-        public Faculty Faculty { get; set; }        
+        public Faculty? Faculty { get; set; }        
         public int SubjectId { get; set; }
         [ForeignKey("SubjectId")]
         public Subject Subject { get; set; }

@@ -769,44 +769,6 @@ namespace University.Infrastructure.Data
                     );
                 context.SaveChanges();
             }
-            // Subjects & AcademicEmployees
-            if (!context.SubjectsAcademicEmployees.Any())
-            {
-                context.SubjectsAcademicEmployees.AddRange(
-                    new SubjectAcademicEmployee { SubjectId = 1, AcademicEmployeeId = 1 },
-                    new SubjectAcademicEmployee { SubjectId = 2, AcademicEmployeeId = 2 },
-                    new SubjectAcademicEmployee { SubjectId = 3, AcademicEmployeeId = 3 },
-                    new SubjectAcademicEmployee { SubjectId = 4, AcademicEmployeeId = 4 },
-                    new SubjectAcademicEmployee { SubjectId = 5, AcademicEmployeeId = 1 },
-                    new SubjectAcademicEmployee { SubjectId = 6, AcademicEmployeeId = 2 },
-                    new SubjectAcademicEmployee { SubjectId = 1, AcademicEmployeeId = 3 }
-                    );
-                context.SaveChanges();
-            }
-            // Subjects & Groups
-            if (!context.SubjectsGroups.Any())
-            {
-                context.SubjectsGroups.AddRange(
-                    new SubjectGroup { SubjectId = 1, GroupId = 1 },
-                    new SubjectGroup { SubjectId = 1, GroupId = 2 },
-                    new SubjectGroup { SubjectId = 1, GroupId = 3 },
-                    new SubjectGroup { SubjectId = 1, GroupId = 4 },
-                    new SubjectGroup { SubjectId = 2, GroupId = 1 },
-                    new SubjectGroup { SubjectId = 2, GroupId = 2 },
-                    new SubjectGroup { SubjectId = 2, GroupId = 3 },
-                    new SubjectGroup { SubjectId = 2, GroupId = 4 },
-                    new SubjectGroup { SubjectId = 3, GroupId = 4 },
-                    new SubjectGroup { SubjectId = 3, GroupId = 5 },
-                    new SubjectGroup { SubjectId = 4, GroupId = 5 },
-                    new SubjectGroup { SubjectId = 5, GroupId = 5 },
-                    new SubjectGroup { SubjectId = 6, GroupId = 1 },
-                    new SubjectGroup { SubjectId = 6, GroupId = 2 },
-                    new SubjectGroup { SubjectId = 6, GroupId = 3 },
-                    new SubjectGroup { SubjectId = 6, GroupId = 4 },
-                    new SubjectGroup { SubjectId = 6, GroupId = 5 }
-                    );
-                context.SaveChanges();
-            }
             // Lectures & Groups
             if (!context.LecturesGroups.Any())
             {

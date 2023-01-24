@@ -37,7 +37,7 @@ namespace University.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FacultyId")
+                    b.Property<int?>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<string>("FullName")
@@ -85,7 +85,7 @@ namespace University.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FacultyId")
+                    b.Property<int?>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -113,7 +113,7 @@ namespace University.Infrastructure.Data.Migrations
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
-                    b.Property<int>("FacultyId")
+                    b.Property<int?>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LectureDate")
@@ -167,7 +167,7 @@ namespace University.Infrastructure.Data.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<int>("FacultyId")
+                    b.Property<int?>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -220,7 +220,7 @@ namespace University.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FacultyId")
+                    b.Property<int?>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -234,43 +234,11 @@ namespace University.Infrastructure.Data.Migrations
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("University.Core.Entities.SubjectAcademicEmployee", b =>
-                {
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AcademicEmployeeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SubjectId", "AcademicEmployeeId");
-
-                    b.HasIndex("AcademicEmployeeId");
-
-                    b.ToTable("SubjectsAcademicEmployees");
-                });
-
-            modelBuilder.Entity("University.Core.Entities.SubjectGroup", b =>
-                {
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SubjectId", "GroupId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("SubjectsGroups");
-                });
-
             modelBuilder.Entity("University.Core.Entities.AcademicEmployee", b =>
                 {
                     b.HasOne("University.Core.Entities.Faculty", "Faculty")
                         .WithMany("AcademicEmployees")
-                        .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FacultyId");
 
                     b.Navigation("Faculty");
                 });
@@ -279,9 +247,7 @@ namespace University.Infrastructure.Data.Migrations
                 {
                     b.HasOne("University.Core.Entities.Faculty", "Faculty")
                         .WithMany("Groups")
-                        .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FacultyId");
 
                     b.Navigation("Faculty");
                 });
@@ -291,25 +257,23 @@ namespace University.Infrastructure.Data.Migrations
                     b.HasOne("University.Core.Entities.AcademicEmployee", "Teacher")
                         .WithMany("Lectures")
                         .HasForeignKey("AcademicEmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("University.Core.Entities.Faculty", "Faculty")
                         .WithMany("Lectures")
-                        .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FacultyId");
 
                     b.HasOne("University.Core.Entities.LectureRoom", "LectureRoom")
                         .WithMany("Lectures")
                         .HasForeignKey("LectureRoomId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("University.Core.Entities.Subject", "Subject")
                         .WithMany("Lectures")
                         .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Faculty");
@@ -326,13 +290,13 @@ namespace University.Infrastructure.Data.Migrations
                     b.HasOne("University.Core.Entities.Group", "Group")
                         .WithMany("LecturesGroups")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("University.Core.Entities.Lecture", "Lecture")
                         .WithMany("LecturesGroups")
                         .HasForeignKey("LectureId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Group");
@@ -344,9 +308,7 @@ namespace University.Infrastructure.Data.Migrations
                 {
                     b.HasOne("University.Core.Entities.Faculty", "Faculty")
                         .WithMany("LectureRooms")
-                        .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FacultyId");
 
                     b.Navigation("Faculty");
                 });
@@ -366,56 +328,14 @@ namespace University.Infrastructure.Data.Migrations
                 {
                     b.HasOne("University.Core.Entities.Faculty", "Faculty")
                         .WithMany("Subjects")
-                        .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FacultyId");
 
                     b.Navigation("Faculty");
-                });
-
-            modelBuilder.Entity("University.Core.Entities.SubjectAcademicEmployee", b =>
-                {
-                    b.HasOne("University.Core.Entities.AcademicEmployee", "AcademicEmployee")
-                        .WithMany("SubjectsAcademicEmployees")
-                        .HasForeignKey("AcademicEmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("University.Core.Entities.Subject", "Subject")
-                        .WithMany("SubjectsAcademicEmployees")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("AcademicEmployee");
-
-                    b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("University.Core.Entities.SubjectGroup", b =>
-                {
-                    b.HasOne("University.Core.Entities.Group", "Group")
-                        .WithMany("SubjectsGroups")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("University.Core.Entities.Subject", "Subject")
-                        .WithMany("SubjectsGroups")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("University.Core.Entities.AcademicEmployee", b =>
                 {
                     b.Navigation("Lectures");
-
-                    b.Navigation("SubjectsAcademicEmployees");
                 });
 
             modelBuilder.Entity("University.Core.Entities.Faculty", b =>
@@ -436,8 +356,6 @@ namespace University.Infrastructure.Data.Migrations
                     b.Navigation("LecturesGroups");
 
                     b.Navigation("Students");
-
-                    b.Navigation("SubjectsGroups");
                 });
 
             modelBuilder.Entity("University.Core.Entities.Lecture", b =>
@@ -453,10 +371,6 @@ namespace University.Infrastructure.Data.Migrations
             modelBuilder.Entity("University.Core.Entities.Subject", b =>
                 {
                     b.Navigation("Lectures");
-
-                    b.Navigation("SubjectsAcademicEmployees");
-
-                    b.Navigation("SubjectsGroups");
                 });
 #pragma warning restore 612, 618
         }
