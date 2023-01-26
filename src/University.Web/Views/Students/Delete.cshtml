@@ -1,13 +1,13 @@
-﻿@model AcademicEmployee
+﻿@model Student
 
 @{
-    ViewData["Title"] = "Details of the academic employee";
+    ViewData["Title"] = "Delete student";
 }
 
 <div class="row text">
     <div class="col-md-8 offset-2">
         <p>
-            <h1>Details for @Model.FullName</h1>
+            <h1>Delete confirmation for @Model.FullName</h1>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
@@ -30,18 +30,16 @@
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="AcademicPosition" class="control-label"></label>
-                        <input asp-for="AcademicPosition" class="form-control" readonly />
-                        <span asp-validation-for="AcademicPosition" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="FacultyId" class="control-label"></label>
-                        <input asp-for="FacultyId" class="form-control" readonly />
-                        <span asp-validation-for="FacultyId" class="text-danger"></span>
+                        <label asp-for="GroupId" class="control-label"></label>
+                        <input asp-for="GroupId" class="form-control" readonly />
+                        <span asp-validation-for="GroupId" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Confirm" class="btn btn-danger float-end" />
+                        </form>                        
                         <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
                     </div>
                 

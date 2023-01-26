@@ -5,10 +5,10 @@ using University.Infrastructure.Repositories.Base;
 
 namespace University.Infrastructure.Repositories
 {
-    public class AcademicEmployeesRepository : EntityBaseRepository<AcademicEmployee>, IAcademicEmployeesRepository
+    public class StudentsRepository : EntityBaseRepository<Student>, IStudentsRepository
     {
-        public AcademicEmployeesRepository(UniversityDbContext context) : base(context)
-        { 
+        public StudentsRepository(UniversityDbContext context) : base(context)
+        {
         }
     }
 }

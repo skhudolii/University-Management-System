@@ -27,7 +27,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("FullName,ProfilePictureURL,Email,AcademicPosition,FacultyId")] AcademicEmployee academicEmployee)
+        public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Email,AcademicPosition,FacultyId")] AcademicEmployee academicEmployee)
         {
             if (!ModelState.IsValid)
             {

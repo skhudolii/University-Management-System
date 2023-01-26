@@ -12,7 +12,7 @@ namespace University.Core.Entities.Base
         [StringLength(50, MinimumLength = 3, ErrorMessage = "First Name must be between 3 and 50 chars")]
         public string FullName { get; set; }        
 
-        [EmailAddress(ErrorMessage = "Email format is incorrect")]
+        [EmailAddress]
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }        
 
