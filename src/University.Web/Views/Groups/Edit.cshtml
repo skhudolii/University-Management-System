@@ -1,0 +1,38 @@
+﻿@model Group
+
+@{
+    ViewData["Title"] = "Update group";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Update Group</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="FacultyId" class="control-label"></label>
+                        <input asp-for="FacultyId" class="form-control" />
+                        <span asp-validation-for="FacultyId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-end" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+   
+}

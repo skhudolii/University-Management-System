@@ -17,6 +17,7 @@ builder.Services.AddDbContext<UniversityDbContext>(opts =>
 
 // add Infrastructure Layer
 builder.Services.AddScoped<IAcademicEmployeesRepository, AcademicEmployeesRepository>();
+builder.Services.AddScoped<IGroupsRepository, GroupsRepository>();
 builder.Services.AddScoped<IStudentsRepository, StudentsRepository>();
 
 var app = builder.Build();

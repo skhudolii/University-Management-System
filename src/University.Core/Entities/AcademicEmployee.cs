@@ -8,6 +8,7 @@ namespace University.Core.Entities
     public class AcademicEmployee : Person
     {
         [Display(Name = "Academic Position")]
+        [Required(ErrorMessage = "Academic Position is required")]
         public AcademicPosition AcademicPosition { get; set; }
 
         // n-1 relationships
