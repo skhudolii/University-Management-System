@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using University.Core.Entities;
 using University.Core.Repositories;
-using University.Infrastructure.Data;
 
 namespace University.Web.Controllers
 {

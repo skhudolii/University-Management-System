@@ -731,40 +731,40 @@ namespace University.Infrastructure.Data
                         LectureDate = DateTime.Now.AddDays(2),
                         StartTime = new TimeSpan(8, 30, 0),
                         EndTime = new TimeSpan(10, 10, 0),
-                        FacultyId = 1,
-                        Subject = context.Subjects.FirstOrDefault(n => n.Name == "Decomposition"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 3),
-                        LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 3)
+                        FacultyId = 2,
+                        Subject = context.Subjects.FirstOrDefault(n => n.Name == "Java Tools"),
+                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 5),
+                        LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 6)
                     },
                     new Lecture
                     {
                         LectureDate = DateTime.Now.AddDays(2),
                         StartTime = new TimeSpan(8, 30, 0),
                         EndTime = new TimeSpan(10, 10, 0),
-                        FacultyId = 1,
-                        Subject = context.Subjects.FirstOrDefault(n => n.Name == "ASP.NET"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 4),
-                        LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 4)
+                        FacultyId = 2,
+                        Subject = context.Subjects.FirstOrDefault(n => n.Name == "Clean Code"),
+                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 6),
+                        LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 7)
                     },
                     new Lecture
                     {
-                        LectureDate = DateTime.Now.AddDays(2),
+                        LectureDate = DateTime.Now.AddDays(3),
                         StartTime = new TimeSpan(8, 30, 0),
                         EndTime = new TimeSpan(10, 10, 0),
-                        FacultyId = 1,
-                        Subject = context.Subjects.FirstOrDefault(n => n.Name == "WPF(WinForms)"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 1),
-                        LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 5)
+                        FacultyId = 2,
+                        Subject = context.Subjects.FirstOrDefault(n => n.Name == "Spring Boot Start"),
+                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 5),
+                        LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 6)
                     },
                     new Lecture
                     {
                         LectureDate = DateTime.Now.AddDays(3),
                         StartTime = new TimeSpan(10, 25, 0),
                         EndTime = new TimeSpan(12, 5, 0),
-                        FacultyId = 1,
-                        Subject = context.Subjects.FirstOrDefault(n => n.Name == ".NET 7"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 2),
-                        LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 5)
+                        FacultyId = 2,
+                        Subject = context.Subjects.FirstOrDefault(n => n.Name == "Spring Boot Web API"),
+                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 7),
+                        LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 10)
                     }
                     );
                 context.SaveChanges();
@@ -775,21 +775,18 @@ namespace University.Infrastructure.Data
                 context.LecturesGroups.AddRange(                
                     new LectureGroup { LectureId = 1, GroupId = 1 },
                     new LectureGroup { LectureId = 1, GroupId = 2 },
-                    new LectureGroup { LectureId = 2, GroupId = 3 },
-                    new LectureGroup { LectureId = 2, GroupId = 4 },
+                    new LectureGroup { LectureId = 2, GroupId = 3 },                    
                     new LectureGroup { LectureId = 3, GroupId = 1 },
                     new LectureGroup { LectureId = 3, GroupId = 2 },
-                    new LectureGroup { LectureId = 4, GroupId = 3 },
-                    new LectureGroup { LectureId = 4, GroupId = 4 },
+                    new LectureGroup { LectureId = 4, GroupId = 3 },                    
                     new LectureGroup { LectureId = 5, GroupId = 4 },
                     new LectureGroup { LectureId = 5, GroupId = 5 },
-                    new LectureGroup { LectureId = 6, GroupId = 5 },
+                    new LectureGroup { LectureId = 6, GroupId = 6 },
+                    new LectureGroup { LectureId = 7, GroupId = 4 },
                     new LectureGroup { LectureId = 7, GroupId = 5 },
-                    new LectureGroup { LectureId = 8, GroupId = 1 },
-                    new LectureGroup { LectureId = 8, GroupId = 2 },
-                    new LectureGroup { LectureId = 8, GroupId = 3 },
                     new LectureGroup { LectureId = 8, GroupId = 4 },
-                    new LectureGroup { LectureId = 8, GroupId = 5 }
+                    new LectureGroup { LectureId = 8, GroupId = 5 },
+                    new LectureGroup { LectureId = 8, GroupId = 6 }                    
                 );
                 context.SaveChanges();
             }

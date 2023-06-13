@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using University.Core.Entities.Base;
 
 namespace University.Core.Entities
 {
-    public class Lecture
+    public class Lecture : IEntityBase
     {
         [Key]
         public int Id { get; set; }

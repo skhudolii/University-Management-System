@@ -1,25 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using University.Infrastructure.Data;
+using University.Core.Repositories;
 
 namespace University.Web.Controllers
 {
     public class LecturesController : Controller
     {
-        private readonly UniversityDbContext _context;
+        private readonly ILecturesRepository _repository;
 
-        public LecturesController(UniversityDbContext context)
+        public LecturesController(ILecturesRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allLectures = await _context.Lectures.Include(s => s.Subject)
-                                                     .Include(l => l.LectureRoom)
-                                                     .OrderBy(l => l.LectureDate)
-                                                     .ToListAsync();
+            var allLectures = await _repository.GetAllAsync(n => n.Subject, n => n.LectureRoom);
             return View(allLectures);
+        }
+
+        // Get: Lecture/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var lectureDetail = await _repository.GetLectureByIdAsync(id);
+
+            return View(lectureDetail);
         }
     }
 }

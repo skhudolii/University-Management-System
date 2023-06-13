@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using University.Core.Entities;
 using University.Core.Repositories;
-using University.Infrastructure.Data;
 
 namespace University.Web.Controllers
 {
@@ -17,7 +15,7 @@ namespace University.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allStudents = await _repository.GetAllAsync();
+            var allStudents = await _repository.GetAllAsync(n => n.Group);
             return View(allStudents);
         }
 

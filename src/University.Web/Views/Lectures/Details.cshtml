@@ -1,0 +1,77 @@
+﻿@model Lecture
+
+@{
+    ViewData["Title"] = "Lecture Details";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Details for @Model.Subject.Name</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <div class="mb-3">
+                    <p class="card-text">
+                        Status:
+                        @if (DateTime.Now <= Model.LectureDate)
+                        {
+                            <span class="badge text-bg-success text-white">UPCOMING</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-danger text-white">EXPIRED</span>
+                        }
+                    </p>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LectureDate" class="control-label"></label>
+                    <input asp-for="LectureDate" class="form-control" readonly />
+                    <span asp-validation-for="LectureDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="StartTime" class="control-label"></label>
+                    <input asp-for="StartTime" class="form-control" readonly />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EndTime" class="control-label"></label>
+                    <input asp-for="EndTime" class="form-control" readonly />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Subject.Name" class="control-label"></label>
+                    <input asp-for="Subject.Name" class="form-control" readonly />
+                    <span asp-validation-for="Subject.Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LectureRoom.Name" class="control-label"></label>
+                    <input asp-for="LectureRoom.Name" class="form-control" readonly />
+                    <span asp-validation-for="LectureRoom.Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Teacher" class="control-label"></label>
+                    <input asp-for="Teacher.FullName" class="form-control" readonly />
+                    <span asp-validation-for="Teacher.FullName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">                    
+                    <label asp-for="LecturesGroups" class="control-label">Groups</label>
+                    <div class="form-control">
+                        @foreach (var group in Model.LecturesGroups)
+                        {
+                            <div class="flex-column">
+                                <a asp-controller="Groups" asp-action="Details" asp-route-id="@group.GroupId">@group.Group.Name</a>
+                            </div>
+                        }
+                    </div>                    
+                </div>
+
+                <div class="mb-3">
+                    <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
