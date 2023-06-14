@@ -1,21 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using University.Infrastructure.Data;
+using University.Core.Repositories;
 
 namespace University.Web.Controllers
 {
     public class FacultiesController : Controller
     {
-        private readonly UniversityDbContext _context;
+        private readonly IFacultiesRepository _repository;
 
-        public FacultiesController(UniversityDbContext context)
+        public FacultiesController(IFacultiesRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allFaculties = await _context.Faculties.ToListAsync();
+            var allFaculties = await _repository.GetAllAsync();
             return View(allFaculties);
         }
     }
