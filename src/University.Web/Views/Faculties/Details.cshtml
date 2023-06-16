@@ -1,0 +1,84 @@
+﻿@model Faculty
+
+@{
+    ViewData["Title"] = "Faculty Details";
+}
+
+<div class="row">    
+        <div class="col-md-8 offset-2">
+            <div class="card mb-12">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @Model.Name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.Logo" style="width: 100%" alt="@Model.Name" />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b>Subjects: </b>
+                                <div class="row">
+                                    @foreach (var subject in Model.Subjects)
+                                    {
+                                        <div class="col-4 text-start">
+                                            <a>@subject.Name</a>
+                                        </div>
+                                    }
+                                </div>
+                            </p>
+                            <p class="card-text">
+                                <hr />
+                                <b>Groups: </b>
+                                <div class="row">
+                                    @foreach (var group in Model.Groups)
+                                    {
+                                        <div class="col text-center">
+                                            <a asp-controller="Groups" asp-action="Details" asp-route-id="@group.Id">@group.Name</a>
+                                        </div>
+                                    }
+                                </div>
+                            </p>
+                            <p class="card-text">
+                                <hr />
+                                <b>Academic Employees: </b>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    @foreach (var academicEmployee in Model.AcademicEmployees)
+                                    {
+                                        <div class="col text-center">
+                                            <img class="border-info rounded-circle" src="@academicEmployee.ProfilePictureURL" style="max-width: 100px" />
+                                            <br />
+                                            <a asp-controller="AcademicEmployees" asp-action="Details" asp-route-id="@academicEmployee.Id">@academicEmployee.FullName</a>
+                                            <br />
+                                            <a>@academicEmployee.AcademicPosition</a>
+                                        </div>
+                                    }
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <p class="card-text">
+                                <a class="btn btn-outline-info" asp-action="Index">
+                                    <i class="bi bi-arrow-left"></i> Back to List
+                                </a>
+                                <a class="btn btn-info text-white float-end">
+                                    <i class="bi bi-calendar2-event"></i> Schedule
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+

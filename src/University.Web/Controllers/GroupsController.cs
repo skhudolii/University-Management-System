@@ -19,7 +19,7 @@ namespace University.Web.Controllers
             return View(allGroups);
         }
 
-        // Get: Groups/Create
+        // GET: Groups/Create
         public IActionResult Create()
         {
             return View();
@@ -36,7 +36,7 @@ namespace University.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Get: Groups/Details/1
+        // GET: Groups/Details/1
         public async Task<IActionResult> Details(int id)
         {
             var groupDetails = await _repository.GetByIdAsync(id);
@@ -48,7 +48,7 @@ namespace University.Web.Controllers
             return View(groupDetails);
         }
 
-        // Get: Groups/Edit/1
+        // GET: Groups/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
             var groupDetails = await _repository.GetByIdAsync(id);
@@ -71,7 +71,7 @@ namespace University.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Get: Groups/Delete/1
+        // GET: Groups/Delete/1
         public async Task<IActionResult> Delete(int id)
         {
             var groupDetails = await _repository.GetByIdAsync(id);

@@ -17,5 +17,12 @@ namespace University.Web.Controllers
             var allFaculties = await _repository.GetAllAsync();
             return View(allFaculties);
         }
+
+        // GET: Faculties/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var facultyDetail = await _repository.GetFacultyByIdAsync(id);
+            return View(facultyDetail);
+        }
     }
 }

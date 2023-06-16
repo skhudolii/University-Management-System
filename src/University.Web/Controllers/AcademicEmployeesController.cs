@@ -19,7 +19,7 @@ namespace University.Web.Controllers
             return View(data);
         }
 
-        // Get: AcademicEmployees/Create
+        // GET: AcademicEmployees/Create
         public IActionResult Create()
         {
             return View();
@@ -36,7 +36,7 @@ namespace University.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Get: AcademicEmployees/Details/1
+        // GET: AcademicEmployees/Details/1
         public async Task<IActionResult> Details(int id)
         {
             var academicEmployeeDetails = await _repository.GetByIdAsync(id);
@@ -48,7 +48,7 @@ namespace University.Web.Controllers
             return View(academicEmployeeDetails);
         }
 
-        // Get: AcademicEmployees/Edit/1
+        // GET: AcademicEmployees/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
             var academicEmployeeDetails = await _repository.GetByIdAsync(id);
@@ -71,7 +71,7 @@ namespace University.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Get: AcademicEmployees/Delete/1
+        // GET: AcademicEmployees/Delete/1
         public async Task<IActionResult> Delete(int id)
         {
             var academicEmployeeDetails = await _repository.GetByIdAsync(id);

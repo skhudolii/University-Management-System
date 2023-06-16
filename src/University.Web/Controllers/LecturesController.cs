@@ -18,7 +18,7 @@ namespace University.Web.Controllers
             return View(allLectures);
         }
 
-        // Get: Lecture/Details/1
+        // GET: Lecture/Details/1
         public async Task<IActionResult> Details(int id)
         {
             var lectureDetail = await _repository.GetLectureByIdAsync(id);

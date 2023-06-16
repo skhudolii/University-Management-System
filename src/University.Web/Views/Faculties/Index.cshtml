@@ -21,14 +21,16 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div style="text-align:center;">
-                            <img src="@item.Logo" style="width:50%" alt="@item.Name">
+                        <div style="text-align:center">
+                            <img src="@item.Logo" style="width: 50%" alt="@item.Name" />
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="card-footer ">
+                        <div class="card-footer">
                             <p class="card-text">
-                                <a class="btn btn-outline-info"><i class="bi bi-eye-fill"></i> Show Details</a>
+                                <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">
+                                    <i class="bi bi-eye-fill"></i> Show Details
+                                </a>
                                 <a class="btn btn-info text-white float-end"><i class="bi bi-calendar2-event"></i> Schedule</a>
                             </p>
                         </div>
