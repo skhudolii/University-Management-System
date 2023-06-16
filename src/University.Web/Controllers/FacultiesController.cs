@@ -24,5 +24,11 @@ namespace University.Web.Controllers
             var facultyDetail = await _repository.GetFacultyByIdAsync(id);
             return View(facultyDetail);
         }
+
+        // GET: Faculties/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
