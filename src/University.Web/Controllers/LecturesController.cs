@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Repositories;
 
 namespace University.Web.Controllers
@@ -27,8 +28,16 @@ namespace University.Web.Controllers
         }
 
         // GET: Lectures/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
+
+            ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
+            ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
+            ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
+            ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
+            ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
+
             return View();
         }
     }

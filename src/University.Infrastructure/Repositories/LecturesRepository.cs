@@ -27,5 +27,19 @@ namespace University.Infrastructure.Repositories
 
             return lectureDetails;
         }
+
+        public async Task<NewLectureDropdowns> GetNewLectureDropdownsValues()
+        {
+            var responce = new NewLectureDropdowns()
+            {
+                Faculties = await _context.Faculties.OrderBy(n => n.Name).ToListAsync(),
+                Subjects = await _context.Subjects.OrderBy(n => n.Name).ToListAsync(),
+                LectureRooms = await _context.LectureRooms.OrderBy(n => n.Name).ToListAsync(),
+                Teachers = await _context.AcademicEmployees.OrderBy(n => n.FullName).ToListAsync(),
+                Groups = await _context.Groups.OrderBy(n => n.Name).ToListAsync()
+            };
+
+            return responce;
+        }
     }
 }

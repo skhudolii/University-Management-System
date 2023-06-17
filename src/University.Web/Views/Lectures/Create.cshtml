@@ -19,7 +19,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label asp-for="FacultyId" class="col-form-label"></label>
-                                <select asp-for="FacultyId" class="form-select"></select>
+                                <select asp-for="FacultyId" class="form-select" asp-items="ViewBag.Faculties"></select>
                                 <span asp-validation-for="FacultyId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
@@ -41,22 +41,22 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label asp-for="SubjectId" class="col-form-label"></label>
-                                <select asp-for="SubjectId" class="form-select"></select>
+                                <select asp-for="SubjectId" class="form-select" asp-items="ViewBag.Subjects"></select>
                                 <span asp-validation-for="SubjectId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="LectureRoomId" class="col-form-label"></label>
-                                <select asp-for="LectureRoomId" class="form-select"></select>
+                                <select asp-for="LectureRoomId" class="form-select" asp-items="ViewBag.LectureRooms"></select>
                                 <span asp-validation-for="LectureRoomId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="AcademicEmployeeId" class="col-form-label"></label>
-                                <select asp-for="AcademicEmployeeId" class="form-select"></select>
+                                <select asp-for="AcademicEmployeeId" class="form-select" asp-items="ViewBag.AcademicEmployees"></select>
                                 <span asp-validation-for="AcademicEmployeeId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="GroupIds" class="col-form-label"></label>
-                                <select asp-for="GroupIds" class="form-select" multiple></select>
+                                <select asp-for="GroupIds" class="form-select" asp-items="ViewBag.Groups" multiple></select>
                                 <span asp-validation-for="GroupIds" class="text-danger"></span>
                             </div>
                         </div>

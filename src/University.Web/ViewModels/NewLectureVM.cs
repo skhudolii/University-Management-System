@@ -5,19 +5,19 @@ namespace University.Web.ViewModels
 {
     public class NewLectureVM
     {
-        [Display(Name = "Lecture Date")]
+        [Display(Name = "Lecture date")]
         [Required(ErrorMessage = "Date is required")]
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
         [DisplayFormat(DataFormatString = "{0:ddd, dd MMM yy}")]
         public DateTime LectureDate { get; set; }
 
-        [Display(Name = "Lecture start Time")]
+        [Display(Name = "Lecture start time")]
         [Required(ErrorMessage = "Start time is required")]
         [DataType(DataType.Time)]
         public TimeSpan StartTime { get; set; }
 
-        [Display(Name = "Lecture end Time")]
+        [Display(Name = "Lecture end time")]
         [Required(ErrorMessage = "End time is required")]
         [DataType(DataType.Time)]
         public TimeSpan EndTime { get; set; }
