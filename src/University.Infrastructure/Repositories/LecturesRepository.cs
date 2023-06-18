@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using University.Core.Entities;
 using University.Core.Repositories;
+using University.Core.ViewModels.Lecture;
 using University.Infrastructure.Data;
 using University.Infrastructure.Repositories.Base;
 
@@ -28,9 +29,9 @@ namespace University.Infrastructure.Repositories
             return lectureDetails;
         }
 
-        public async Task<NewLectureDropdowns> GetNewLectureDropdownsValues()
+        public async Task<NewLectureDropdownsVM> GetNewLectureDropdownsValues()
         {
-            var responce = new NewLectureDropdowns()
+            var responce = new NewLectureDropdownsVM()
             {
                 Faculties = await _context.Faculties.OrderBy(n => n.Name).ToListAsync(),
                 Subjects = await _context.Subjects.OrderBy(n => n.Name).ToListAsync(),
