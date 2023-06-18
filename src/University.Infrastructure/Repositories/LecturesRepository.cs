@@ -16,6 +16,34 @@ namespace University.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task AddNewLectureAsync(NewLectureVM data)
+        {
+            var newLecture = new Lecture()
+            {
+                LectureDate = data.LectureDate,
+                StartTime = data.StartTime,
+                EndTime = data.EndTime,
+                FacultyId = data.FacultyId,
+                SubjectId = data.SubjectId,
+                LectureRoomId = data.LectureRoomId,
+                AcademicEmployeeId = data.AcademicEmployeeId,
+            };
+            await _context.Lectures.AddAsync(newLecture);
+            await _context.SaveChangesAsync();
+
+            // Add Lecture Groups
+            foreach (var groupId in data.GroupIds)
+            {
+                var newLectureGroup = new LectureGroup()
+                {
+                    LectureId = newLecture.Id,
+                    GroupId = groupId
+                };
+                await _context.LecturesGroups.AddAsync(newLectureGroup);
+            }
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Lecture> GetLectureByIdAsync(int id)
         {
             var lectureDetails = await _context.Lectures
