@@ -61,5 +61,63 @@ namespace University.Web.Controllers
             await _repository.AddNewLectureAsync(lecture);
             return RedirectToAction(nameof(Index));
         }
+
+        // GET: Lectures/Edit/1
+        public async Task<IActionResult> Edit(int id)
+        {
+            var lectureDetails = await _repository.GetLectureByIdAsync(id);
+            if (lectureDetails == null)
+            {
+                return View("NotFound");
+            }
+
+            var responce = new NewLectureVM()
+            {
+                Id = lectureDetails.Id,
+                LectureDate = lectureDetails.LectureDate,
+                StartTime = lectureDetails.StartTime,
+                EndTime = lectureDetails.EndTime,
+                FacultyId = (int)lectureDetails.FacultyId,
+                SubjectId = lectureDetails.SubjectId,
+                LectureRoomId = lectureDetails.LectureRoomId,
+                AcademicEmployeeId = lectureDetails.AcademicEmployeeId,
+                GroupIds = lectureDetails.LecturesGroups.Select(n => n.GroupId).ToList()
+            };
+
+            var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
+
+            ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
+            ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
+            ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
+            ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
+            ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
+
+            return View(responce);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, NewLectureVM lecture)
+        {
+            if (id != lecture.Id)
+            {
+                return View("NotFound");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
+
+                ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
+                ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
+                ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
+                ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
+                ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
+
+                return View(lecture);
+            }
+
+            await _repository.UpdateLectureAsync(lecture);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

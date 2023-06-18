@@ -70,5 +70,40 @@ namespace University.Infrastructure.Repositories
 
             return responce;
         }
+
+        public async Task UpdateLectureAsync(NewLectureVM data)
+        {
+            var dbLecture = await _context.Lectures.FirstOrDefaultAsync(n => n.Id == data.Id);
+
+            if (dbLecture != null)
+            {
+                dbLecture.LectureDate = data.LectureDate;
+                dbLecture.StartTime = data.StartTime;
+                dbLecture.EndTime = data.EndTime;
+                dbLecture.FacultyId = data.FacultyId;
+                dbLecture.SubjectId = data.SubjectId;
+                dbLecture.LectureRoomId = data.LectureRoomId;
+                dbLecture.AcademicEmployeeId = data.AcademicEmployeeId;              
+
+                await _context.SaveChangesAsync();
+            }
+
+            // Remove existing groups
+            var existingGroupsDb = _context.LecturesGroups.Where(n => n.LectureId == data.Id).ToList();
+            _context.LecturesGroups.RemoveRange(existingGroupsDb);
+            await _context.SaveChangesAsync();
+
+            // Add Lecture Groups
+            foreach (var groupId in data.GroupIds)
+            {
+                var newLectureGroup = new LectureGroup()
+                {
+                    LectureId = data.Id,
+                    GroupId = groupId
+                };
+                await _context.LecturesGroups.AddAsync(newLectureGroup);
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }

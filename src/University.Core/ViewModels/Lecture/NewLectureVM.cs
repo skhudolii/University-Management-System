@@ -5,6 +5,8 @@ namespace University.Core.ViewModels.Lecture
 {
     public class NewLectureVM
     {
+        public int Id { get; set; }
+
         [Display(Name = "Lecture date")]
         [Required(ErrorMessage = "Date is required")]
         [DataType(DataType.Date)]
