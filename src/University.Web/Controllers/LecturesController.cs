@@ -119,5 +119,30 @@ namespace University.Web.Controllers
             await _repository.UpdateLectureAsync(lecture);
             return RedirectToAction(nameof(Index));
         }
+
+        // GET: Lectures/Delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var lectureDetails = await _repository.GetLectureByIdAsync(id);
+            if (lectureDetails == null)
+            {
+                return View("NotFound");
+            }
+
+            return View(lectureDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            var lectureDetails = await _repository.GetLectureByIdAsync(id);
+            if (lectureDetails == null)
+            {
+                return View("NotFound");
+            }
+
+            await _repository.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
