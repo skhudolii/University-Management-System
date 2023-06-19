@@ -20,6 +20,25 @@ namespace University.Web.Controllers
             return View(allLectures);
         }
 
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allLectures = await _repository.GetAllAsync(
+                s => s.Subject,
+                t => t.Teacher,
+                l => l.LectureRoom);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = allLectures.Where(n => n.Subject.Name.ToLower().Contains(searchString.ToLower()) ||
+                                                            n.Teacher.FullName.ToLower().Contains(searchString.ToLower()) || 
+                                                            n.LectureDate.ToString().Contains(searchString));
+
+                return View("Index", filteredResult);
+            }
+
+            return View("Index", allLectures);
+        }
+
         // GET: Lectures/Details/1
         public async Task<IActionResult> Details(int id)
         {
