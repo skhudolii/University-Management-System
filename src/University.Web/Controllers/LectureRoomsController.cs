@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using University.Infrastructure.Data;
+using University.Core.Services.Interfaces;
 
 namespace University.Web.Controllers
 {
     public class LectureRoomsController : Controller
     {
-        private readonly UniversityDbContext _context;
+        private readonly ILectureRoomsService _lectureRoomsService;
 
-        public LectureRoomsController(UniversityDbContext context)
+        public LectureRoomsController(ILectureRoomsService lectureRoomsService)
         {
-            _context = context;
+            _lectureRoomsService = lectureRoomsService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var allLectureRooms = await _context.LectureRooms.ToListAsync();
-            return View(allLectureRooms);
+            var response = await _lectureRoomsService.GetLectureRoomsList();
+            return View(response.Data);
         }
     }
 }

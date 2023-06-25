@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using University.Infrastructure.Data;
+using University.Core.Services.Interfaces;
 
 namespace University.Web.Controllers
 {
     public class SubjectsController : Controller
     {
-        private readonly UniversityDbContext _context;
+        private readonly ISubjectsService _subjectsService;
 
-        public SubjectsController(UniversityDbContext context)
+        public SubjectsController(ISubjectsService subjectsService)
         {
-            _context = context;
+            _subjectsService = subjectsService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var allSubjects = await _context.Subjects.ToListAsync();
-            return View(allSubjects);
+            var response = await _subjectsService.GetSubjectsList();
+            return View(response.Data);
         }
     }
 }
