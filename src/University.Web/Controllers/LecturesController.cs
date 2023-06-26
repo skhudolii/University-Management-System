@@ -22,10 +22,7 @@ namespace University.Web.Controllers
 
         public async Task<IActionResult> Filter(string searchString)
         {
-            var allLectures = await _repository.GetAllAsync(
-                s => s.Subject,
-                t => t.Teacher,
-                l => l.LectureRoom);
+            var allLectures = await _repository.GetAllAsync(s => s.Subject, t => t.Teacher);
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -42,9 +39,9 @@ namespace University.Web.Controllers
         // GET: Lectures/Details/1
         public async Task<IActionResult> Details(int id)
         {
-            var lectureDetail = await _repository.GetLectureByIdAsync(id);
+            var lectureDetails = await _repository.GetLectureByIdAsync(id);
 
-            return View(lectureDetail);
+            return View(lectureDetails);
         }
 
         // GET: Lectures/Create

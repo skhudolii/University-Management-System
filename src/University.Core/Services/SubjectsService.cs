@@ -16,6 +16,31 @@ namespace University.Core.Services
             _subjectsRepository = subjectsRepository;
         }
 
+        public async Task<IBaseResponse<Subject>> GetSubjectById(int id)
+        {
+            var baseResponse = new BaseResponse<Subject>();
+            try
+            {
+                var subjectDetails = await _subjectsRepository.GetSubjectByIdAsync(id);
+                if (subjectDetails == null)
+                {
+                    baseResponse.Description = "Not found";
+                    baseResponse.StatusCode = StatusCode.NotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.StatusCode = StatusCode.OK;
+                baseResponse.Data = subjectDetails;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                baseResponse.Description = $"[GetSubjectById] : {ex.Message}";
+                baseResponse.StatusCode = StatusCode.InternalServerError;
+                return baseResponse;
+            }
+        }
+
         public async Task<IBaseResponse<IEnumerable<Subject>>> GetSubjectsList()
         {
             var baseResponse = new BaseResponse<IEnumerable<Subject>>();
@@ -31,15 +56,13 @@ namespace University.Core.Services
 
                 baseResponse.Data = subjects;
                 baseResponse.StatusCode = StatusCode.OK;
-
                 return baseResponse;
             }
             catch (Exception ex)
             {
-                return new BaseResponse<IEnumerable<Subject>>()
-                {
-                    Description = $"[GetSubjectsList] : {ex.Message}"
-                };
+                baseResponse.Description = $"[GetSubjectsList] : {ex.Message}";
+                baseResponse.StatusCode = StatusCode.InternalServerError;
+                return baseResponse;
             }
         }
     }

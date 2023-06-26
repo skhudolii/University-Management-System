@@ -6,5 +6,6 @@ namespace University.Core.Services.Interfaces
     public interface ISubjectsService
     {
         Task<IBaseResponse<IEnumerable<Subject>>> GetSubjectsList();
+        Task<IBaseResponse<Subject>> GetSubjectById(int id);
     }
 }

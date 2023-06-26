@@ -1,7 +1,10 @@
-﻿<div class="row">
+﻿@model string
+
+<div class="row">
     <div class="col-md-6 offset-3">
         <h1 class="text-info">You have reached the end of the internet</h1>
         <hr />
+        <h4>@Model</h4>
         <a class="btn btn-outline-success" asp-controller="Faculties" asp-action="Index">Home Page</a>
     </div>
     <div class="text-center">

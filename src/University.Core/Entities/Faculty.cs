@@ -8,7 +8,7 @@ namespace University.Core.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Faculty Name")]
+        [Display(Name = "Faculty")]
         public string Name { get; set; }
         public string Logo { get; set; }
 

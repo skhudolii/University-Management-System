@@ -15,8 +15,20 @@ namespace University.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var response = await _subjectsService.GetSubjectsList();
-            return View(response.Data);
+            var allSubjects = await _subjectsService.GetSubjectsList();
+            return View(allSubjects.Data);
+        }
+
+        // GET: Subjects/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var subjectDetails = await _subjectsService.GetSubjectById(id);
+            if (subjectDetails.StatusCode == Core.Enums.StatusCode.OK)
+            {
+                return View(subjectDetails.Data);
+            }
+
+            return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
         }
     }
 }
