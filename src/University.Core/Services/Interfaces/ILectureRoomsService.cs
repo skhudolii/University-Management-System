@@ -6,5 +6,6 @@ namespace University.Core.Services.Interfaces
     public interface ILectureRoomsService
     {
         Task<IBaseResponse<IEnumerable<LectureRoom>>> GetLectureRoomsList();
+        Task<IBaseResponse<LectureRoom>> GetLectureRoomById(int id);
     }
 }

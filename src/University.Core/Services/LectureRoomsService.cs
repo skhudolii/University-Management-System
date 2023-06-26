@@ -16,6 +16,31 @@ namespace University.Core.Services
             _lectureRoomsRepository = lectureRoomsRepository;
         }
 
+        public async Task<IBaseResponse<LectureRoom>> GetLectureRoomById(int id)
+        {
+            var baseResponse = new BaseResponse<LectureRoom>();
+            try
+            {
+                var lectureRoomDetails = await _lectureRoomsRepository.GetLectureRoomByIdAsync(id);
+                if (lectureRoomDetails == null)
+                {
+                    baseResponse.Description = "Not found";
+                    baseResponse.StatusCode = StatusCode.NotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.StatusCode = StatusCode.OK;
+                baseResponse.Data = lectureRoomDetails;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                baseResponse.Description = $"[GetSubjectById] : {ex.Message}";
+                baseResponse.StatusCode = StatusCode.InternalServerError;
+                return baseResponse;
+            }
+        }
+
         public async Task<IBaseResponse<IEnumerable<LectureRoom>>> GetLectureRoomsList()
         {
             var baseResponse = new BaseResponse<IEnumerable<LectureRoom>>();

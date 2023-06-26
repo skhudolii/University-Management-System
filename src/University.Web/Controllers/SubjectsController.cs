@@ -16,7 +16,11 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var allSubjects = await _subjectsService.GetSubjectsList();
-            return View(allSubjects.Data);
+            if (allSubjects.StatusCode == Core.Enums.StatusCode.OK)
+            {
+                return View(allSubjects.Data);
+            }
+            return View("Error", $"Error {(int)allSubjects.StatusCode}, {allSubjects.Description}");
         }
 
         // GET: Subjects/Details/1

@@ -1,0 +1,38 @@
+﻿@model LectureRoom
+
+@{
+    ViewData["Title"] = "Details of the lecture room";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Details for lecture room @Model.Name</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <div class="mb-3">
+                    <label asp-for="Faculty" class="control-label"></label>
+                    <input asp-for="Faculty.Name" class="form-control" readonly />
+                    <span asp-validation-for="Faculty.Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" readonly />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Capacity" class="control-label"></label>
+                    <input asp-for="Capacity" class="form-control" readonly />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

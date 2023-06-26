@@ -8,20 +8,20 @@ namespace University.Infrastructure.Repositories
 {
     public class SubjectsRepository : EntityBaseRepository<Subject>, ISubjectsRepository
     {
-        private readonly UniversityDbContext _context;
+        private readonly UniversityDbContext _dbContext;
 
-        public SubjectsRepository(UniversityDbContext context) : base(context)
+        public SubjectsRepository(UniversityDbContext dbContext) : base(dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
         public async Task<Subject> GetSubjectByIdAsync(int id)
         {
-            var facultyDetails = await _context.Subjects
+            var subjectDetails = await _dbContext.Subjects
                 .Include(f => f.Faculty)
                 .FirstOrDefaultAsync(n => n.Id == id);
 
-            return facultyDetails;
+            return subjectDetails;
         }
     }
 }
