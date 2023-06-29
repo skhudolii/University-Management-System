@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using University.Core.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Services.Interfaces;
+using University.Core.ViewModels.LectureRoomVM;
 
 namespace University.Web.Controllers
 {
@@ -34,6 +35,34 @@ namespace University.Web.Controllers
             }
 
             return View("Error", $"Error {(int)lectureRoomDetails.StatusCode}, {lectureRoomDetails.Description}");
+        }
+
+        // GET: LectureRooms/Create
+        public async Task<IActionResult> Create()
+        {
+            var lectureRoomDropdownsValues = await _lectureRoomsService.GetNewLectureRoomDropdownsValues();
+            if (lectureRoomDropdownsValues.StatusCode == Core.Enums.StatusCode.OK)
+            {
+                ViewBag.Faculties = new SelectList(lectureRoomDropdownsValues.Data.Faculties, "Id", "Name");
+                return View();
+            }
+
+            return View("Error", $"Error {(int)lectureRoomDropdownsValues.StatusCode}, {lectureRoomDropdownsValues.Description}");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewLectureRoomVM lectureRoom)
+        {
+            if (!ModelState.IsValid)
+            {
+                var lectureRoomDropdownsValues = await _lectureRoomsService.GetNewLectureRoomDropdownsValues();
+                ViewBag.Faculties = new SelectList(lectureRoomDropdownsValues.Data.Faculties, "Id", "Name");
+
+                return View(lectureRoom);
+            }
+
+            await _lectureRoomsService.AddNewLectureRoom(lectureRoom);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

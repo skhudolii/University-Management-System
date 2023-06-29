@@ -1,6 +1,6 @@
 ﻿using University.Core.Entities;
 using University.Core.Repositories.Base;
-using University.Core.ViewModels.Lecture;
+using University.Core.ViewModels.LectureVM;
 
 namespace University.Core.Repositories
 {

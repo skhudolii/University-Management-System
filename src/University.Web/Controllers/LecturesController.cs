@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Repositories;
-using University.Core.ViewModels.Lecture;
+using University.Core.ViewModels.LectureVM;
 
 namespace University.Web.Controllers
 {

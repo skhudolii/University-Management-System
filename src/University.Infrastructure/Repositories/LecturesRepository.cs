@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using University.Core.Entities;
 using University.Core.Repositories;
-using University.Core.ViewModels.Lecture;
+using University.Core.ViewModels.LectureVM;
 using University.Infrastructure.Data;
 using University.Infrastructure.Repositories.Base;
 

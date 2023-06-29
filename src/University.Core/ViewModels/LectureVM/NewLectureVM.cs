@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace University.Core.ViewModels.Lecture
+namespace University.Core.ViewModels.LectureVM
 {
     public class NewLectureVM
     {
@@ -24,8 +24,6 @@ namespace University.Core.ViewModels.Lecture
         [DataType(DataType.Time)]
         public TimeSpan EndTime { get; set; }
 
-        // n-1 relationships
-
         [Display(Name = "Select a faculty")]
         [Required(ErrorMessage = "Faculty is required")]
         public int FacultyId { get; set; }
@@ -41,8 +39,7 @@ namespace University.Core.ViewModels.Lecture
         [Display(Name = "Select a teacher")]
         [Required(ErrorMessage = "Teacher is required")]
         public int AcademicEmployeeId { get; set; }
-
-        // n-n relationships
+ 
         [Display(Name = "Select group(s)")]
         [Required(ErrorMessage = "Lecture group(s) is required")]
         public List<int> GroupIds { get; set; }

@@ -1,6 +1,6 @@
 ﻿using University.Core.Entities;
 
-namespace University.Core.ViewModels.Lecture
+namespace University.Core.ViewModels.LectureVM
 {
     public class NewLectureDropdownsVM
     {
