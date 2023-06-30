@@ -6,7 +6,8 @@ namespace University.Core.Repositories
 {
     public interface ISubjectsRepository : IEntityBaseRepository<Subject>
     {
-        Task<Subject> GetSubjectByIdAsync(int id);
+        Task<Subject> GetSubjectWithFacultyByIdAsync(int id);
         Task<NewSubjectDropdownsVM> GetNewSubjectDropdownsValuesAsync();
+        Task UpdateSubjectAsync(Subject model);
     }
 }

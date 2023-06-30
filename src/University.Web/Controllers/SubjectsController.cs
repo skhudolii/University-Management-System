@@ -28,7 +28,7 @@ namespace University.Web.Controllers
         // GET: Subjects/Details/1
         public async Task<IActionResult> Details(int id)
         {
-            var subjectDetails = await _subjectsService.GetSubjectById(id);
+            var subjectDetails = await _subjectsService.GetSubjectWithFacultyById(id);
             if (subjectDetails.StatusCode == Core.Enums.StatusCode.OK)
             {
                 return View(subjectDetails.Data);
@@ -62,6 +62,45 @@ namespace University.Web.Controllers
             }
 
             await _subjectsService.AddNewSubject(subject);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Subjects/Edit/1
+        public async Task<IActionResult> Edit(int id)
+        {
+            var subjectDetails = await _subjectsService.GetSubjectById(id);
+            if (subjectDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
+            }
+
+            var subjectDropdownsValues = await _subjectsService.GetNewSubjectDropdownsValues();
+            if (subjectDropdownsValues.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {(int)subjectDropdownsValues.StatusCode}, {subjectDropdownsValues.Description}");
+            }
+
+            ViewBag.Faculties = new SelectList(subjectDropdownsValues.Data.Faculties, "Id", "Name");
+            return View(subjectDetails.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, NewSubjectVM subjectVM)
+        {
+            if (id != subjectVM.Id)
+            {
+                return View("Error", "Not found");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var subjectDropdownsValues = await _subjectsService.GetNewSubjectDropdownsValues();
+                ViewBag.Faculties = new SelectList(subjectDropdownsValues.Data.Faculties, "Id", "Name");
+
+                return View(subjectVM);
+            }
+
+            await _subjectsService.UpdateSubject(subjectVM);
             return RedirectToAction(nameof(Index));
         }
     }

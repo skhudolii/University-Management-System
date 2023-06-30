@@ -66,17 +66,53 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<Subject>> GetSubjectById(int id)
+        public async Task<IBaseResponse<NewSubjectVM>> GetSubjectById(int id)
         {
             try
             {
-                var subjectDetails = await _subjectsRepository.GetSubjectByIdAsync(id);
+                var subjectDetails = await _subjectsRepository.GetByIdAsync(id);
+                if (subjectDetails == null)
+                {
+                    return new BaseResponse<NewSubjectVM>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+                var data = new NewSubjectVM()
+                {
+                    Id = subjectDetails.Id,
+                    Name = subjectDetails.Name,
+                    FacultyId = (int)subjectDetails.FacultyId,
+                };
+
+                return new BaseResponse<NewSubjectVM>()
+                {
+                    Data = data,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<NewSubjectVM>()
+                {
+                    Description = $"[GetSubjectById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Subject>> GetSubjectWithFacultyById(int id)
+        {
+            try
+            {
+                var subjectDetails = await _subjectsRepository.GetSubjectWithFacultyByIdAsync(id);
                 if (subjectDetails == null)
                 {
                     return new BaseResponse<Subject>()
                     {
                         Description = "Not found",
-                        StatusCode = StatusCode.InternalServerError
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 
@@ -125,5 +161,41 @@ namespace University.Core.Services
                 };
             }
         }
+
+        public async Task<IBaseResponse<Subject>> UpdateSubject(NewSubjectVM model)
+        {
+            try
+            {
+                var dbSubject = await _subjectsRepository.GetByIdAsync(model.Id);
+                if (dbSubject == null)
+                {
+                    return new BaseResponse<Subject>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                dbSubject.Id = model.Id;
+                dbSubject.Name = model.Name;
+                dbSubject.FacultyId = model.FacultyId;
+
+                await _subjectsRepository.UpdateSubjectAsync(dbSubject);
+
+                return new BaseResponse<Subject>()
+                {
+                    Data = dbSubject,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Subject>()
+                {
+                    Description = $"[UpdateSubject] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }        
     }
 }

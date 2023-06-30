@@ -4,6 +4,8 @@ namespace University.Core.ViewModels.SubjectVM
 {
     public class NewSubjectVM
     {
+        public int Id { get; set; }
+
         [Display(Name = "Subject name")]
         [Required(ErrorMessage = "Subject name is required")]
         public string Name { get; set; }

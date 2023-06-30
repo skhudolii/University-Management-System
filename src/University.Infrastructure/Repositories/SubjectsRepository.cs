@@ -24,13 +24,18 @@ namespace University.Infrastructure.Repositories
             return subjectDropdowns;
         }
 
-        public async Task<Subject> GetSubjectByIdAsync(int id)
+        public async Task<Subject> GetSubjectWithFacultyByIdAsync(int id)
         {
             var subjectDetails = await _dbContext.Subjects
                 .Include(f => f.Faculty)
                 .FirstOrDefaultAsync(n => n.Id == id);
 
             return subjectDetails;
+        }
+
+        public async Task UpdateSubjectAsync(Subject model)
+        {
+            await _dbContext.SaveChangesAsync();            
         }
     }
 }
