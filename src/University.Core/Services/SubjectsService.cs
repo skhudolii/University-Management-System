@@ -180,7 +180,7 @@ namespace University.Core.Services
                 dbSubject.Name = model.Name;
                 dbSubject.FacultyId = model.FacultyId;
 
-                await _subjectsRepository.UpdateSubjectAsync(dbSubject);
+                await _subjectsRepository.UpdateAsync(dbSubject.Id, dbSubject);
 
                 return new BaseResponse<Subject>()
                 {

@@ -32,10 +32,5 @@ namespace University.Infrastructure.Repositories
 
             return subjectDetails;
         }
-
-        public async Task UpdateSubjectAsync(Subject model)
-        {
-            await _dbContext.SaveChangesAsync();            
-        }
     }
 }

@@ -8,6 +8,5 @@ namespace University.Core.Repositories
     {
         Task<Subject> GetSubjectWithFacultyByIdAsync(int id);
         Task<NewSubjectDropdownsVM> GetNewSubjectDropdownsValuesAsync();
-        Task UpdateSubjectAsync(Subject model);
     }
 }
