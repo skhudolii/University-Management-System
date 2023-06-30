@@ -12,5 +12,6 @@ namespace University.Core.Services.Interfaces
         Task<IBaseResponse<NewSubjectDropdownsVM>> GetNewSubjectDropdownsValues();
         Task<IBaseResponse<Subject>> AddNewSubject(NewSubjectVM model);
         Task<IBaseResponse<Subject>> UpdateSubject(NewSubjectVM model);
+        Task<IBaseResponse<bool>> DeleteSubject(int id);
     }
 }

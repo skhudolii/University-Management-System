@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.SubjectVM;
@@ -18,36 +19,38 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var allSubjects = await _subjectsService.GetSubjectsList();
-            if (allSubjects.StatusCode == Core.Enums.StatusCode.OK)
+            if (allSubjects.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View(allSubjects.Data);
+                return View("Error", $"Error {(int)allSubjects.StatusCode}, {allSubjects.Description}");
             }
-            return View("Error", $"Error {(int)allSubjects.StatusCode}, {allSubjects.Description}");
+
+            return View(allSubjects.Data);
         }
 
         // GET: Subjects/Details/1
         public async Task<IActionResult> Details(int id)
         {
             var subjectDetails = await _subjectsService.GetSubjectWithFacultyById(id);
-            if (subjectDetails.StatusCode == Core.Enums.StatusCode.OK)
+            if (subjectDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View(subjectDetails.Data);
+                return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");                
             }
 
-            return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
+            return View(subjectDetails.Data);
+
         }
 
         // GET: Subjects/Create
         public async Task<IActionResult> Create()
         {
             var subjectDropdownsValues = await _subjectsService.GetNewSubjectDropdownsValues();
-            if (subjectDropdownsValues.StatusCode == Core.Enums.StatusCode.OK)
+            if (subjectDropdownsValues.StatusCode != Core.Enums.StatusCode.OK)
             {
-                ViewBag.Faculties = new SelectList(subjectDropdownsValues.Data.Faculties, "Id", "Name");
-                return View();
+                return View("Error", $"Error {(int)subjectDropdownsValues.StatusCode}, {subjectDropdownsValues.Description}");
             }
-
-            return View("Error", $"Error {(int)subjectDropdownsValues.StatusCode}, {subjectDropdownsValues.Description}");
+            
+            ViewBag.Faculties = new SelectList(subjectDropdownsValues.Data.Faculties, "Id", "Name");
+            return View();
         }
 
         [HttpPost]
@@ -101,6 +104,36 @@ namespace University.Web.Controllers
             }
 
             await _subjectsService.UpdateSubject(subjectVM);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Subjects/Delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var subjectDetails = await _subjectsService.GetSubjectWithFacultyById(id);
+            if (subjectDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
+            }
+
+            return View(subjectDetails.Data);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            var subjectDetails = await _subjectsService.GetSubjectWithFacultyById(id);
+            if (subjectDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
+            }
+
+            var response = await _subjectsService.DeleteSubject(id);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }

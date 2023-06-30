@@ -196,6 +196,39 @@ namespace University.Core.Services
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-        }        
+        }
+
+        public async Task<IBaseResponse<bool>> DeleteSubject(int id)
+        {
+            try
+            {
+                var subject = await _subjectsRepository.GetByIdAsync(id);
+                if (subject == null)
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        Data = false,
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };                    
+                }
+
+                await _subjectsRepository.DeleteAsync(id);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>
+                {
+                    Description = $"[DeleteSubject] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }
