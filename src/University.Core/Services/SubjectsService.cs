@@ -184,7 +184,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<Subject>()
                 {
-                    Data = dbSubject,
+                    Description = "Subject updated",
                     StatusCode = StatusCode.OK
                 };
             }
@@ -218,6 +218,7 @@ namespace University.Core.Services
                 return new BaseResponse<bool>()
                 {
                     Data = true,
+                    Description = "Subject deleted",
                     StatusCode = StatusCode.OK
                 };
             }

@@ -16,7 +16,7 @@ namespace University.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<LectureRoom> GetLectureRoomByIdAsync(int id)
+        public async Task<LectureRoom> GetLectureRoomWithFacultyByIdAsync(int id)
         {
             var LectureRoomDetails = await _dbContext.LectureRooms
                 .Include(f => f.Faculty)

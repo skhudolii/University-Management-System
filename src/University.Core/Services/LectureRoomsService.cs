@@ -45,11 +45,48 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<LectureRoom>> GetLectureRoomById(int id)
+        public async Task<IBaseResponse<NewLectureRoomVM>> GetLectureRoomById(int id)
         {
             try
             {
-                var lectureRoomDetails = await _lectureRoomsRepository.GetLectureRoomByIdAsync(id);
+                var lectureRoomDetails = await _lectureRoomsRepository.GetByIdAsync(id);
+                if (lectureRoomDetails == null)
+                {
+                    return new BaseResponse<NewLectureRoomVM>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+                var data = new NewLectureRoomVM()
+                {
+                    Id = lectureRoomDetails.Id,
+                    Name = lectureRoomDetails.Name,
+                    Capacity = lectureRoomDetails.Capacity,
+                    FacultyId = (int)lectureRoomDetails.FacultyId
+                };
+
+                return new BaseResponse<NewLectureRoomVM>()
+                {
+                    Data = data,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<NewLectureRoomVM>()
+                {
+                    Description = $"[GetSubjectById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<LectureRoom>> GetLectureRoomWithFacultyById(int id)
+        {
+            try
+            {
+                var lectureRoomDetails = await _lectureRoomsRepository.GetLectureRoomWithFacultyByIdAsync(id);
                 if (lectureRoomDetails == null)
                 {
                     return new BaseResponse<LectureRoom>()
@@ -61,15 +98,15 @@ namespace University.Core.Services
 
                 return new BaseResponse<LectureRoom>()
                 {
-                    StatusCode = StatusCode.OK,
-                    Data = lectureRoomDetails
+                    Data = lectureRoomDetails,
+                    StatusCode = StatusCode.OK
                 };
             }
             catch (Exception ex)
             {
                 return new BaseResponse<LectureRoom>()
                 {
-                    Description = $"[GetSubjectById] : {ex.Message}",
+                    Description = $"[GetLectureRoomWithFacultyById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -122,6 +159,77 @@ namespace University.Core.Services
                 return new BaseResponse<NewLectureRoomDropdownsVM>()
                 {
                     Description = $"[GetNewLectureRoomDropdownsValues] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<LectureRoom>> UpdateLectureRoom(NewLectureRoomVM model)
+        {
+            try
+            {
+                var dbLectureRoom = await _lectureRoomsRepository.GetByIdAsync(model.Id);
+                if (dbLectureRoom == null)
+                {
+                    return new BaseResponse<LectureRoom>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                dbLectureRoom.Id = model.Id;
+                dbLectureRoom.Name = model.Name;
+                dbLectureRoom.Capacity = model.Capacity;
+                dbLectureRoom.FacultyId = model.FacultyId;
+
+                await _lectureRoomsRepository.UpdateAsync(dbLectureRoom.Id, dbLectureRoom);
+
+                return new BaseResponse<LectureRoom>()
+                {
+                    Description = "Lecture room updated",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<LectureRoom>()
+                {
+                    Description = $"[UpdateLectureRoom] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<bool>> DeleteLectureRoom(int id)
+        {
+            try
+            {
+                var lectureRoom = await _lectureRoomsRepository.GetByIdAsync(id);
+                if (lectureRoom == null) 
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        Data = false,
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                await _lectureRoomsRepository.DeleteAsync(id);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    Description = "Lecture room deleted",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>
+                {
+                    Description = $"[DeleteLectureRoom] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

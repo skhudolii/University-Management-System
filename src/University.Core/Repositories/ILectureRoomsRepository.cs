@@ -6,7 +6,7 @@ namespace University.Core.Repositories
 {
     public interface ILectureRoomsRepository : IEntityBaseRepository<LectureRoom>
     {
-        Task<LectureRoom> GetLectureRoomByIdAsync(int id);
+        Task<LectureRoom> GetLectureRoomWithFacultyByIdAsync(int id);
         Task<NewLectureRoomDropdownsVM> GetNewLectureRoomDropdownsValuesAsync();
     }
 }

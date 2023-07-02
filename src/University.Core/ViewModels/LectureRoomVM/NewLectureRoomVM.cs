@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace University.Core.ViewModels.LectureRoomVM
 {
     public class NewLectureRoomVM
     {
+        public int Id { get; set; }
+
         [Display(Name = "Lecture room name")]
         [Required(ErrorMessage = "Lecture room name is required")]
         public string Name { get; set; }
