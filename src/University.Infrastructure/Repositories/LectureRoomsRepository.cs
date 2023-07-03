@@ -9,16 +9,16 @@ namespace University.Infrastructure.Repositories
 {
     public class LectureRoomsRepository : EntityBaseRepository<LectureRoom>, ILectureRoomsRepository
     {
-        private readonly UniversityDbContext _dbContext;
+        private readonly UniversityDbContext _context;
 
-        public LectureRoomsRepository(UniversityDbContext dbContext) : base(dbContext)
+        public LectureRoomsRepository(UniversityDbContext context) : base(context)
         {
-            _dbContext = dbContext;
+            _context = context;
         }
 
         public async Task<LectureRoom> GetLectureRoomWithFacultyByIdAsync(int id)
         {
-            var LectureRoomDetails = await _dbContext.LectureRooms
+            var LectureRoomDetails = await _context.LectureRooms
                 .Include(f => f.Faculty)
                 .FirstOrDefaultAsync(n => n.Id == id);
 
@@ -28,7 +28,7 @@ namespace University.Infrastructure.Repositories
         public async Task<NewLectureRoomDropdownsVM> GetNewLectureRoomDropdownsValuesAsync()
         {
             var lectureRoomDropdowns = new NewLectureRoomDropdownsVM();
-            lectureRoomDropdowns.Faculties = await _dbContext.Faculties.OrderBy(n => n.Name).ToListAsync();
+            lectureRoomDropdowns.Faculties = await _context.Faculties.OrderBy(n => n.Name).ToListAsync();
 
             return lectureRoomDropdowns;
         }

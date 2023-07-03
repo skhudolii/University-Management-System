@@ -137,7 +137,9 @@ namespace University.Core.Services
             try
             {
                 var subjects = await _subjectsRepository.GetAllAsync(n => n.Faculty);
-                if (!subjects.Any())
+                var filteredSubjects = subjects.Where(f => f.FacultyId != null);
+
+                if (!filteredSubjects.Any())
                 {
                     return new BaseResponse<IEnumerable<Subject>>()
                     {
@@ -148,7 +150,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<IEnumerable<Subject>>()
                 {
-                    Data = subjects,
+                    Data = filteredSubjects,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -184,7 +186,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<Subject>()
                 {
-                    Description = "Subject updated",
+                    Description = "Subject successfully updated",
                     StatusCode = StatusCode.OK
                 };
             }
@@ -218,7 +220,7 @@ namespace University.Core.Services
                 return new BaseResponse<bool>()
                 {
                     Data = true,
-                    Description = "Subject deleted",
+                    Description = "Subject successfully deleted",
                     StatusCode = StatusCode.OK
                 };
             }

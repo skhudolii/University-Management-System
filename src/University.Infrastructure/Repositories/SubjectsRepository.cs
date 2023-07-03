@@ -9,24 +9,24 @@ namespace University.Infrastructure.Repositories
 {
     public class SubjectsRepository : EntityBaseRepository<Subject>, ISubjectsRepository
     {
-        private readonly UniversityDbContext _dbContext;
+        private readonly UniversityDbContext _context;
 
-        public SubjectsRepository(UniversityDbContext dbContext) : base(dbContext)
+        public SubjectsRepository(UniversityDbContext context) : base(context)
         {
-            _dbContext = dbContext;
+            _context = context;
         }
 
         public async Task<NewSubjectDropdownsVM> GetNewSubjectDropdownsValuesAsync()
         {
             var subjectDropdowns = new NewSubjectDropdownsVM();
-            subjectDropdowns.Faculties = await _dbContext.Faculties.OrderBy(n => n.Name).ToListAsync();
+            subjectDropdowns.Faculties = await _context.Faculties.OrderBy(n => n.Name).ToListAsync();
 
             return subjectDropdowns;
         }
 
         public async Task<Subject> GetSubjectWithFacultyByIdAsync(int id)
         {
-            var subjectDetails = await _dbContext.Subjects
+            var subjectDetails = await _context.Subjects
                 .Include(f => f.Faculty)
                 .FirstOrDefaultAsync(n => n.Id == id);
 

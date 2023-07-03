@@ -116,8 +116,10 @@ namespace University.Core.Services
         {
             try
             {
-                var subjects = await _lectureRoomsRepository.GetAllAsync(n => n.Faculty);
-                if (!subjects.Any())
+                var lectureRooms = await _lectureRoomsRepository.GetAllAsync(n => n.Faculty);
+                var filteredLectureRooms = lectureRooms.Where(f => f.FacultyId != null);
+
+                if (!filteredLectureRooms.Any())
                 {
                     return new BaseResponse<IEnumerable<LectureRoom>>()
                     {
@@ -128,7 +130,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<IEnumerable<LectureRoom>>()
                 {
-                    Data = subjects,
+                    Data = filteredLectureRooms,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -187,7 +189,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<LectureRoom>()
                 {
-                    Description = "Lecture room updated",
+                    Description = "Lecture room successfully updated",
                     StatusCode = StatusCode.OK
                 };
             }
@@ -221,7 +223,7 @@ namespace University.Core.Services
                 return new BaseResponse<bool>()
                 {
                     Data = true,
-                    Description = "Lecture room deleted",
+                    Description = "Lecture room successfully deleted",
                     StatusCode = StatusCode.OK
                 };
             }
