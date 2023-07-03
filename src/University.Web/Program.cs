@@ -18,8 +18,9 @@ builder.Services.AddDbContext<UniversityDbContext>(opts =>
 });
 
 // Add Core Layer
-builder.Services.AddScoped<ISubjectsService, SubjectsService>();
 builder.Services.AddScoped<ILectureRoomsService, LectureRoomsService>();
+builder.Services.AddScoped<IStudentsService, StudentsService>();
+builder.Services.AddScoped<ISubjectsService, SubjectsService>();
 
 // Add Infrastructure Layer
 builder.Services.AddScoped<IAcademicEmployeesRepository, AcademicEmployeesRepository>();
