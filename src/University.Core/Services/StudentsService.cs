@@ -47,5 +47,35 @@ namespace University.Core.Services
                 };
             }
         }
+
+        public async Task<IBaseResponse<Student>> GetStudentWithIncludePropertiesById(int id)
+        {
+            try
+            {
+                var studentDetails = await _studentsRepository.GetByIdAsync(id, g =>g.Group, f => f.Group.Faculty);
+                if (studentDetails == null || studentDetails.Group.Faculty == null)
+                {
+                    return new BaseResponse<Student>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                return new BaseResponse<Student>()
+                {
+                    Data = studentDetails,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Student>()
+                {
+                    Description = $"[GetStudentWithIncludePropertiesById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }

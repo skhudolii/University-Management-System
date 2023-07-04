@@ -23,17 +23,16 @@ namespace University.Web.Controllers
         }
 
         // GET: Students/Details/1
-        //public async Task<IActionResult> Details(int id)
-        //{
-        //    var studentDetails = await _repository.GetByIdAsync(id);
-        //
-        //    if (studentDetails == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-        //    return View(studentDetails);
-        //}
-        //
+        public async Task<IActionResult> Details(int id)
+        {
+            var studentDetails = await _studentsService.GetStudentWithIncludePropertiesById(id);
+            if (studentDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {studentDetails.StatusCode}, {studentDetails.Description}");
+            }
+            return View(studentDetails.Data);
+        }
+
         //// GET: Students/Create
         //public IActionResult Create()
         //{
