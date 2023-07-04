@@ -1,5 +1,6 @@
 ﻿using University.Core.Entities;
 using University.Core.Response.Interfeces;
+using University.Core.ViewModels.StudentVM;
 
 namespace University.Core.Services.Interfaces
 {
@@ -7,5 +8,7 @@ namespace University.Core.Services.Interfaces
     {
         Task<IBaseResponse<IEnumerable<Student>>> GetStudentsList();
         Task<IBaseResponse<Student>> GetStudentWithIncludePropertiesById(int id);
+        Task<IBaseResponse<NewStudentDropdownsVM>> GetNewStudentDropdownsValues();
+        Task<IBaseResponse<Student>> AddNewStudent(NewStudentVM model);
     }
 }

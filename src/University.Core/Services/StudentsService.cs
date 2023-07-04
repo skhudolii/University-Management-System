@@ -4,6 +4,7 @@ using University.Core.Repositories;
 using University.Core.Response;
 using University.Core.Response.Interfeces;
 using University.Core.Services.Interfaces;
+using University.Core.ViewModels.StudentVM;
 
 namespace University.Core.Services
 {
@@ -73,6 +74,58 @@ namespace University.Core.Services
                 return new BaseResponse<Student>()
                 {
                     Description = $"[GetStudentWithIncludePropertiesById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<NewStudentDropdownsVM>> GetNewStudentDropdownsValues()
+        {
+            try
+            {
+                var dropdownsValues = await _studentsRepository.GetNewStudentDropdownsValuesAsync();
+
+                return new BaseResponse<NewStudentDropdownsVM>()
+                {
+                    Data = dropdownsValues,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<NewStudentDropdownsVM>()
+                {
+                    Description = $"[GetNewStudentDropdownsValues] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Student>> AddNewStudent(NewStudentVM model)
+        {
+            try
+            {
+                var newStudent = new Student()
+                {
+                    FullName = model.FullName,
+                    Email = model.Email,
+                    ProfilePictureURL = model.ProfilePictureURL,
+                    GroupId = model.GroupId
+                };
+                await _studentsRepository.AddAsync(newStudent);
+
+                return new BaseResponse<Student>()
+                {
+                    Data = newStudent,
+                    Description = "New Student successfully added",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Student>()
+                {
+                    Description = $"[AddNewStudent] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

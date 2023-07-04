@@ -8,6 +8,7 @@ namespace University.Core.ViewModels.LectureRoomVM
 
         [Display(Name = "Lecture room name")]
         [Required(ErrorMessage = "Lecture room name is required")]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "Lecture room name must be between 1 and 20 chars")]
         public string Name { get; set; }
 
         [Display(Name = "Lecture room capacity")]

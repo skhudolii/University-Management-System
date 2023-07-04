@@ -1,4 +1,5 @@
-﻿@model Student
+﻿@using University.Core.ViewModels.StudentVM;
+@model NewStudentVM
 
 @{
     ViewData["Title"] = "Add a new student";
@@ -7,7 +8,7 @@
 <div class="row text">
     <div class="col-md-8 offset-2">
         <p>
-            <h1>Add a New Teacher (Academic Employee)</h1>
+            <h3 class ="text-center">Add a new student</h3>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
@@ -17,25 +18,26 @@
                     <div class="mb-3 text-center">
                         <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
                     </div>
-                    <div class="mb-3">
-                        <label asp-for="ProfilePictureURL" class="control-label"></label>
-                        <input asp-for="ProfilePictureURL" class="form-control" />
-                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
-                    </div>
+
                     <div class="mb-3">
                         <label asp-for="FullName" class="control-label"></label>
                         <input asp-for="FullName" class="form-control" />
                         <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
+                        <label asp-for="GroupId" class="control-label"></label>
+                        <select asp-for="GroupId" class="form-select" asp-items="ViewBag.Groups"></select>
+                        <span asp-validation-for="GroupId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
                         <label asp-for="Email" class="control-label"></label>
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>                    
+                    </div>
                     <div class="mb-3">
-                        <label asp-for="GroupId" class="control-label"></label>
-                        <input asp-for="GroupId" class="form-control" />
-                        <span asp-validation-for="GroupId" class="text-danger"></span>
+                        <label asp-for="ProfilePictureURL" class="control-label"></label>
+                        <input asp-for="ProfilePictureURL" class="form-control" />
+                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">

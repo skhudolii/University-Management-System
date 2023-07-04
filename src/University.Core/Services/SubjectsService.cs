@@ -31,6 +31,7 @@ namespace University.Core.Services
                 return new BaseResponse<Subject>()
                 {
                     Data = newSubject,
+                    Description = "New Subject successfully added",
                     StatusCode = StatusCode.OK
                 };
             }

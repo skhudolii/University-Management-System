@@ -9,12 +9,12 @@ namespace University.Core.Entities.Base
 
         [Display(Name = "Full Name")]
         [Required(ErrorMessage = "Full Name is required")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "First Name must be between 3 and 50 chars")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Full Name must be between 3 and 50 chars")]
         public string FullName { get; set; }        
 
         [EmailAddress]
         [Required(ErrorMessage = "Email is required")]
-        public string Email { get; set; }        
+        public string Email { get; set; }
 
         [Display(Name = "Profile Picture")]
         [Required(ErrorMessage = "Profile Picture is required")]

@@ -32,6 +32,7 @@ namespace University.Core.Services
                 return new BaseResponse<LectureRoom>()
                 {
                     Data = newLectureRoom,
+                    Description = "New Lecture Room successfully added",
                     StatusCode = StatusCode.OK
                 };
             }
