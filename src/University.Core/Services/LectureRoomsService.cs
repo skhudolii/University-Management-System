@@ -11,10 +11,12 @@ namespace University.Core.Services
     public class LectureRoomsService : ILectureRoomsService
     {
         private readonly ILectureRoomsRepository _lectureRoomsRepository;
+        private readonly IFacultiesRepository _facultiesRepository;
 
-        public LectureRoomsService(ILectureRoomsRepository lectureRoomsRepository)
+        public LectureRoomsService(ILectureRoomsRepository lectureRoomsRepository, IFacultiesRepository facultiesRepository)
         {
             _lectureRoomsRepository = lectureRoomsRepository;
+            _facultiesRepository = facultiesRepository;
         }
 
         public async Task<IBaseResponse<LectureRoom>> AddNewLectureRoom(NewLectureRoomVM model)
@@ -83,12 +85,12 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<LectureRoom>> GetLectureRoomWithFacultyById(int id)
+        public async Task<IBaseResponse<LectureRoom>> GetLectureRoomWithIncludePropertiesById(int id)
         {
             try
             {
-                var lectureRoomDetails = await _lectureRoomsRepository.GetLectureRoomWithFacultyByIdAsync(id);
-                if (lectureRoomDetails == null)
+                var lectureRoomDetails = await _lectureRoomsRepository.GetByIdAsync(id, f => f.Faculty);
+                if (lectureRoomDetails == null || lectureRoomDetails.Faculty == null)
                 {
                     return new BaseResponse<LectureRoom>()
                     {
@@ -107,7 +109,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<LectureRoom>()
                 {
-                    Description = $"[GetLectureRoomWithFacultyById] : {ex.Message}",
+                    Description = $"[GetLectureRoomWithIncludePropertiesById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -149,11 +151,14 @@ namespace University.Core.Services
         {
             try
             {
-                var dropdownsValues = await _lectureRoomsRepository.GetNewLectureRoomDropdownsValuesAsync();
+                var lectureRoomDropdownsValues = new NewLectureRoomDropdownsVM()
+                {
+                    Faculties = (await _facultiesRepository.GetAllAsync()).OrderBy(n => n.Name).ToList()
+                };
 
                 return new BaseResponse<NewLectureRoomDropdownsVM>()
                 {
-                    Data = dropdownsValues,
+                    Data = lectureRoomDropdownsValues,
                     StatusCode = StatusCode.OK
                 };
             }

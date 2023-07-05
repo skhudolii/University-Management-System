@@ -30,7 +30,7 @@ namespace University.Web.Controllers
         // GET: Subjects/Details/1
         public async Task<IActionResult> Details(int id)
         {
-            var subjectDetails = await _subjectsService.GetSubjectWithFacultyById(id);
+            var subjectDetails = await _subjectsService.GetSubjectWithIncludePropertiesById(id);
             if (subjectDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
                 return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");                
@@ -110,7 +110,7 @@ namespace University.Web.Controllers
         // GET: Subjects/Delete/1
         public async Task<IActionResult> Delete(int id)
         {
-            var subjectDetails = await _subjectsService.GetSubjectWithFacultyById(id);
+            var subjectDetails = await _subjectsService.GetSubjectWithIncludePropertiesById(id);
             if (subjectDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
                 return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
@@ -122,7 +122,7 @@ namespace University.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var subjectDetails = await _subjectsService.GetSubjectWithFacultyById(id);
+            var subjectDetails = await _subjectsService.GetSubjectWithIncludePropertiesById(id);
             if (subjectDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
                 return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");

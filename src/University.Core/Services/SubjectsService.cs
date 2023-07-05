@@ -11,10 +11,12 @@ namespace University.Core.Services
     public class SubjectsService : ISubjectsService
     {
         private readonly ISubjectsRepository _subjectsRepository;
+        private readonly IFacultiesRepository _facultiesRepository;
 
-        public SubjectsService(ISubjectsRepository subjectsRepository)
+        public SubjectsService(ISubjectsRepository subjectsRepository, IFacultiesRepository facultiesRepository)
         {
             _subjectsRepository = subjectsRepository;
+            _facultiesRepository = facultiesRepository;
         }
 
         public async Task<IBaseResponse<Subject>> AddNewSubject(NewSubjectVM model)
@@ -49,11 +51,14 @@ namespace University.Core.Services
         {
             try
             {
-                var dropdownsValues = await _subjectsRepository.GetNewSubjectDropdownsValuesAsync();
+                var subjectDropdownsValues = new NewSubjectDropdownsVM()
+                {
+                    Faculties = (await _facultiesRepository.GetAllAsync()).OrderBy(n => n.Name).ToList()
+                };
 
                 return new BaseResponse<NewSubjectDropdownsVM>()
                 {
-                    Data = dropdownsValues,
+                    Data = subjectDropdownsValues,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -103,12 +108,12 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<Subject>> GetSubjectWithFacultyById(int id)
+        public async Task<IBaseResponse<Subject>> GetSubjectWithIncludePropertiesById(int id)
         {
             try
             {
-                var subjectDetails = await _subjectsRepository.GetSubjectWithFacultyByIdAsync(id);
-                if (subjectDetails == null)
+                var subjectDetails = await _subjectsRepository.GetByIdAsync(id, f => f.Faculty);
+                if (subjectDetails == null || subjectDetails.Faculty == null)
                 {
                     return new BaseResponse<Subject>()
                     {
@@ -127,7 +132,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<Subject>()
                 {
-                    Description = $"[GetSubjectById] : {ex.Message}",
+                    Description = $"[GetSubjectWithIncludePropertiesById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

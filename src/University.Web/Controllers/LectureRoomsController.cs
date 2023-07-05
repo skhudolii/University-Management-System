@@ -29,7 +29,7 @@ namespace University.Web.Controllers
         // GET: Subjects/Details/1
         public async Task<IActionResult> Details(int id)
         {
-            var lectureRoomDetails = await _lectureRoomsService.GetLectureRoomWithFacultyById(id);
+            var lectureRoomDetails = await _lectureRoomsService.GetLectureRoomWithIncludePropertiesById(id);
             if (lectureRoomDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
                 return View("Error", $"Error {(int)lectureRoomDetails.StatusCode}, {lectureRoomDetails.Description}");
@@ -108,7 +108,7 @@ namespace University.Web.Controllers
         // GET: LectureRooms/Delete/1
         public async Task<IActionResult> Delete(int id)
         {
-            var lectureRoomDetails = await _lectureRoomsService.GetLectureRoomWithFacultyById(id);
+            var lectureRoomDetails = await _lectureRoomsService.GetLectureRoomWithIncludePropertiesById(id);
             if (lectureRoomDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
                 return View("Error", $"Error {(int)lectureRoomDetails.StatusCode}, {lectureRoomDetails.Description}");
@@ -120,7 +120,7 @@ namespace University.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var lectureRoomDetails = await _lectureRoomsService.GetLectureRoomWithFacultyById(id);
+            var lectureRoomDetails = await _lectureRoomsService.GetLectureRoomWithIncludePropertiesById(id);
             if (lectureRoomDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
                 return View("Error", $"Error {(int)lectureRoomDetails.StatusCode}, {lectureRoomDetails.Description}");

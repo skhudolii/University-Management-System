@@ -8,7 +8,7 @@ namespace University.Core.Services.Interfaces
     {
         Task<IBaseResponse<IEnumerable<LectureRoom>>> GetLectureRoomsList();
         Task<IBaseResponse<NewLectureRoomVM>> GetLectureRoomById(int id);
-        Task<IBaseResponse<LectureRoom>> GetLectureRoomWithFacultyById(int id);
+        Task<IBaseResponse<LectureRoom>> GetLectureRoomWithIncludePropertiesById(int id);
         Task<IBaseResponse<NewLectureRoomDropdownsVM>> GetNewLectureRoomDropdownsValues();
         Task<IBaseResponse<LectureRoom>> AddNewLectureRoom(NewLectureRoomVM model);
         Task<IBaseResponse<LectureRoom>> UpdateLectureRoom(NewLectureRoomVM model);
