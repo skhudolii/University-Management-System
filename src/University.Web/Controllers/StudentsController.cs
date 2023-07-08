@@ -51,26 +51,26 @@ namespace University.Web.Controllers
         // this method is called using jQuery
         public async Task<JsonResult> GetGroupsByFacultyId(int facultyId)
         {
-            var groupList = (await _studentCascadingDropdownsService.GetGroups()).Data.Groups
+            var groups = (await _studentCascadingDropdownsService.GetGroups()).Data.Groups
                 .Where(g => g.FacultyId == facultyId).ToList();
 
-            return Json(groupList);
+            return Json(groups);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(NewStudentVM student)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var studentDropdownsValues = await _studentsService.GetNewStudentDropdownsValues();
-        //        ViewBag.Groups = new SelectList(studentDropdownsValues.Data.Groups, "Id", "Name");
+        [HttpPost]
+        public async Task<IActionResult> Create(NewStudentVM student)
+        {
+            if (!ModelState.IsValid)
+            {
+                var faculties = (await _studentCascadingDropdownsService.GetFaculties()).Data.Faculties;
+                ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
 
-        //        return View(student);
-        //    }
+                return View(student);
+            }
 
-        //    await _studentsService.AddNewStudent(student);
-        //    return RedirectToAction(nameof(Index));
-        //}
+            await _studentsService.AddNewStudent(student);
+            return RedirectToAction(nameof(Index));
+        }
 
         //// GET: Students/Edit/1
         //public async Task<IActionResult> Edit(int id)

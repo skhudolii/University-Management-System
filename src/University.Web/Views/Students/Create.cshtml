@@ -70,17 +70,6 @@
             output.src = $(this).val();
         })
 
-        //$(document).ready (function () {
-        //    $("#FacultyId").change (function () {
-        //        $.get("/Students/GetGroupsByFacultyId", { facultyId: $("#FacultyId").val() }, function (data) {
-        //            $("#GroupId").empty();
-        //            $.each(data, function (index, row) {
-        //                $("#GroupId").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
-        //            });
-        //        });
-        //    })
-        //});
-
         $(document).ready(function () {
             GetGroupsByFacultyId();
         })

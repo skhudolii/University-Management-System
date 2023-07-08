@@ -22,10 +22,10 @@ namespace University.Core.ViewModels.StudentVM
 
         [Display(Name = "Faculty")]
         [Required(ErrorMessage = "Faculty is required")]
-        public int FacultyId { get; set; }
+        public int? FacultyId { get; set; } // int? for model validation for <select> element in Web-Views-Students-Create
 
         [Display(Name = "Group")]
         [Required(ErrorMessage = "Group is required")]
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; } // int? for model validation for <select> element in Web-Views-Students-Create
     }
 }

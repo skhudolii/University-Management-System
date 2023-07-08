@@ -88,7 +88,7 @@ namespace University.Core.Services
                     FullName = model.FullName,
                     Email = model.Email,
                     ProfilePictureURL = model.ProfilePictureURL,
-                    GroupId = model.GroupId
+                    GroupId = (int)model.GroupId
                 };
                 await _studentsRepository.AddAsync(newStudent);
 
