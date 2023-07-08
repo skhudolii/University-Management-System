@@ -8,7 +8,6 @@ namespace University.Core.Services.Interfaces
     {
         Task<IBaseResponse<IEnumerable<Student>>> GetStudentsList();
         Task<IBaseResponse<Student>> GetStudentWithIncludePropertiesById(int id);
-        Task<IBaseResponse<NewStudentDropdownsVM>> GetNewStudentDropdownsValues();
         Task<IBaseResponse<Student>> AddNewStudent(NewStudentVM model);
     }
 }

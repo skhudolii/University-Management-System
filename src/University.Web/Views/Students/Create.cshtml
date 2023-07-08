@@ -18,16 +18,23 @@
                     <div class="mb-3 text-center">
                         <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
                     </div>
-
+                    
+                    <div class="mb-3">
+                        <label asp-for="FacultyId" class="control-label"></label>
+                        <select asp-for="FacultyId" class="form-select" id="facultyId" asp-items="@ViewBag.faculties">
+                            <option disabled selected>--Select Faculty--</option>
+                        </select>
+                        <span asp-validation-for="FacultyId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="GroupId" class="control-label"></label>
+                        <select asp-for="GroupId" class="form-select" id="groupId"></select>
+                        <span asp-validation-for="GroupId" class="text-danger"></span>
+                    </div>
                     <div class="mb-3">
                         <label asp-for="FullName" class="control-label"></label>
                         <input asp-for="FullName" class="form-control" />
                         <span asp-validation-for="FullName" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="GroupId" class="control-label"></label>
-                        <select asp-for="GroupId" class="form-select" asp-items="ViewBag.Groups"></select>
-                        <span asp-validation-for="GroupId" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Email" class="control-label"></label>
@@ -62,5 +69,41 @@
             var output = document.getElementById('ProfilePicturePreview');
             output.src = $(this).val();
         })
+
+        //$(document).ready (function () {
+        //    $("#FacultyId").change (function () {
+        //        $.get("/Students/GetGroupsByFacultyId", { facultyId: $("#FacultyId").val() }, function (data) {
+        //            $("#GroupId").empty();
+        //            $.each(data, function (index, row) {
+        //                $("#GroupId").append("<option value='" + row.Id + "'>" + row.Name + "</option>")
+        //            });
+        //        });
+        //    })
+        //});
+
+        $(document).ready(function () {
+            GetGroupsByFacultyId();
+        })
+        $("#facultyId").change(function () {
+            GetGroupsByFacultyId();
+        });
+        var GetGroupsByFacultyId = function () {
+            $.ajax({
+                url: '@Url.Action("GetGroupsByFacultyId","Students")',
+                type:'GET',
+                data:{
+                    facultyId: $('#facultyId').val(),
+                },
+                success: function(data){
+                    $('#groupId').find('option').remove()
+                    $(data).each(
+                        function(index,item){
+                            $('#groupId').append('<option value="'+item.id+'">'+item.name+'</option')
+                        }
+                    );
+                }
+            })
+        }
+
     </script>
 }

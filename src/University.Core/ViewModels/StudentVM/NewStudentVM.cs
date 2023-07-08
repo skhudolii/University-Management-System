@@ -20,7 +20,11 @@ namespace University.Core.ViewModels.StudentVM
         [Required(ErrorMessage = "Profile picture URL is required")]
         public string ProfilePictureURL { get; set; }
 
-        [Display(Name = "Select a group")]
+        [Display(Name = "Faculty")]
+        [Required(ErrorMessage = "Faculty is required")]
+        public int FacultyId { get; set; }
+
+        [Display(Name = "Group")]
         [Required(ErrorMessage = "Group is required")]
         public int GroupId { get; set; }
     }

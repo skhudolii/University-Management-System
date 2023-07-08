@@ -19,6 +19,7 @@ builder.Services.AddDbContext<UniversityDbContext>(opts =>
 
 // Add Core Layer
 builder.Services.AddScoped<ILectureRoomsService, LectureRoomsService>();
+builder.Services.AddScoped<IStudentCascadingDropdownsService, StudentCascadingDropdownsService>();
 builder.Services.AddScoped<IStudentsService, StudentsService>();
 builder.Services.AddScoped<ISubjectsService, SubjectsService>();
 
@@ -35,6 +36,7 @@ var app = builder.Build();
 
 // REGISTER MIDDLEWARE HERE
 app.UseStatusCodePages();
+app.UseDefaultFiles();
 app.UseStaticFiles();
 app.MapDefaultControllerRoute();
 

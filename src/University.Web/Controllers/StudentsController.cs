@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using University.Core.Entities;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.StudentVM;
 
@@ -8,10 +9,13 @@ namespace University.Web.Controllers
     public class StudentsController : Controller
     {
         private readonly IStudentsService _studentsService;
+        private readonly IStudentCascadingDropdownsService _studentCascadingDropdownsService;
 
-        public StudentsController(IStudentsService studentsService)
+        public StudentsController(IStudentsService studentsService,
+                                  IStudentCascadingDropdownsService studentCascadingDropdownsService)
         {
             _studentsService = studentsService;
+            _studentCascadingDropdownsService = studentCascadingDropdownsService;
         }
 
         public async Task<IActionResult> Index()
@@ -38,30 +42,35 @@ namespace University.Web.Controllers
         // GET: Students/Create
         public async Task<IActionResult> Create()
         {
-            var studentDropdownsValues = await _studentsService.GetNewStudentDropdownsValues();
-            if (studentDropdownsValues.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {studentDropdownsValues.StatusCode}, {studentDropdownsValues.Description}");
-            }
+            var faculties = (await _studentCascadingDropdownsService.GetFaculties()).Data.Faculties;
+            ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
 
-            ViewBag.Groups = new SelectList(studentDropdownsValues.Data.Groups, "Id", "Name");
             return View();
         }
-        
-        [HttpPost]
-        public async Task<IActionResult> Create(NewStudentVM student)
+
+        // this method is called using jQuery
+        public async Task<JsonResult> GetGroupsByFacultyId(int facultyId)
         {
-            if (!ModelState.IsValid)
-            {
-                var studentDropdownsValues = await _studentsService.GetNewStudentDropdownsValues();
-                ViewBag.Groups = new SelectList(studentDropdownsValues.Data.Groups, "Id", "Name");
+            var groupList = (await _studentCascadingDropdownsService.GetGroups()).Data.Groups
+                .Where(g => g.FacultyId == facultyId).ToList();
 
-                return View(student);
-            }
-
-            await _studentsService.AddNewStudent(student);
-            return RedirectToAction(nameof(Index));
+            return Json(groupList);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Create(NewStudentVM student)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var studentDropdownsValues = await _studentsService.GetNewStudentDropdownsValues();
+        //        ViewBag.Groups = new SelectList(studentDropdownsValues.Data.Groups, "Id", "Name");
+
+        //        return View(student);
+        //    }
+
+        //    await _studentsService.AddNewStudent(student);
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         //// GET: Students/Edit/1
         //public async Task<IActionResult> Edit(int id)

@@ -77,29 +77,7 @@ namespace University.Core.Services
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-        }
-
-        public async Task<IBaseResponse<NewStudentDropdownsVM>> GetNewStudentDropdownsValues()
-        {
-            try
-            {
-                var dropdownsValues = await _studentsRepository.GetNewStudentDropdownsValuesAsync();
-
-                return new BaseResponse<NewStudentDropdownsVM>()
-                {
-                    Data = dropdownsValues,
-                    StatusCode = StatusCode.OK
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<NewStudentDropdownsVM>()
-                {
-                    Description = $"[GetNewStudentDropdownsValues] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
+        }       
 
         public async Task<IBaseResponse<Student>> AddNewStudent(NewStudentVM model)
         {
