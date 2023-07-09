@@ -108,5 +108,116 @@ namespace University.Core.Services
                 };
             }
         }
+
+        public async Task<IBaseResponse<NewStudentVM>> GetStudentById(int id)
+        {            
+            try
+            {
+                var student = await _studentsRepository.GetByIdAsync(id, g => g.Group);
+                if (student == null)
+                {
+                    return new BaseResponse<NewStudentVM>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+                var data = new NewStudentVM()
+                {
+                    Id = student.Id,
+                    FullName = student.FullName,
+                    Email = student.Email,
+                    ProfilePictureURL = student.ProfilePictureURL,
+                    GroupId = (int)student.GroupId,
+                    FacultyId = student.Group.FacultyId
+                };
+
+                return new BaseResponse<NewStudentVM>()
+                {
+                    Data = data,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<NewStudentVM>()
+                {
+                    Description = $"[StudentService.GetStudentById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Student>> UpdateStudent(NewStudentVM model)
+        {
+            try
+            {
+                var dbStudent = await _studentsRepository.GetByIdAsync(model.Id);
+                if (dbStudent == null)
+                {
+                    return new BaseResponse<Student>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                dbStudent.Id = model.Id;
+                dbStudent.FullName = model.FullName;
+                dbStudent.Email = model.Email;
+                dbStudent.ProfilePictureURL = model.ProfilePictureURL;
+                dbStudent.GroupId = (int)model.GroupId;
+
+                await _studentsRepository.UpdateAsync(dbStudent.Id, dbStudent);
+
+                return new BaseResponse<Student>()
+                {
+                    Description = "Student successfully updated",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Student>()
+                {
+                    Description = $"[StudentServuce.UpdateStudent] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<bool>> DeleteStudent(int id)
+        {
+            try
+            {
+                var student = await _studentsRepository.GetByIdAsync(id);
+                if (student == null)
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        Data = false,
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                await _studentsRepository.DeleteAsync(id);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    Description = "Student successfully deleted",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>
+                {
+                    Description = $"[StudentsService.DeleteStudent] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }

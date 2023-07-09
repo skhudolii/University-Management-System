@@ -1,4 +1,5 @@
-﻿@model Student
+﻿@using University.Core.ViewModels.StudentVM;
+@model NewStudentVM
 
 @{
     ViewData["Title"] = "Update student";
@@ -7,7 +8,7 @@
 <div class="row text">
     <div class="col-md-8 offset-2">
         <p>
-            <h1>Update Student</h1>
+            <h3 class="text-center">Update Student</h3>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
@@ -17,10 +18,18 @@
                     <div class="mb-3 text-center">
                         <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
                     </div>
+
                     <div class="mb-3">
-                        <label asp-for="ProfilePictureURL" class="control-label"></label>
-                        <input asp-for="ProfilePictureURL" class="form-control" />
-                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                        <label asp-for="FacultyId" class="control-label"></label>
+                        <select asp-for="FacultyId" class="form-select" id="facultyId" asp-items="@ViewBag.faculties">
+                            <option disabled selected>--Select Faculty--</option>
+                        </select>
+                        <span asp-validation-for="FacultyId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="GroupId" class="control-label"></label>
+                        <select asp-for="GroupId" class="form-select" id="groupId"></select>
+                        <span asp-validation-for="GroupId" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="FullName" class="control-label"></label>
@@ -31,11 +40,11 @@
                         <label asp-for="Email" class="control-label"></label>
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>                    
+                    </div>
                     <div class="mb-3">
-                        <label asp-for="GroupId" class="control-label"></label>
-                        <input asp-for="GroupId" class="form-control" />
-                        <span asp-validation-for="GroupId" class="text-danger"></span>
+                        <label asp-for="ProfilePictureURL" class="control-label"></label>
+                        <input asp-for="ProfilePictureURL" class="form-control" />
+                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
@@ -60,5 +69,29 @@
             var output = document.getElementById('ProfilePicturePreview');
             output.src = $(this).val();
         })
+
+        $(document).ready(function () {
+            GetGroupsByFacultyId();
+        })
+        $("#facultyId").change(function () {
+            GetGroupsByFacultyId();
+        });
+        var GetGroupsByFacultyId = function () {
+            $.ajax({
+                url: '@Url.Action("GetGroupsByFacultyId","Students")',
+                type: 'GET',
+                data: {
+                    facultyId: $('#facultyId').val(),
+                },
+                success: function (data) {
+                    $('#groupId').find('option').remove()
+                    $(data).each(
+                        function (index, item) {
+                            $('#groupId').append('<option value="' + item.id + '">' + item.name + '</option')
+                        }
+                    );
+                }
+            })
+        }
     </script>    
 }

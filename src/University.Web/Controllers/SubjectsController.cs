@@ -18,11 +18,6 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var allSubjects = await _subjectsService.GetSubjectsList();
-            if (allSubjects.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {(int)allSubjects.StatusCode}, {allSubjects.Description}");
-            }
-
             return View(allSubjects.Data);
         }
 
@@ -43,12 +38,8 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Create()
         {
             var subjectDropdownsValues = await _subjectsService.GetNewSubjectDropdownsValues();
-            if (subjectDropdownsValues.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {(int)subjectDropdownsValues.StatusCode}, {subjectDropdownsValues.Description}");
-            }
-            
             ViewBag.Faculties = new SelectList(subjectDropdownsValues.Data.Faculties, "Id", "Name");
+
             return View();
         }
 
@@ -77,12 +68,8 @@ namespace University.Web.Controllers
             }
 
             var subjectDropdownsValues = await _subjectsService.GetNewSubjectDropdownsValues();
-            if (subjectDropdownsValues.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {(int)subjectDropdownsValues.StatusCode}, {subjectDropdownsValues.Description}");
-            }
-
             ViewBag.Faculties = new SelectList(subjectDropdownsValues.Data.Faculties, "Id", "Name");
+
             return View(subjectDetails.Data);
         }
 
@@ -128,11 +115,6 @@ namespace University.Web.Controllers
             }
 
             var response = await _subjectsService.DeleteSubject(id);
-            if (response.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
-            }
-
             return RedirectToAction(nameof(Index));
         }
     }

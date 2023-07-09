@@ -7,41 +7,50 @@
 <div class="row text">
     <div class="col-md-8 offset-2">
         <p>
-            <h1>Delete confirmation for @Model.FullName</h1>
+            <h3 class="text-center">Delete confirmation for @Model.FullName</h3>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
-                    <div class="mb-3 text-center">
-                        <img class="border-info rounded-circle" style="max-width: 150px" id="ProfilePicturePreview" />
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="ProfilePictureURL" class="control-label"></label>
-                        <input asp-for="ProfilePictureURL" class="form-control" readonly />
-                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="FullName" class="control-label"></label>
-                        <input asp-for="FullName" class="form-control" readonly />
-                        <span asp-validation-for="FullName" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control" readonly />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="GroupId" class="control-label"></label>
-                        <input asp-for="GroupId" class="form-control" readonly />
-                        <span asp-validation-for="GroupId" class="text-danger"></span>
-                    </div>
 
-                    <div class="mb-3">
-                        <form asp-action="Delete">
-                            <input type="hidden" asp-for="Id" />
-                            <input type="submit" value="Confirm" class="btn btn-danger float-end" />
-                        </form>                        
-                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                <div class="mb-3 text-center">
+                    <img class="border-info rounded-circle" style="max-width: 150px" id="ProfilePicturePreview" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" readonly />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Group.Faculty" class="control-label"></label>
+                    <div class="form-control">
+                        <a asp-controller="Faculties" asp-action="Details" asp-route-id="@Model.Group.FacultyId">@Model.Group.Faculty.Name</a>
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Group" class="control-label"></label>
+                    <div class="form-control">
+                        <a asp-controller="Groups" asp-action="Details" asp-route-id="@Model.GroupId">@Model.Group.Name</a>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" readonly />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProfilePictureURL" class="control-label"></label>
+                    <input asp-for="ProfilePictureURL" class="form-control" readonly />
+                    <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Confirm" class="btn btn-danger float-end" />
+                    </form>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
                 
             </div>
         </div>

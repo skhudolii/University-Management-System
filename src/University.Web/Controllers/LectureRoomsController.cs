@@ -18,11 +18,6 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var allLectureRooms = await _lectureRoomsService.GetLectureRoomsList();
-            if (allLectureRooms.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {(int)allLectureRooms.StatusCode}, {allLectureRooms.Description}");
-            }
-
             return View(allLectureRooms.Data);
         }
 
@@ -42,12 +37,8 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Create()
         {
             var lectureRoomDropdownsValues = await _lectureRoomsService.GetNewLectureRoomDropdownsValues();
-            if (lectureRoomDropdownsValues.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {(int)lectureRoomDropdownsValues.StatusCode}, {lectureRoomDropdownsValues.Description}");
-            }
-
             ViewBag.Faculties = new SelectList(lectureRoomDropdownsValues.Data.Faculties, "Id", "Name");
+
             return View();
         }
 
@@ -76,12 +67,8 @@ namespace University.Web.Controllers
             }
 
             var lectureRoomDropdownsValues = await _lectureRoomsService.GetNewLectureRoomDropdownsValues();
-            if (lectureRoomDropdownsValues.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {(int)lectureRoomDetails.StatusCode}, {lectureRoomDetails.Description}");
-            }
-
             ViewBag.Faculties = new SelectList(lectureRoomDropdownsValues.Data.Faculties, "Id", "Name");
+
             return View(lectureRoomDetails.Data);
         }
 
@@ -127,11 +114,6 @@ namespace University.Web.Controllers
             }
 
             var response = await _lectureRoomsService.DeleteLectureRoom(id);
-            if (response.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {(int)lectureRoomDetails.StatusCode}, {lectureRoomDetails.Description}");
-            }
-
             return RedirectToAction(nameof(Index));
         }
     }

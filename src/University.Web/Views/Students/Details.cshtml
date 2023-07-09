@@ -11,6 +11,7 @@
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
+
                 <div class="mb-3 text-center">
                     <img class="border-info rounded-circle" style="max-width: 150px" id="ProfilePicturePreview" />
                 </div>
@@ -41,7 +42,7 @@
                     <label asp-for="ProfilePictureURL" class="control-label"></label>
                     <input asp-for="ProfilePictureURL" class="form-control" readonly />
                     <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
-                </div>                
+                </div>
 
                 <div class="mb-3">
                     <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>

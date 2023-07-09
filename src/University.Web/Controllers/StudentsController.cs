@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Entities;
+using University.Core.Services;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.StudentVM;
 
@@ -21,10 +22,6 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var allStudents = await _studentsService.GetStudentsList();
-            if (allStudents.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {allStudents.StatusCode}, {allStudents.Description}");
-            }
             return View(allStudents.Data);
         }
 
@@ -58,70 +55,78 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(NewStudentVM student)
+        public async Task<IActionResult> Create(NewStudentVM newStudentVM)
         {
             if (!ModelState.IsValid)
             {
                 var faculties = (await _studentCascadingDropdownsService.GetFaculties()).Data.Faculties;
                 ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
 
-                return View(student);
+                return View(newStudentVM);
             }
 
-            await _studentsService.AddNewStudent(student);
+            await _studentsService.AddNewStudent(newStudentVM);
             return RedirectToAction(nameof(Index));
         }
 
-        //// GET: Students/Edit/1
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var studentDetails = await _repository.GetByIdAsync(id);
-        //
-        //    if (studentDetails == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-        //    return View(studentDetails);
-        //}
-        //
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Email,GroupId")] Student student)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(student);
-        //    }
-        //    if (id == student.Id)
-        //    {
-        //        await _repository.UpdateAsync(id, student);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(student);
-        //}
-        //
-        //// GET: Students/Delete/1
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var studentDetails = await _repository.GetByIdAsync(id);
-        //
-        //    if (studentDetails == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-        //    return View(studentDetails);
-        //}
-        //
-        //[HttpPost, ActionName("Delete")]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var studentDetails = await _repository.GetByIdAsync(id);
-        //
-        //    if (studentDetails == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-        //    await _repository.DeleteAsync(id);
-        //    return RedirectToAction(nameof(Index));
-        //}
+        // GET: Students/Edit/1
+        public async Task<IActionResult> Edit(int id)
+        {
+            var studentDetails = await _studentsService.GetStudentById(id);
+            if (studentDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {(int)studentDetails.StatusCode}, {studentDetails.Description}");
+            }
+
+            var faculties = (await _studentCascadingDropdownsService.GetFaculties()).Data.Faculties;
+            ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
+
+            return View(studentDetails.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, NewStudentVM studentVM)
+        {
+            if (id != studentVM.Id)
+            {
+                return View("Error", "Not found");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var faculties = (await _studentCascadingDropdownsService.GetFaculties()).Data.Faculties;
+                ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
+
+                return View(studentVM);
+            }
+
+            await _studentsService.UpdateStudent(studentVM);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Students/Delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var studentDetails = await _studentsService.GetStudentWithIncludePropertiesById(id);
+            if (studentDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {studentDetails.StatusCode}, {studentDetails.Description}");
+            }
+
+            return View(studentDetails.Data);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            var studentDetails = await _studentsService.GetStudentWithIncludePropertiesById(id);
+            if (studentDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {studentDetails.StatusCode}, {studentDetails.Description}");
+            }
+
+            var response = await _studentsService.DeleteStudent(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
