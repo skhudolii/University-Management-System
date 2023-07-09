@@ -1,98 +1,118 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using University.Core.Entities;
-using University.Core.Repositories;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using University.Core.Services.Interfaces;
+using University.Core.ViewModels.AcademicEmployeeVM;
 
 namespace University.Web.Controllers
 {
     public class AcademicEmployeesController : Controller
     {
-        private readonly IAcademicEmployeesRepository _repository;
+        private readonly IAcademicEmployeesService _academicEmployeesService;
 
-        public AcademicEmployeesController(IAcademicEmployeesRepository repository)
+        public AcademicEmployeesController(IAcademicEmployeesService academicEmployeesService)
         {
-            _repository = repository;
+            _academicEmployeesService = academicEmployeesService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = await _repository.GetAllAsync();
-            return View(data);
-        }
-
-        // GET: AcademicEmployees/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Email,AcademicPosition,FacultyId")] AcademicEmployee academicEmployee)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(academicEmployee);
-            }
-            await _repository.AddAsync(academicEmployee);
-            return RedirectToAction(nameof(Index));
+            var allAcademicEmployees = await _academicEmployeesService.GetAcademicEmployeesList();
+            return View(allAcademicEmployees.Data);
         }
 
         // GET: AcademicEmployees/Details/1
         public async Task<IActionResult> Details(int id)
         {
-            var academicEmployeeDetails = await _repository.GetByIdAsync(id);
-
-            if (academicEmployeeDetails == null)
+            var academicEmployeeDetails = await _academicEmployeesService.GetAcademicEmployeeWithIncludePropertiesById(id);
+            if (academicEmployeeDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("NotFound");
+                return View("Error", $"Error {(int)academicEmployeeDetails.StatusCode}, {academicEmployeeDetails.Description}");
             }
-            return View(academicEmployeeDetails);
+
+            return View(academicEmployeeDetails.Data);
+        }
+
+        // GET: AcademicEmployees/Create
+        public async Task<IActionResult> Create()
+        {
+            var academicEmployeeDropdownsValues = await _academicEmployeesService.GetNewAcademicEmployeeDropdownsValues();
+            ViewBag.Faculties = new SelectList(academicEmployeeDropdownsValues.Data.Faculties, "Id", "Name");
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewAcademicEmployeeVM academicEmployeeVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                var academicEmployeeDropdownsValues = await _academicEmployeesService.GetNewAcademicEmployeeDropdownsValues();
+                ViewBag.Faculties = new SelectList(academicEmployeeDropdownsValues.Data.Faculties, "Id", "Name");
+
+                return View(academicEmployeeVM);
+            }
+
+            await _academicEmployeesService.AddNewAcademicEmployee(academicEmployeeVM);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: AcademicEmployees/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
-            var academicEmployeeDetails = await _repository.GetByIdAsync(id);
-
-            if (academicEmployeeDetails == null)
+            var academicEmployeeDetails = await _academicEmployeesService.GetAcademicEmployeeById(id);
+            if (academicEmployeeDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("NotFound");
+                return View("Error", $"Error {(int)academicEmployeeDetails.StatusCode}, {academicEmployeeDetails.Description}");
             }
-            return View(academicEmployeeDetails);
+
+            var academicEmployeeDropdownsValues = await _academicEmployeesService.GetNewAcademicEmployeeDropdownsValues();
+            ViewBag.Faculties = new SelectList(academicEmployeeDropdownsValues.Data.Faculties, "Id", "Name");
+
+            return View(academicEmployeeDetails.Data);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,ProfilePictureURL,Email,AcademicPosition,FacultyId")] AcademicEmployee academicEmployee)
+        public async Task<IActionResult> Edit(int id, NewAcademicEmployeeVM academicEmployeeVM)
         {
+            if (id != academicEmployeeVM.Id)
+            {
+                return View("Error", "Not found");
+            }
+
             if (!ModelState.IsValid)
             {
-                return View(academicEmployee);
+                var academicEmployeeDropdownsValues = await _academicEmployeesService.GetNewAcademicEmployeeDropdownsValues();
+                ViewBag.Faculties = new SelectList(academicEmployeeDropdownsValues.Data.Faculties, "Id", "Name");
+
+                return View(academicEmployeeVM);
             }
-            await _repository.UpdateAsync(id, academicEmployee);
+
+            await _academicEmployeesService.UpdateAcademicEmployee(academicEmployeeVM);
             return RedirectToAction(nameof(Index));
         }
 
         // GET: AcademicEmployees/Delete/1
         public async Task<IActionResult> Delete(int id)
         {
-            var academicEmployeeDetails = await _repository.GetByIdAsync(id);
-
-            if (academicEmployeeDetails == null)
+            var academicEmployeeDetails = await _academicEmployeesService.GetAcademicEmployeeWithIncludePropertiesById(id);
+            if (academicEmployeeDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("NotFound");
+                return View("Error", $"Error {(int)academicEmployeeDetails.StatusCode}, {academicEmployeeDetails.Description}");
             }
-            return View(academicEmployeeDetails);
+
+            return View(academicEmployeeDetails.Data);
         }
 
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var academicEmployeeDetails = await _repository.GetByIdAsync(id);
-
-            if (academicEmployeeDetails == null)
+            var academicEmployeeDetails = await _academicEmployeesService.GetAcademicEmployeeWithIncludePropertiesById(id);
+            if (academicEmployeeDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("NotFound");
+                return View("Error", $"Error {(int)academicEmployeeDetails.StatusCode}, {academicEmployeeDetails.Description}");
             }
-            await _repository.DeleteAsync(id);            
+
+            var response = await _academicEmployeesService.DeleteAcademicEmployee(id);
             return RedirectToAction(nameof(Index));
         }
     }
