@@ -120,12 +120,12 @@ namespace University.Web.Controllers
         public async Task<IActionResult> DeleteConfirm(int id)
         {
             var studentDetails = await _studentsService.GetStudentWithIncludePropertiesById(id);
-            if (studentDetails.StatusCode != Core.Enums.StatusCode.OK)
+            var response = await _studentsService.DeleteStudent(id);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("Error", $"Error {studentDetails.StatusCode}, {studentDetails.Description}");
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
             }
 
-            var response = await _studentsService.DeleteStudent(id);
             return RedirectToAction(nameof(Index));
         }
     }

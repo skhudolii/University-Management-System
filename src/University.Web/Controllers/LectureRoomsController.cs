@@ -108,12 +108,12 @@ namespace University.Web.Controllers
         public async Task<IActionResult> DeleteConfirm(int id)
         {
             var lectureRoomDetails = await _lectureRoomsService.GetLectureRoomWithIncludePropertiesById(id);
-            if (lectureRoomDetails.StatusCode != Core.Enums.StatusCode.OK)
+            var response = await _lectureRoomsService.DeleteLectureRoom(id);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("Error", $"Error {(int)lectureRoomDetails.StatusCode}, {lectureRoomDetails.Description}");
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
             }
 
-            var response = await _lectureRoomsService.DeleteLectureRoom(id);
             return RedirectToAction(nameof(Index));
         }
     }

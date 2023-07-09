@@ -109,12 +109,12 @@ namespace University.Web.Controllers
         public async Task<IActionResult> DeleteConfirm(int id)
         {
             var subjectDetails = await _subjectsService.GetSubjectWithIncludePropertiesById(id);
-            if (subjectDetails.StatusCode != Core.Enums.StatusCode.OK)
+            var response = await _subjectsService.DeleteSubject(id);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("Error", $"Error {(int)subjectDetails.StatusCode}, {subjectDetails.Description}");
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
             }
 
-            var response = await _subjectsService.DeleteSubject(id);
             return RedirectToAction(nameof(Index));
         }
     }

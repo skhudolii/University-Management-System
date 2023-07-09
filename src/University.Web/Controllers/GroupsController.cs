@@ -1,98 +1,121 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Entities;
 using University.Core.Repositories;
+using University.Core.Services;
+using University.Core.Services.Interfaces;
+using University.Core.ViewModels.GroupVM;
 
 namespace University.Web.Controllers
 {
     public class GroupsController : Controller
     {
-        private readonly IGroupsRepository _repository;
+        private readonly IGroupsService _groupsService;
 
-        public GroupsController(IGroupsRepository repository)
+        public GroupsController(IGroupsService groupsService)
         {
-            _repository = repository;
+            _groupsService = groupsService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allGroups = await _repository.GetAllAsync();
-            return View(allGroups);
-        }
-
-        // GET: Groups/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create([Bind("Name,FacultyId")]Group group)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(group);
-            }
-            await _repository.AddAsync(group);
-            return RedirectToAction(nameof(Index));
+            var allGroups = await _groupsService.GetGroupsList();
+            return View(allGroups.Data);
         }
 
         // GET: Groups/Details/1
         public async Task<IActionResult> Details(int id)
         {
-            var groupDetails = await _repository.GetByIdAsync(id);
-
-            if (groupDetails == null)
+            var groupDetails = await _groupsService.GetGroupWithIncludePropertiesById(id);
+            if (groupDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("NotFound");
+                return View("Error", $"Error {groupDetails.StatusCode}, {groupDetails.Description}");
             }
-            return View(groupDetails);
+
+            return View(groupDetails.Data);
+        }
+
+        // GET: Groups/Create
+        public async Task<IActionResult> Create()
+        {
+            var groupDropdownsValues = await _groupsService.GetNewGroupDropdownsValues();
+            ViewBag.Faculties = new SelectList(groupDropdownsValues.Data.Faculties, "Id", "Name");
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewGroupVM groupVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                var groupDropdownsValues = await _groupsService.GetNewGroupDropdownsValues();
+                ViewBag.Faculties = new SelectList(groupDropdownsValues.Data.Faculties, "Id", "Name");
+
+                return View(groupVM);
+            }
+
+            await _groupsService.AddNewGroup(groupVM);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Groups/Edit/1
         public async Task<IActionResult> Edit(int id)
         {
-            var groupDetails = await _repository.GetByIdAsync(id);
-
-            if (groupDetails == null)
+            var groupDetails = await _groupsService.GetGroupById(id);
+            if (groupDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("NotFound");
+                return View("Error", $"Error {groupDetails.StatusCode}, {groupDetails.Description}");
             }
-            return View(groupDetails);
+
+            var groupDropdownsValues = await _groupsService.GetNewGroupDropdownsValues();
+            ViewBag.Faculties = new SelectList(groupDropdownsValues.Data.Faculties, "Id", "Name");
+
+            return View(groupDetails.Data);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FacultyId")] Group group)
+        public async Task<IActionResult> Edit(int id, NewGroupVM groupVM)
         {
+            if (id != groupVM.Id)
+            {
+                return View("Error", "Not found");
+            }
+
             if (!ModelState.IsValid)
             {
-                return View(group);
+                var groupDropdownsValues = await _groupsService.GetNewGroupDropdownsValues();
+                ViewBag.Faculties = new SelectList(groupDropdownsValues.Data.Faculties, "Id", "Name");
+
+                return View(groupVM);
             }
-            await _repository.UpdateAsync(id, group);
+
+            await _groupsService.UpdateGroup(groupVM);
             return RedirectToAction(nameof(Index));
         }
 
         // GET: Groups/Delete/1
         public async Task<IActionResult> Delete(int id)
         {
-            var groupDetails = await _repository.GetByIdAsync(id);
-
-            if (groupDetails == null)
+            var groupDetails = await _groupsService.GetGroupWithIncludePropertiesById(id);
+            if (groupDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("NotFound");
+                return View("Error", $"Error {groupDetails.StatusCode}, {groupDetails.Description}");
             }
-            return View(groupDetails);
+
+            return View(groupDetails.Data);
         }
 
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var groupDetails = await _repository.GetByIdAsync(id);
-
-            if (groupDetails == null)
+            var groupDeyails = await _groupsService.GetGroupWithIncludePropertiesById(id);
+            var response = await _groupsService.DeleteGroup(id);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("NotFound");
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
             }
-            await _repository.DeleteAsync(id);
+
             return RedirectToAction(nameof(Index));
         }
     }
