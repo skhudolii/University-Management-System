@@ -29,7 +29,7 @@ namespace University.Core.Services
                     FullName = model.FullName,
                     Email = model.Email,
                     ProfilePictureURL = model.ProfilePictureURL,
-                    AcademicPosition = model.AcademicPosition,
+                    AcademicPosition = (AcademicPosition)model.AcademicPosition,
                     FacultyId = model.FacultyId
                 };
                 await _academicEmployeesRepository.AddAsync(newAcademicEmployee);
@@ -229,7 +229,7 @@ namespace University.Core.Services
                 dbAcademicEmployee.FullName = model.FullName;
                 dbAcademicEmployee.Email = model.Email;
                 dbAcademicEmployee.ProfilePictureURL = model.ProfilePictureURL;
-                dbAcademicEmployee.AcademicPosition = model.AcademicPosition;
+                dbAcademicEmployee.AcademicPosition = (AcademicPosition)model.AcademicPosition;
                 dbAcademicEmployee.FacultyId = model.FacultyId;
 
                 await _academicEmployeesRepository.UpdateAsync(dbAcademicEmployee.Id, dbAcademicEmployee);

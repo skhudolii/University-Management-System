@@ -24,10 +24,10 @@ namespace University.Core.ViewModels.AcademicEmployeeVM
 
         [Display(Name = "Academic Position")]
         [Required(ErrorMessage = "Academic Position is required")]
-        public AcademicPosition AcademicPosition { get; set; }
+        public AcademicPosition? AcademicPosition { get; set; }
 
         [Display(Name = "Faculty")]
         [Required(ErrorMessage = "Faculty is required")]
-        public int FacultyId { get; set; }
+        public int? FacultyId { get; set; }
     }
 }

@@ -13,6 +13,6 @@ namespace University.Core.ViewModels.SubjectVM
 
         [Display(Name = "Select a faculty")]
         [Required(ErrorMessage = "Faculty is required")]
-        public int FacultyId { get; set; }
+        public int? FacultyId { get; set; }
     }
 }
