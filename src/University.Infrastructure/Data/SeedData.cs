@@ -693,7 +693,7 @@ namespace University.Infrastructure.Data
                         EndTime = new TimeSpan(10, 10, 0),
                         FacultyId = 1,
                         Subject = context.Subjects.FirstOrDefault(n => n.Name == "Console Programs"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 1),
+                        AcademicEmployee = context.AcademicEmployees.FirstOrDefault(n => n.Id == 1),
                         LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 1)
                     },
                     new Lecture
@@ -703,7 +703,7 @@ namespace University.Infrastructure.Data
                         EndTime = new TimeSpan(10, 10, 0),
                         FacultyId = 1,
                         Subject = context.Subjects.FirstOrDefault(n => n.Name == "SQL"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 2),
+                        AcademicEmployee = context.AcademicEmployees.FirstOrDefault(n => n.Id == 2),
                         LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 2)
                     },
                     new Lecture
@@ -713,7 +713,7 @@ namespace University.Infrastructure.Data
                         EndTime = new TimeSpan(12, 5, 0),
                         FacultyId = 1,
                         Subject = context.Subjects.FirstOrDefault(n => n.Name == "SQL"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 2),
+                        AcademicEmployee = context.AcademicEmployees.FirstOrDefault(n => n.Id == 2),
                         LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 2)
                     },
                     new Lecture
@@ -723,7 +723,7 @@ namespace University.Infrastructure.Data
                         EndTime = new TimeSpan(12, 5, 0),
                         FacultyId = 1,
                         Subject = context.Subjects.FirstOrDefault(n => n.Name == "Console Programs"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 1),
+                        AcademicEmployee = context.AcademicEmployees.FirstOrDefault(n => n.Id == 1),
                         LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 1)
                     },
                     new Lecture
@@ -733,7 +733,7 @@ namespace University.Infrastructure.Data
                         EndTime = new TimeSpan(10, 10, 0),
                         FacultyId = 2,
                         Subject = context.Subjects.FirstOrDefault(n => n.Name == "Java Tools"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 5),
+                        AcademicEmployee = context.AcademicEmployees.FirstOrDefault(n => n.Id == 5),
                         LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 6)
                     },
                     new Lecture
@@ -743,7 +743,7 @@ namespace University.Infrastructure.Data
                         EndTime = new TimeSpan(10, 10, 0),
                         FacultyId = 2,
                         Subject = context.Subjects.FirstOrDefault(n => n.Name == "Clean Code"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 6),
+                        AcademicEmployee = context.AcademicEmployees.FirstOrDefault(n => n.Id == 6),
                         LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 7)
                     },
                     new Lecture
@@ -753,7 +753,7 @@ namespace University.Infrastructure.Data
                         EndTime = new TimeSpan(10, 10, 0),
                         FacultyId = 2,
                         Subject = context.Subjects.FirstOrDefault(n => n.Name == "Spring Boot Start"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 5),
+                        AcademicEmployee = context.AcademicEmployees.FirstOrDefault(n => n.Id == 5),
                         LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 6)
                     },
                     new Lecture
@@ -763,7 +763,7 @@ namespace University.Infrastructure.Data
                         EndTime = new TimeSpan(12, 5, 0),
                         FacultyId = 2,
                         Subject = context.Subjects.FirstOrDefault(n => n.Name == "Spring Boot Web API"),
-                        Teacher = context.AcademicEmployees.FirstOrDefault(n => n.Id == 7),
+                        AcademicEmployee = context.AcademicEmployees.FirstOrDefault(n => n.Id == 7),
                         LectureRoom = context.LectureRooms.FirstOrDefault(n => n.Id == 10)
                     }
                     );

@@ -10,12 +10,16 @@
         <table class="table">
             <thead>
                 <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.LectureDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.StartTime)</th>
-                    <th>@Html.DisplayNameFor(model => model.EndTime)</th>
-                    <th>@Html.DisplayNameFor(model => model.Subject.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.LectureRoom.Name)</th>
-                    <th>Actions</th>
+                    <th class="align-middle">@Html.DisplayNameFor(model => model.LectureDate)</th>
+                    <th class="align-middle">
+                        @Html.DisplayNameFor(model => model.StartTime)
+                        <br />
+                        @Html.DisplayNameFor(model => model.EndTime)
+                    </th>
+                    <th class="align-middle">@Html.DisplayNameFor(model => model.Subject.Name)</th>
+                    <th class="align-middle">@Html.DisplayNameFor(model => model.LectureRoom.Name)</th>
+                    <th class="align-middle">@Html.DisplayNameFor(model => model.Faculty.Name)</th>
+                    <th class="align-middle">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,8 +31,7 @@
                         </td>
                         <td class="align-middle">
                             @item.StartTime.ToString(@"hh\:mm")
-                        </td>
-                        <td class="align-middle">
+                            <br />
                             @item.EndTime.ToString(@"hh\:mm")
                         </td>
                         <td class="align-middle">
@@ -36,7 +39,10 @@
                         </td>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.LectureRoom.Name)
-                        </td>                        
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Faculty.Name)
+                        </td>
                         <td class="align-middle">
                             <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit </a> |
                             <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details </a> |

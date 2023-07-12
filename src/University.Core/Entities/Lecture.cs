@@ -34,7 +34,8 @@ namespace University.Core.Entities
         public LectureRoom LectureRoom { get; set; }
         public int AcademicEmployeeId { get; set; }
         [ForeignKey("AcademicEmployeeId")]
-        public AcademicEmployee Teacher { get; set; }        
+        [Display(Name = "Teacher")]
+        public AcademicEmployee AcademicEmployee { get; set; }        
 
         // n-n relationships
         public List<LectureGroup> LecturesGroups { get; set; }

@@ -16,23 +16,23 @@ namespace University.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddNewLectureAsync(NewLectureVM data)
+        public async Task AddNewLectureAsync(NewLectureVM model)
         {
             var newLecture = new Lecture()
             {
-                LectureDate = data.LectureDate,
-                StartTime = data.StartTime,
-                EndTime = data.EndTime,
-                FacultyId = data.FacultyId,
-                SubjectId = data.SubjectId,
-                LectureRoomId = data.LectureRoomId,
-                AcademicEmployeeId = data.AcademicEmployeeId,
+                LectureDate = model.LectureDate,
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+                FacultyId = model.FacultyId,
+                SubjectId = (int)model.SubjectId,
+                LectureRoomId = (int)model.LectureRoomId,
+                AcademicEmployeeId = (int)model.AcademicEmployeeId,
             };
             await _context.Lectures.AddAsync(newLecture);
             await _context.SaveChangesAsync();
 
             // Add Lecture Groups
-            foreach (var groupId in data.GroupIds)
+            foreach (var groupId in model.GroupIds)
             {
                 var newLectureGroup = new LectureGroup()
                 {
@@ -44,12 +44,12 @@ namespace University.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Lecture> GetLectureByIdAsync(int id)
+        public async Task<Lecture> GetLectureWithIncludePropertiesByIdAsync(int id)
         {
             var lectureDetails = await _context.Lectures
                 .Include(s => s.Subject)
                 .Include(l => l.LectureRoom)
-                .Include(a => a.Teacher)
+                .Include(a => a.AcademicEmployee)
                 .Include(f => f.Faculty)
                 .Include(lg => lg.LecturesGroups).ThenInclude(g => g.Group)
                 .FirstOrDefaultAsync(n => n.Id == id);
@@ -57,53 +57,53 @@ namespace University.Infrastructure.Repositories
             return lectureDetails;
         }
 
-        public async Task<NewLectureDropdownsVM> GetNewLectureDropdownsValues()
-        {
-            var responce = new NewLectureDropdownsVM()
-            {
-                Faculties = await _context.Faculties.OrderBy(n => n.Name).ToListAsync(),
-                Subjects = await _context.Subjects.OrderBy(n => n.Name).ToListAsync(),
-                LectureRooms = await _context.LectureRooms.OrderBy(n => n.Name).ToListAsync(),
-                Teachers = await _context.AcademicEmployees.OrderBy(n => n.FullName).ToListAsync(),
-                Groups = await _context.Groups.OrderBy(n => n.Name).ToListAsync()
-            };
+        //public async Task<NewLectureDropdownsVM> GetNewLectureDropdownsValues()
+        //{
+        //    var responce = new NewLectureDropdownsVM()
+        //    {
+        //        Faculties = await _context.Faculties.OrderBy(n => n.Name).ToListAsync(),
+        //        Subjects = await _context.Subjects.OrderBy(n => n.Name).ToListAsync(),
+        //        LectureRooms = await _context.LectureRooms.OrderBy(n => n.Name).ToListAsync(),
+        //        Teachers = await _context.AcademicEmployees.OrderBy(n => n.FullName).ToListAsync(),
+        //        Groups = await _context.Groups.OrderBy(n => n.Name).ToListAsync()
+        //    };
 
-            return responce;
-        }
+        //    return responce;
+        //}
 
-        public async Task UpdateLectureAsync(NewLectureVM data)
-        {
-            var dbLecture = await _context.Lectures.FirstOrDefaultAsync(n => n.Id == data.Id);
+        //public async Task UpdateLectureAsync(NewLectureVM data)
+        //{
+        //    var dbLecture = await _context.Lectures.FirstOrDefaultAsync(n => n.Id == data.Id);
 
-            if (dbLecture != null)
-            {
-                dbLecture.LectureDate = data.LectureDate;
-                dbLecture.StartTime = data.StartTime;
-                dbLecture.EndTime = data.EndTime;
-                dbLecture.FacultyId = data.FacultyId;
-                dbLecture.SubjectId = data.SubjectId;
-                dbLecture.LectureRoomId = data.LectureRoomId;
-                dbLecture.AcademicEmployeeId = data.AcademicEmployeeId;              
+        //    if (dbLecture != null)
+        //    {
+        //        dbLecture.LectureDate = data.LectureDate;
+        //        dbLecture.StartTime = data.StartTime;
+        //        dbLecture.EndTime = data.EndTime;
+        //        dbLecture.FacultyId = data.FacultyId;
+        //        dbLecture.SubjectId = data.SubjectId;
+        //        dbLecture.LectureRoomId = data.LectureRoomId;
+        //        dbLecture.AcademicEmployeeId = data.AcademicEmployeeId;              
 
-                await _context.SaveChangesAsync();
-            }
+        //        await _context.SaveChangesAsync();
+        //    }
 
-            // Remove existing groups
-            var existingGroupsDb = _context.LecturesGroups.Where(n => n.LectureId == data.Id).ToList();
-            _context.LecturesGroups.RemoveRange(existingGroupsDb);
-            await _context.SaveChangesAsync();
+        //    // Remove existing groups
+        //    var existingGroupsDb = _context.LecturesGroups.Where(n => n.LectureId == data.Id).ToList();
+        //    _context.LecturesGroups.RemoveRange(existingGroupsDb);
+        //    await _context.SaveChangesAsync();
 
-            // Add Lecture Groups
-            foreach (var groupId in data.GroupIds)
-            {
-                var newLectureGroup = new LectureGroup()
-                {
-                    LectureId = data.Id,
-                    GroupId = groupId
-                };
-                await _context.LecturesGroups.AddAsync(newLectureGroup);
-            }
-            await _context.SaveChangesAsync();
-        }
+        //    // Add Lecture Groups
+        //    foreach (var groupId in data.GroupIds)
+        //    {
+        //        var newLectureGroup = new LectureGroup()
+        //        {
+        //            LectureId = data.Id,
+        //            GroupId = groupId
+        //        };
+        //        await _context.LecturesGroups.AddAsync(newLectureGroup);
+        //    }
+        //    await _context.SaveChangesAsync();
+        //}
     }
 }

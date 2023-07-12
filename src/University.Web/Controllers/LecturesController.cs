@@ -1,164 +1,182 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using University.Core.Repositories;
+using University.Core.Services.Interfaces;
 using University.Core.ViewModels.LectureVM;
 
 namespace University.Web.Controllers
 {
     public class LecturesController : Controller
     {
-        private readonly ILecturesRepository _repository;
+        private readonly ILecturesService _lecturesService;
+        private readonly ILectureCascadingDropdownsService _lectureCascadingDropdownsService;
 
-        public LecturesController(ILecturesRepository repository)
+        public LecturesController(ILecturesService lecturesService,
+                                  ILectureCascadingDropdownsService lectureCascadingDropdownsService)
         {
-            _repository = repository;
+            _lecturesService = lecturesService;
+            _lectureCascadingDropdownsService = lectureCascadingDropdownsService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allLectures = await _repository.GetAllAsync(n => n.Subject, n => n.LectureRoom);
-            return View(allLectures);
+            var allLectures = await _lecturesService.GetLecturesList();
+            return View(allLectures.Data);
         }
 
-        public async Task<IActionResult> Filter(string searchString)
-        {
-            var allLectures = await _repository.GetAllAsync(s => s.Subject, t => t.Teacher);
+        //public async Task<IActionResult> Filter(string searchString)
+        //{
+        //    var allLectures = await _repository.GetAllAsync(s => s.Subject, t => t.Teacher);
 
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                var filteredResult = allLectures.Where(n => n.Subject.Name.ToLower().Contains(searchString.ToLower()) ||
-                                                            n.Teacher.FullName.ToLower().Contains(searchString.ToLower()) || 
-                                                            n.LectureDate.ToString().Contains(searchString));
+        //    if (!string.IsNullOrEmpty(searchString))
+        //    {
+        //        var filteredResult = allLectures.Where(n => n.Subject.Name.ToLower().Contains(searchString.ToLower()) ||
+        //                                                    n.Teacher.FullName.ToLower().Contains(searchString.ToLower()) || 
+        //                                                    n.LectureDate.ToString().Contains(searchString));
 
-                return View("Index", filteredResult);
-            }
+        //        return View("Index", filteredResult);
+        //    }
 
-            return View("Index", allLectures);
-        }
+        //    return View("Index", allLectures);
+        //}
 
         // GET: Lectures/Details/1
         public async Task<IActionResult> Details(int id)
         {
-            var lectureDetails = await _repository.GetLectureByIdAsync(id);
+            var lectureDetails = await _lecturesService.GetLectureWithIncludePropertiesById(id);
+            if (lectureDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {(int)lectureDetails.StatusCode}, {lectureDetails.Description}");
+            }
 
-            return View(lectureDetails);
+            return View(lectureDetails.Data);
         }
 
         // GET: Lectures/Create
         public async Task<IActionResult> Create()
         {
-            var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
-
-            ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
-            ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
-            ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
-            ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
-            ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
+            var faculties = (await _lectureCascadingDropdownsService.GetFaculties()).Data.Faculties;
+            ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
 
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(NewLectureVM lecture)
+        // this method is called using jQuery
+        public async Task<JsonResult> GetValuesByFacultyId(int facultyId)
         {
-            if (!ModelState.IsValid)
+            var response = await _lectureCascadingDropdownsService.GetDependentDropdownsValues();
+
+            var academicEmployees = response.Data.AcademicEmployees.Where(g => g.FacultyId == facultyId).ToList();
+            var groups = response.Data.Groups.Where(g => g.FacultyId == facultyId).ToList();
+            var lectureRooms = response.Data.LectureRooms.Where(g => g.FacultyId == facultyId).ToList();
+            var subjects = response.Data.Subjects.Where(g => g.FacultyId == facultyId).ToList();
+
+            var dependentDropdownsValuesByFacultyId = new
             {
-                var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
-
-                ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
-                ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
-                ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
-                ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
-                ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
-
-                return View(lecture);
-            }
-
-            await _repository.AddNewLectureAsync(lecture);
-            return RedirectToAction(nameof(Index));
-        }
-
-        // GET: Lectures/Edit/1
-        public async Task<IActionResult> Edit(int id)
-        {
-            var lectureDetails = await _repository.GetLectureByIdAsync(id);
-            if (lectureDetails == null)
-            {
-                return View("NotFound");
-            }
-
-            var responce = new NewLectureVM()
-            {
-                Id = lectureDetails.Id,
-                LectureDate = lectureDetails.LectureDate,
-                StartTime = lectureDetails.StartTime,
-                EndTime = lectureDetails.EndTime,
-                FacultyId = (int)lectureDetails.FacultyId,
-                SubjectId = lectureDetails.SubjectId,
-                LectureRoomId = lectureDetails.LectureRoomId,
-                AcademicEmployeeId = lectureDetails.AcademicEmployeeId,
-                GroupIds = lectureDetails.LecturesGroups.Select(n => n.GroupId).ToList()
+                academicEmployees,
+                groups,
+                lectureRooms,
+                subjects
             };
 
-            var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
-
-            ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
-            ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
-            ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
-            ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
-            ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
-
-            return View(responce);
+            return Json(dependentDropdownsValuesByFacultyId);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, NewLectureVM lecture)
+        public async Task<IActionResult> Create(NewLectureVM newLectureVM)
         {
-            if (id != lecture.Id)
-            {
-                return View("NotFound");
-            }
-
             if (!ModelState.IsValid)
             {
-                var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
+                var faculties = (await _lectureCascadingDropdownsService.GetFaculties()).Data.Faculties;
+                ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
 
-                ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
-                ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
-                ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
-                ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
-                ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
-
-                return View(lecture);
+                return View(newLectureVM);
             }
 
-            await _repository.UpdateLectureAsync(lecture);
+            await _lecturesService.AddNewLecture(newLectureVM);
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Lectures/Delete/1
-        public async Task<IActionResult> Delete(int id)
-        {
-            var lectureDetails = await _repository.GetLectureByIdAsync(id);
-            if (lectureDetails == null)
-            {
-                return View("NotFound");
-            }
+        //// GET: Lectures/Edit/1
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var lectureDetails = await _repository.GetLectureByIdAsync(id);
+        //    if (lectureDetails == null)
+        //    {
+        //        return View("NotFound");
+        //    }
 
-            return View(lectureDetails);
-        }
+        //    var responce = new NewLectureVM()
+        //    {
+        //        Id = lectureDetails.Id,
+        //        LectureDate = lectureDetails.LectureDate,
+        //        StartTime = lectureDetails.StartTime,
+        //        EndTime = lectureDetails.EndTime,
+        //        FacultyId = (int)lectureDetails.FacultyId,
+        //        SubjectId = lectureDetails.SubjectId,
+        //        LectureRoomId = lectureDetails.LectureRoomId,
+        //        AcademicEmployeeId = lectureDetails.AcademicEmployeeId,
+        //        GroupIds = lectureDetails.LecturesGroups.Select(n => n.GroupId).ToList()
+        //    };
 
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirm(int id)
-        {
-            var lectureDetails = await _repository.GetLectureByIdAsync(id);
-            if (lectureDetails == null)
-            {
-                return View("NotFound");
-            }
+        //    var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
 
-            await _repository.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
-        }
+        //    ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
+        //    ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
+        //    ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
+        //    ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
+        //    ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
+
+        //    return View(responce);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(int id, NewLectureVM lecture)
+        //{
+        //    if (id != lecture.Id)
+        //    {
+        //        return View("NotFound");
+        //    }
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var lectureDropdownsData = await _repository.GetNewLectureDropdownsValues();
+
+        //        ViewBag.Faculties = new SelectList(lectureDropdownsData.Faculties, "Id", "Name");
+        //        ViewBag.Subjects = new SelectList(lectureDropdownsData.Subjects, "Id", "Name");
+        //        ViewBag.LectureRooms = new SelectList(lectureDropdownsData.LectureRooms, "Id", "Name");
+        //        ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Teachers, "Id", "FullName");
+        //        ViewBag.Groups = new SelectList(lectureDropdownsData.Groups, "Id", "Name");
+
+        //        return View(lecture);
+        //    }
+
+        //    await _repository.UpdateLectureAsync(lecture);
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //// GET: Lectures/Delete/1
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var lectureDetails = await _repository.GetLectureByIdAsync(id);
+        //    if (lectureDetails == null)
+        //    {
+        //        return View("NotFound");
+        //    }
+
+        //    return View(lectureDetails);
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //public async Task<IActionResult> DeleteConfirm(int id)
+        //{
+        //    var lectureDetails = await _repository.GetLectureByIdAsync(id);
+        //    if (lectureDetails == null)
+        //    {
+        //        return View("NotFound");
+        //    }
+
+        //    await _repository.DeleteAsync(id);
+        //    return RedirectToAction(nameof(Index));
+        //}
     }
 }

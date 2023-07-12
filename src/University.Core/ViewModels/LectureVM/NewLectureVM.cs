@@ -14,34 +14,34 @@ namespace University.Core.ViewModels.LectureVM
         [DisplayFormat(DataFormatString = "{0:ddd, dd MMM yy}")]
         public DateTime LectureDate { get; set; }
 
-        [Display(Name = "Lecture start time")]
+        [Display(Name = "Start time")]
         [Required(ErrorMessage = "Start time is required")]
         [DataType(DataType.Time)]
         public TimeSpan StartTime { get; set; }
 
-        [Display(Name = "Lecture end time")]
+        [Display(Name = "End time")]
         [Required(ErrorMessage = "End time is required")]
         [DataType(DataType.Time)]
         public TimeSpan EndTime { get; set; }
 
-        [Display(Name = "Select a faculty")]
+        [Display(Name = "Faculty")]
         [Required(ErrorMessage = "Faculty is required")]
-        public int FacultyId { get; set; }
+        public int? FacultyId { get; set; }
 
-        [Display(Name = "Select a subject")]
+        [Display(Name = "Subject")]
         [Required(ErrorMessage = "Subject is required")]
-        public int SubjectId { get; set; }
+        public int? SubjectId { get; set; }
 
-        [Display(Name = "Select a lecture room")]
+        [Display(Name = "Lecture room")]
         [Required(ErrorMessage = "Lecture room is required")]
-        public int LectureRoomId { get; set; }
+        public int? LectureRoomId { get; set; }
 
-        [Display(Name = "Select a teacher")]
+        [Display(Name = "Teacher")]
         [Required(ErrorMessage = "Teacher is required")]
-        public int AcademicEmployeeId { get; set; }
+        public int? AcademicEmployeeId { get; set; }
  
-        [Display(Name = "Select group(s)")]
-        [Required(ErrorMessage = "Lecture group(s) is required")]
+        [Display(Name = "Group(s) - Ctrl and click to multiple choose")]
+        [Required(ErrorMessage = "At least one group is required")]
         public List<int> GroupIds { get; set; }
     }
 }

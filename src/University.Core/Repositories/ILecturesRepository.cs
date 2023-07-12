@@ -6,9 +6,9 @@ namespace University.Core.Repositories
 {
     public interface ILecturesRepository : IEntityBaseRepository<Lecture>
     {
-        Task<Lecture> GetLectureByIdAsync(int id);
-        Task<NewLectureDropdownsVM> GetNewLectureDropdownsValues();
-        Task AddNewLectureAsync(NewLectureVM data);
-        Task UpdateLectureAsync(NewLectureVM data);
+        Task<Lecture> GetLectureWithIncludePropertiesByIdAsync(int id);
+        //Task<NewLectureDropdownsVM> GetNewLectureDropdownsValues();
+        Task AddNewLectureAsync(NewLectureVM model);
+        //Task UpdateLectureAsync(NewLectureVM model);
     }
 }
