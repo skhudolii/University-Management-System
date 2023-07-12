@@ -11,5 +11,6 @@ namespace University.Core.Services.Interfaces
         Task<IBaseResponse<Lecture>> GetLectureWithIncludePropertiesById(int id);
         Task<IBaseResponse<Lecture>> AddNewLecture(NewLectureVM newLectureVM);
         Task<IBaseResponse<Lecture>> UpdateLecture(NewLectureVM newLectureVM);
+        Task<IBaseResponse<bool>> DeleteLecture(int id);
     }
 }

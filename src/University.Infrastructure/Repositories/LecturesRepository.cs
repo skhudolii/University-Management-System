@@ -32,16 +32,7 @@ namespace University.Infrastructure.Repositories
             await _context.SaveChangesAsync();
 
             // Add Lecture Groups
-            foreach (var groupId in model.GroupIds)
-            {
-                var newLectureGroup = new LectureGroup()
-                {
-                    LectureId = newLecture.Id,
-                    GroupId = groupId
-                };
-                await _context.LecturesGroups.AddAsync(newLectureGroup);
-            }
-            await _context.SaveChangesAsync();
+            await AddLectureGroupsAsync(newLecture.Id, model);
         }
 
         public async Task<Lecture> GetLectureWithIncludePropertiesByIdAsync(int id)
@@ -56,20 +47,6 @@ namespace University.Infrastructure.Repositories
 
             return lectureDetails;
         }
-
-        //public async Task<NewLectureDropdownsVM> GetNewLectureDropdownsValues()
-        //{
-        //    var responce = new NewLectureDropdownsVM()
-        //    {
-        //        Faculties = await _context.Faculties.OrderBy(n => n.Name).ToListAsync(),
-        //        Subjects = await _context.Subjects.OrderBy(n => n.Name).ToListAsync(),
-        //        LectureRooms = await _context.LectureRooms.OrderBy(n => n.Name).ToListAsync(),
-        //        Teachers = await _context.AcademicEmployees.OrderBy(n => n.FullName).ToListAsync(),
-        //        Groups = await _context.Groups.OrderBy(n => n.Name).ToListAsync()
-        //    };
-
-        //    return responce;
-        //}
 
         public async Task UpdateLectureAsync(NewLectureVM model)
         {
@@ -94,11 +71,16 @@ namespace University.Infrastructure.Repositories
             await _context.SaveChangesAsync();
 
             // Add Lecture Groups
+            await AddLectureGroupsAsync(model.Id, model);
+        }
+
+        private async Task AddLectureGroupsAsync(int id, NewLectureVM model)
+        {
             foreach (var groupId in model.GroupIds)
             {
                 var newLectureGroup = new LectureGroup()
                 {
-                    LectureId = model.Id,
+                    LectureId = id,
                     GroupId = groupId
                 };
                 await _context.LecturesGroups.AddAsync(newLectureGroup);

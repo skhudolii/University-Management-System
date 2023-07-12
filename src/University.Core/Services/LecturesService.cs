@@ -176,5 +176,39 @@ namespace University.Core.Services
                 };
             }
         }
+
+        public async Task<IBaseResponse<bool>> DeleteLecture(int id)
+        {
+            try
+            {
+                var lecture = await _lecturesRepository.GetByIdAsync(id);
+                if (lecture == null)
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        Data = false,
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                await _lecturesRepository.DeleteAsync(id);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    Description = "Lecture successfully deleted",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>
+                {
+                    Description = $"[LecturesService.DeleteLecture] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }

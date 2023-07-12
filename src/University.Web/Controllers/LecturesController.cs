@@ -149,29 +149,29 @@ namespace University.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //// GET: Lectures/Delete/1
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var lectureDetails = await _repository.GetLectureByIdAsync(id);
-        //    if (lectureDetails == null)
-        //    {
-        //        return View("NotFound");
-        //    }
+        // GET: Lectures/Delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var lectureDetails = await _lecturesService.GetLectureWithIncludePropertiesById(id);
+            if (lectureDetails.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {lectureDetails.StatusCode}, {lectureDetails.Description}");
+            }
 
-        //    return View(lectureDetails);
-        //}
+            return View(lectureDetails.Data);
+        }
 
-        //[HttpPost, ActionName("Delete")]
-        //public async Task<IActionResult> DeleteConfirm(int id)
-        //{
-        //    var lectureDetails = await _repository.GetLectureByIdAsync(id);
-        //    if (lectureDetails == null)
-        //    {
-        //        return View("NotFound");
-        //    }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            var lectureDetails = await _lecturesService.GetLectureWithIncludePropertiesById(id);
+            var response = await _lecturesService.DeleteLecture(id);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
+            }
 
-        //    await _repository.DeleteAsync(id);
-        //    return RedirectToAction(nameof(Index));
-        //}
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
