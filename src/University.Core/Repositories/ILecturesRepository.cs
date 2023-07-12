@@ -9,6 +9,6 @@ namespace University.Core.Repositories
         Task<Lecture> GetLectureWithIncludePropertiesByIdAsync(int id);
         //Task<NewLectureDropdownsVM> GetNewLectureDropdownsValues();
         Task AddNewLectureAsync(NewLectureVM model);
-        //Task UpdateLectureAsync(NewLectureVM model);
+        Task UpdateLectureAsync(NewLectureVM model);
     }
 }

@@ -71,39 +71,39 @@ namespace University.Infrastructure.Repositories
         //    return responce;
         //}
 
-        //public async Task UpdateLectureAsync(NewLectureVM data)
-        //{
-        //    var dbLecture = await _context.Lectures.FirstOrDefaultAsync(n => n.Id == data.Id);
+        public async Task UpdateLectureAsync(NewLectureVM model)
+        {
+            var dbLecture = await _context.Lectures.FirstOrDefaultAsync(n => n.Id == model.Id);
 
-        //    if (dbLecture != null)
-        //    {
-        //        dbLecture.LectureDate = data.LectureDate;
-        //        dbLecture.StartTime = data.StartTime;
-        //        dbLecture.EndTime = data.EndTime;
-        //        dbLecture.FacultyId = data.FacultyId;
-        //        dbLecture.SubjectId = data.SubjectId;
-        //        dbLecture.LectureRoomId = data.LectureRoomId;
-        //        dbLecture.AcademicEmployeeId = data.AcademicEmployeeId;              
+            if (dbLecture != null)
+            {
+                dbLecture.LectureDate = model.LectureDate;
+                dbLecture.StartTime = model.StartTime;
+                dbLecture.EndTime = model.EndTime;
+                dbLecture.FacultyId = model.FacultyId;
+                dbLecture.SubjectId = (int)model.SubjectId;
+                dbLecture.LectureRoomId = (int)model.LectureRoomId;
+                dbLecture.AcademicEmployeeId = (int)model.AcademicEmployeeId;
 
-        //        await _context.SaveChangesAsync();
-        //    }
+                await _context.SaveChangesAsync();
+            }
 
-        //    // Remove existing groups
-        //    var existingGroupsDb = _context.LecturesGroups.Where(n => n.LectureId == data.Id).ToList();
-        //    _context.LecturesGroups.RemoveRange(existingGroupsDb);
-        //    await _context.SaveChangesAsync();
+            // Remove existing groups
+            var existingGroupsDb = _context.LecturesGroups.Where(n => n.LectureId == model.Id).ToList();
+            _context.LecturesGroups.RemoveRange(existingGroupsDb);
+            await _context.SaveChangesAsync();
 
-        //    // Add Lecture Groups
-        //    foreach (var groupId in data.GroupIds)
-        //    {
-        //        var newLectureGroup = new LectureGroup()
-        //        {
-        //            LectureId = data.Id,
-        //            GroupId = groupId
-        //        };
-        //        await _context.LecturesGroups.AddAsync(newLectureGroup);
-        //    }
-        //    await _context.SaveChangesAsync();
-        //}
+            // Add Lecture Groups
+            foreach (var groupId in model.GroupIds)
+            {
+                var newLectureGroup = new LectureGroup()
+                {
+                    LectureId = model.Id,
+                    GroupId = groupId
+                };
+                await _context.LecturesGroups.AddAsync(newLectureGroup);
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using University.Core.Entities;
-using University.Core.Services;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.StudentVM;
 
@@ -48,7 +46,7 @@ namespace University.Web.Controllers
         // this method is called using jQuery
         public async Task<JsonResult> GetGroupsByFacultyId(int facultyId)
         {
-            var groups = (await _studentCascadingDropdownsService.GetGroups()).Data.Groups
+            var groups = (await _studentCascadingDropdownsService.GetDependentGroups()).Data.Groups
                 .Where(g => g.FacultyId == facultyId).ToList();
 
             return Json(groups);
@@ -75,11 +73,15 @@ namespace University.Web.Controllers
             var studentDetails = await _studentsService.GetStudentById(id);
             if (studentDetails.StatusCode != Core.Enums.StatusCode.OK)
             {
-                return View("Error", $"Error {(int)studentDetails.StatusCode}, {studentDetails.Description}");
+                return View("Error", $"Error {studentDetails.StatusCode}, {studentDetails.Description}");
             }
 
             var faculties = (await _studentCascadingDropdownsService.GetFaculties()).Data.Faculties;
             ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
+
+            var studentDropdownsData = await _studentCascadingDropdownsService.GetDependentGroups();
+            ViewBag.Groups = new SelectList(studentDropdownsData.Data.Groups.
+                Where(f => f.FacultyId == studentDetails.Data.FacultyId), "Id", "Name");
 
             return View(studentDetails.Data);
         }
@@ -96,6 +98,9 @@ namespace University.Web.Controllers
             {
                 var faculties = (await _studentCascadingDropdownsService.GetFaculties()).Data.Faculties;
                 ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
+
+                var studentDropdownsData = await _studentCascadingDropdownsService.GetDependentGroups();
+                ViewBag.Groups = new SelectList(studentDropdownsData.Data.Groups, "Id", "Name");
 
                 return View(studentVM);
             }

@@ -43,7 +43,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewStudentDropdownsVM>> GetGroups()
+        public async Task<IBaseResponse<NewStudentDropdownsVM>> GetDependentGroups()
         {
             try
             {
@@ -65,7 +65,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<NewStudentDropdownsVM>()
                 {
-                    Description = $"[StudentCascadingDropdownsService.GetGroups] : {ex.Message}",
+                    Description = $"[StudentCascadingDropdownsService.GetDependentGroups] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

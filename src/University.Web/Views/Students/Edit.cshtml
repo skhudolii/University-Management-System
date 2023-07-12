@@ -21,14 +21,14 @@
 
                     <div class="mb-3">
                         <label asp-for="FacultyId" class="control-label"></label>
-                        <select asp-for="FacultyId" class="form-select" id="facultyId" asp-items="@ViewBag.faculties">
+                        <select asp-for="FacultyId" class="form-select" id="facultyId" asp-items="ViewBag.Faculties">
                             <option disabled selected>--Select Faculty--</option>
                         </select>
                         <span asp-validation-for="FacultyId" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="GroupId" class="control-label"></label>
-                        <select asp-for="GroupId" class="form-select" id="groupId"></select>
+                        <select asp-for="GroupId" class="form-select" id="groupId" asp-items="ViewBag.Groups"></select>
                         <span asp-validation-for="GroupId" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
@@ -70,9 +70,7 @@
             output.src = $(this).val();
         })
 
-        $(document).ready(function () {
-            GetGroupsByFacultyId();
-        })
+
         $("#facultyId").change(function () {
             GetGroupsByFacultyId();
         });

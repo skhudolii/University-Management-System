@@ -22,7 +22,9 @@ namespace University.Core.Services
             try
             {
                 var lectures = await _lecturesRepository.GetAllAsync(s => s.Subject, lr => lr.LectureRoom, f => f.Faculty);
-                var filteredLectures = lectures.Where(f => f.FacultyId != null);
+                var filteredLectures = lectures
+                    .Where(f => f.FacultyId != null)
+                    .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
 
                 if (!filteredLectures.Any())
                 {
@@ -96,6 +98,80 @@ namespace University.Core.Services
                 return new BaseResponse<Lecture>()
                 {
                     Description = $"[LecturesService.AddNewLecture] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<NewLectureVM>> GetLectureById(int id)
+        {
+            try
+            {
+                var lecture = await _lecturesRepository.GetByIdAsync(id, lg => lg.LecturesGroups);
+                if (lecture == null)
+                {
+                    return new BaseResponse<NewLectureVM>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+                var data = new NewLectureVM()
+                {
+                    Id = lecture.Id,
+                    LectureDate = lecture.LectureDate,
+                    StartTime = lecture.StartTime,
+                    EndTime = lecture.EndTime,
+                    FacultyId = lecture.FacultyId,
+                    SubjectId = lecture.SubjectId,
+                    LectureRoomId = lecture.LectureRoomId,
+                    AcademicEmployeeId = lecture.AcademicEmployeeId,
+                    GroupIds = lecture.LecturesGroups.Select(n => n.GroupId).ToList()
+                };
+
+                return new BaseResponse<NewLectureVM>()
+                {
+                    Data = data,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<NewLectureVM>()
+                {
+                    Description = $"[LecturesService.GetLectureById] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Lecture>> UpdateLecture(NewLectureVM newLectureVM)
+        {
+            try
+            {
+                var dbLecture = await _lecturesRepository.GetByIdAsync(newLectureVM.Id);
+                if (dbLecture == null)
+                {
+                    return new BaseResponse<Lecture>()
+                    {
+                        Description = "Not found",
+                        StatusCode = StatusCode.NotFound
+                    };
+                }
+
+                await _lecturesRepository.UpdateLectureAsync(newLectureVM);
+
+                return new BaseResponse<Lecture>()
+                {
+                    Description = "Lecture successfully updated",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Lecture>()
+                {
+                    Description = $"[LecturesService.UpdateLecture] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
