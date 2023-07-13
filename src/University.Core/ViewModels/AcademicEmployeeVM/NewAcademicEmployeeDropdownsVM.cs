@@ -1,14 +1,9 @@
 ﻿using University.Core.Entities;
+using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.AcademicEmployeeVM
 {
-    public class NewAcademicEmployeeDropdownsVM
+    public class NewAcademicEmployeeDropdownsVM : BaseDropdownsViewModel
     {
-        public List<Faculty> Faculties { get; set; }
-
-        public NewAcademicEmployeeDropdownsVM()
-        {
-            Faculties = new List<Faculty>();
-        }
     }
 }

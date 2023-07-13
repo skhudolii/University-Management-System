@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.LectureRoomVM
 {
-    public class NewLectureRoomVM
+    public class NewLectureRoomVM : BaseViewModel
     {
-        public int Id { get; set; }
-
         [Display(Name = "Lecture room name")]
         [Required(ErrorMessage = "Lecture room name is required")]
         [StringLength(20, MinimumLength = 1, ErrorMessage = "Lecture room name must be between 1 and 20 chars")]

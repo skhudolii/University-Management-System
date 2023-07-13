@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using University.Core.Enums;
+using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.AcademicEmployeeVM
 {
-    public class NewAcademicEmployeeVM
+    public class NewAcademicEmployeeVM : BaseViewModel
     {
-        public int Id { get; set; }
-
         [Display(Name = "Full name")]
         [Required(ErrorMessage = "Full name is required")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Full name must be between 3 and 50 chars")]

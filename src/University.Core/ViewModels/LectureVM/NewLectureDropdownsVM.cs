@@ -1,18 +1,17 @@
 ﻿using University.Core.Entities;
+using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.LectureVM
 {
-    public class NewLectureDropdownsVM
+    public class NewLectureDropdownsVM : BaseDropdownsViewModel
     {
-        public List<Faculty> Faculties { get; set; }
         public List<Subject> Subjects { get; set; }
         public List<LectureRoom> LectureRooms { get; set; }
         public List<AcademicEmployee> AcademicEmployees { get; set; }
         public List<Group> Groups { get; set; }
 
         public NewLectureDropdownsVM()
-        {
-            Faculties = new List<Faculty>();
+        { 
             Subjects = new List<Subject>();
             LectureRooms = new List<LectureRoom>();
             AcademicEmployees = new List<AcademicEmployee>();

@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.SubjectVM
 {
-    public class NewSubjectVM
+    public class NewSubjectVM : BaseViewModel
     {
-        public int Id { get; set; }
-
         [Display(Name = "Subject name")]
         [Required(ErrorMessage = "Subject name is required")]
         [StringLength(30, MinimumLength = 2, ErrorMessage = "Subject name must be between 2 and 30 chars")]

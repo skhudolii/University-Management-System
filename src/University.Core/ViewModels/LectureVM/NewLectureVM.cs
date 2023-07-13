@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.LectureVM
 {
-    public class NewLectureVM
+    public class NewLectureVM : BaseViewModel
     {
-        public int Id { get; set; }
-
         [Display(Name = "Lecture date")]
         [Required(ErrorMessage = "Date is required")]
         [DataType(DataType.Date)]
