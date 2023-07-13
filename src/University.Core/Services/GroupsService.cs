@@ -119,8 +119,8 @@ namespace University.Core.Services
         {
             try
             {
-                var groupsDetails = await _groupsRepository.GetByIdAsync(id, f => f.Faculty, s => s.Students);
-                if (groupsDetails == null || groupsDetails.Faculty == null)
+                var groupDetails = await _groupsRepository.GetByIdAsync(id, f => f.Faculty, s => s.Students);
+                if (groupDetails == null || groupDetails.Faculty == null)
                 {
                     return new BaseResponse<Group>()
                     {
@@ -131,7 +131,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<Group>()
                 {
-                    Data = groupsDetails,
+                    Data = groupDetails,
                     StatusCode = StatusCode.OK
                 };
             }

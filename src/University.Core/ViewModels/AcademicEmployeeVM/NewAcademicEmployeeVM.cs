@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 using University.Core.Enums;
 
 namespace University.Core.ViewModels.AcademicEmployeeVM

@@ -19,6 +19,7 @@ builder.Services.AddDbContext<UniversityDbContext>(opts =>
 
 // Add Core Layer
 builder.Services.AddScoped<IAcademicEmployeesService, AcademicEmployeesService>();
+builder.Services.AddScoped<IFacultiesService, FacultiesService>();
 builder.Services.AddScoped<IGroupsService, GroupsService>();
 builder.Services.AddScoped<ILectureCascadingDropdownsService, LectureCascadingDropdownsService>();
 builder.Services.AddScoped<ILecturesService, LecturesService>();

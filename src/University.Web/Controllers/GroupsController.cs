@@ -106,7 +106,7 @@ namespace University.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var groupDeyails = await _groupsService.GetGroupWithIncludePropertiesById(id);
+            var groupDetails = await _groupsService.GetGroupWithIncludePropertiesById(id);
             var response = await _groupsService.DeleteGroup(id);
             if (response.StatusCode != Core.Enums.StatusCode.OK)
             {

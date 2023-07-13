@@ -13,6 +13,7 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @Model.Name
+                                    <a class="text-danger float-end" asp-action="Delete" asp-route-id="@Model.Id"><i class="bi bi-x-circle-fill"></i></a>
                                 </h5>
                             </p>
                         </div>

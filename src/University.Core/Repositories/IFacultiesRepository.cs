@@ -5,6 +5,5 @@ namespace University.Core.Repositories
 {
     public interface IFacultiesRepository : IEntityBaseRepository<Faculty>
     {
-        Task<Faculty> GetFacultyByIdAsync(int id);
     }
 }
