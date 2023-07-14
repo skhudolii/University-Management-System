@@ -23,22 +23,6 @@ namespace University.Web.Controllers
             return View(allLectures.Data);
         }
 
-        //public async Task<IActionResult> Filter(string searchString)
-        //{
-        //    var allLectures = await _repository.GetAllAsync(s => s.Subject, t => t.Teacher);
-
-        //    if (!string.IsNullOrEmpty(searchString))
-        //    {
-        //        var filteredResult = allLectures.Where(n => n.Subject.Name.ToLower().Contains(searchString.ToLower()) ||
-        //                                                    n.Teacher.FullName.ToLower().Contains(searchString.ToLower()) || 
-        //                                                    n.LectureDate.ToString().Contains(searchString));
-
-        //        return View("Index", filteredResult);
-        //    }
-
-        //    return View("Index", allLectures);
-        //}
-
         // GET: Lectures/Details/1
         public async Task<IActionResult> Details(int id)
         {
@@ -172,6 +156,28 @@ namespace University.Web.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var response = await _lecturesService.Filter(searchString);
+            if (response.StatusCode == Core.Enums.StatusCode.NoContent)
+            {
+                return View("Error", $"{response.StatusCode}, {response.Description}");
+            }
+
+            return View("Index", response.Data);
+        }
+
+        public async Task<IActionResult> Schedule(int id)
+        {
+            var lectures = await _lecturesService.GetLecturesList();
+            var schedule = lectures.Data
+                .Where(f => f.FacultyId == id)
+                .Where(d => d.LectureDate >= DateTime.Now)
+                .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
+
+            return View("Index", schedule);
         }
     }
 }

@@ -210,5 +210,49 @@ namespace University.Core.Services
                 };
             }
         }
+
+        public async Task<IBaseResponse<IEnumerable<Lecture>>> Filter(string searchString)
+        {
+            try
+            {
+                var lectures = await _lecturesRepository.GetAllAsync(
+                    a => a.AcademicEmployee, 
+                    f => f.Faculty, 
+                    lr => lr.LectureRoom, 
+                    s => s.Subject);
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    var filteredResult = lectures.Where(n =>
+                    n.Subject.Name.ToLower().Contains(searchString.ToLower()) || 
+                    n.AcademicEmployee.FullName.ToLower().Contains(searchString.ToLower()) || 
+                    n.LectureDate.ToString().Contains(searchString))
+                    .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
+
+                    if (filteredResult.Any())
+                    {
+                        return new BaseResponse<IEnumerable<Lecture>>()
+                        {
+                            Data = filteredResult,
+                            StatusCode = StatusCode.OK
+                        };
+                    }
+                }
+
+                return new BaseResponse<IEnumerable<Lecture>>()
+                {
+                    Description = "0 items found",
+                    StatusCode = StatusCode.NoContent
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<Lecture>>()
+                {
+                    Description = $"[LecturesService.Filter] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }
