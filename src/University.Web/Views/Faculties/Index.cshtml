@@ -31,7 +31,9 @@
                                 <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">
                                     <i class="bi bi-eye-fill"></i> Show Details
                                 </a>
-                                <a class="btn btn-info text-white float-end"><i class="bi bi-calendar2-event"></i> Schedule</a>
+                                <a class="btn btn-info text-white float-end" asp-controller="Lectures" asp-action="ScheduleForFaculty" asp-route-id="@item.Id">
+                                    <i class="bi bi-calendar2-event"></i> Schedule 
+                                </a>
                             </p>
                         </div>
                     </div>

@@ -35,6 +35,19 @@ namespace University.Infrastructure.Repositories
             await AddLectureGroupsAsync(newLecture.Id, model);
         }
 
+        public async Task<IEnumerable<Lecture>> GetLecturesByStudentIdAsync(int id)
+        {
+            var student = _context.Students
+                .Include(s => s.Group)
+                .ThenInclude(g => g.LecturesGroups)
+                .ThenInclude(lg => lg.Lecture)
+                .FirstOrDefault(s => s.Id == id);
+
+            var lectures = student?.Group?.LecturesGroups.Select(lg => lg.Lecture).ToList();
+
+            return lectures;
+        }
+
         public async Task<Lecture> GetLectureWithIncludePropertiesByIdAsync(int id)
         {
             var lectureDetails = await _context.Lectures

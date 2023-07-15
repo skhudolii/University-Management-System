@@ -9,12 +9,15 @@ namespace University.Web.Controllers
     {
         private readonly ILecturesService _lecturesService;
         private readonly ILectureCascadingDropdownsService _lectureCascadingDropdownsService;
+        private readonly IScheduleService _scheduleService;
 
         public LecturesController(ILecturesService lecturesService,
-                                  ILectureCascadingDropdownsService lectureCascadingDropdownsService)
+                                  ILectureCascadingDropdownsService lectureCascadingDropdownsService,
+                                  IScheduleService scheduleService)
         {
             _lecturesService = lecturesService;
             _lectureCascadingDropdownsService = lectureCascadingDropdownsService;
+            _scheduleService = scheduleService;
         }
 
         public async Task<IActionResult> Index()
@@ -90,10 +93,10 @@ namespace University.Web.Controllers
             }
 
             var faculties = (await _lectureCascadingDropdownsService.GetFaculties()).Data.Faculties;
-            ViewBag.Faculties = new SelectList(faculties, "Id", "Name");                        
+            ViewBag.Faculties = new SelectList(faculties, "Id", "Name");
 
             var lectureDropdownsData = await _lectureCascadingDropdownsService.GetDependentDropdownsValues();
-            
+
             ViewBag.Subjects = new SelectList(lectureDropdownsData.Data.Subjects.
                 Where(f => f.FacultyId == lectureDetails.Data.FacultyId), "Id", "Name");
             ViewBag.LectureRooms = new SelectList(lectureDropdownsData.Data.LectureRooms
@@ -169,15 +172,37 @@ namespace University.Web.Controllers
             return View("Index", response.Data);
         }
 
-        public async Task<IActionResult> Schedule(int id)
+        public async Task<IActionResult> ScheduleForFaculty(int id)
         {
-            var lectures = await _lecturesService.GetLecturesList();
-            var schedule = lectures.Data
-                .Where(f => f.FacultyId == id)
-                .Where(d => d.LectureDate >= DateTime.Now)
-                .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
+            var schedule = await _scheduleService.GetScheduleForFaculty(id);
+            if (schedule.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {schedule.StatusCode}, {schedule.Description}");
+            }
 
-            return View("Index", schedule);
+            return View("Index", schedule.Data);
+        }
+
+        public async Task<IActionResult> ScheduleForTeacher(int id, int daysForward)
+        {            
+            var schedule = await _scheduleService.GetScheduleForTeacher(id, DateTime.Now.Date.AddDays(daysForward));
+            if (schedule.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {schedule.StatusCode}, {schedule.Description}");
+            }
+
+            return View("Index", schedule.Data);
+        }
+
+        public async Task<IActionResult> ScheduleForStudent(int id, int daysForward)
+        {
+            var schedule = await _scheduleService.GetScheduleForStudent(id, DateTime.Now.Date.AddDays(daysForward));
+            if (schedule.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {schedule.StatusCode}, {schedule.Description}");
+            }
+
+            return View("Index", schedule.Data);
         }
     }
 }
