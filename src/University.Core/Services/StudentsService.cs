@@ -43,7 +43,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<IEnumerable<Student>>()
                 {
-                    Description = $"[GetStudentsList] : {ex.Message}",
+                    Description = $"[StudentsService.GetStudentsList] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -73,7 +73,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<Student>()
                 {
-                    Description = $"[GetStudentWithIncludePropertiesById] : {ex.Message}",
+                    Description = $"[StudentsService.GetStudentWithIncludePropertiesById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -103,7 +103,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<Student>()
                 {
-                    Description = $"[AddNewStudent] : {ex.Message}",
+                    Description = $"[StudentsService.AddNewStudent] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -142,7 +142,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<NewStudentVM>()
                 {
-                    Description = $"[StudentService.GetStudentById] : {ex.Message}",
+                    Description = $"[StudentsService.GetStudentById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -180,7 +180,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<Student>()
                 {
-                    Description = $"[StudentServuce.UpdateStudent] : {ex.Message}",
+                    Description = $"[StudentsService.UpdateStudent] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

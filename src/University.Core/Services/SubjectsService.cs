@@ -41,7 +41,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<Subject>()
                 {
-                    Description = $"[AddNewSubject] : {ex.Message}",
+                    Description = $"[SubjectsService.AddNewSubject] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -66,7 +66,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<NewSubjectDropdownsVM>()
                 {
-                    Description = $"[GetNewSubjectDropdownsValues] : {ex.Message}",
+                    Description = $"[SubjectsService.GetNewSubjectDropdownsValues] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -102,7 +102,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<NewSubjectVM>()
                 {
-                    Description = $"[GetSubjectById] : {ex.Message}",
+                    Description = $"[SubjectsService.GetSubjectById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -132,7 +132,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<Subject>()
                 {
-                    Description = $"[GetSubjectWithIncludePropertiesById] : {ex.Message}",
+                    Description = $"[SubjectsService.GetSubjectWithIncludePropertiesById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -162,7 +162,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<IEnumerable<Subject>>()
                 {
-                    Description = $"[GetSubjectsList] : {ex.Message}",
+                    Description = $"[SubjectsService.GetSubjectsList] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -198,7 +198,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<Subject>()
                 {
-                    Description = $"[UpdateSubject] : {ex.Message}",
+                    Description = $"[SubjectsService.UpdateSubject] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -232,7 +232,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<bool>
                 {
-                    Description = $"[DeleteSubject] : {ex.Message}",
+                    Description = $"[SubjectsService.DeleteSubject] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

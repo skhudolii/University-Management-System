@@ -42,7 +42,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<LectureRoom>()
                 {
-                    Description = $"[AddNewLectureRoom] : {ex.Message}",
+                    Description = $"[LectureRoomsService.AddNewLectureRoom] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -79,7 +79,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<NewLectureRoomVM>()
                 {
-                    Description = $"[GetSubjectById] : {ex.Message}",
+                    Description = $"[LectureRoomsService.GetLectureRoomById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -109,7 +109,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<LectureRoom>()
                 {
-                    Description = $"[GetLectureRoomWithIncludePropertiesById] : {ex.Message}",
+                    Description = $"[LectureRoomsService.GetLectureRoomWithIncludePropertiesById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -141,7 +141,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<IEnumerable<LectureRoom>>()
                 {
-                    Description = $"[GetLectureRoomsList] : {ex.Message}",
+                    Description = $"[LectureRoomsService.GetLectureRoomsList] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -166,7 +166,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<NewLectureRoomDropdownsVM>()
                 {
-                    Description = $"[GetNewLectureRoomDropdownsValues] : {ex.Message}",
+                    Description = $"[LectureRoomsService.GetNewLectureRoomDropdownsValues] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -203,7 +203,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<LectureRoom>()
                 {
-                    Description = $"[UpdateLectureRoom] : {ex.Message}",
+                    Description = $"[LectureRoomsService.UpdateLectureRoom] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
@@ -237,7 +237,7 @@ namespace University.Core.Services
             {
                 return new BaseResponse<bool>
                 {
-                    Description = $"[DeleteLectureRoom] : {ex.Message}",
+                    Description = $"[LectureRoomsService.DeleteLectureRoom] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

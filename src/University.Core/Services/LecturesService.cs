@@ -215,11 +215,20 @@ namespace University.Core.Services
             try
             {
                 var lectures = (await _lecturesRepository.GetAllAsync(
-                    a => a.AcademicEmployee, 
-                    f => f.Faculty, 
-                    lr => lr.LectureRoom, 
+                    a => a.AcademicEmployee,
+                    f => f.Faculty,
+                    lr => lr.LectureRoom,
                     s => s.Subject))
                     .Where(f => f.FacultyId != null);
+
+                if (lectures == null || !lectures.Any())
+                {
+                    return new BaseResponse<IEnumerable<Lecture>>()
+                    {
+                        Description = "0 items found",
+                        StatusCode = StatusCode.NoContent
+                    };
+                }
 
                 if (!string.IsNullOrEmpty(searchString))
                 {
@@ -227,7 +236,8 @@ namespace University.Core.Services
                     n.Subject.Name.ToLower().Contains(searchString.ToLower()) || 
                     n.AcademicEmployee.FullName.ToLower().Contains(searchString.ToLower()) || 
                     n.LectureDate.ToString().Contains(searchString))
-                    .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
+                    .OrderBy(n => n.LectureDate)
+                    .ThenBy(n => n.StartTime).ToList();
 
                     if (filteredResult.Any())
                     {
