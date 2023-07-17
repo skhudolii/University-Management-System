@@ -4,7 +4,6 @@ using University.Core.Response;
 using University.Core.Response.Interfeces;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.LectureVM;
-using University.Core.ViewModels.StudentVM;
 
 namespace University.Core.Services
 {
@@ -58,24 +57,17 @@ namespace University.Core.Services
         {
             try
             {
-                var academicEmployees = await _academicEmployeesRepository.GetAllAsync();
-                var filteredAcademicEmployees = academicEmployees.Where(f => f.FacultyId != null);
-
-                var groups = await _groupsRepository.GetAllAsync();
-                var filteredGroups = groups.Where(f => f.FacultyId != null);
-
-                var lectureRooms = await _lectureRoomsRepository.GetAllAsync();
-                var fillteredLectureRooms = lectureRooms.Where(f => f.FacultyId != null);
-
-                var subjects = await _subjectsRepository.GetAllAsync();
-                var filteredSubjects = subjects.Where(f => f.FacultyId != null);
+                var academicEmployees = (await _academicEmployeesRepository.GetAllAsync()).Where(f => f.FacultyId != null);
+                var groups = (await _groupsRepository.GetAllAsync()).Where(f => f.FacultyId != null);
+                var lectureRooms = (await _lectureRoomsRepository.GetAllAsync()).Where(f => f.FacultyId != null);
+                var subjects = (await _subjectsRepository.GetAllAsync()).Where(f => f.FacultyId != null);
 
                 var lectureDropdownsValues = new NewLectureDropdownsVM()
                 {
-                    AcademicEmployees = filteredAcademicEmployees.OrderBy(n => n.FullName).ToList(),
-                    Groups = filteredGroups.OrderBy(n => n.Name).ToList(),
-                    LectureRooms = fillteredLectureRooms.OrderBy(n => n.Name).ToList(),
-                    Subjects = filteredSubjects.OrderBy(n => n.Name).ToList()
+                    AcademicEmployees = academicEmployees.OrderBy(n => n.FullName).ToList(),
+                    Groups = groups.OrderBy(n => n.Name).ToList(),
+                    LectureRooms = lectureRooms.OrderBy(n => n.Name).ToList(),
+                    Subjects = subjects.OrderBy(n => n.Name).ToList()
                 };
 
                 return new BaseResponse<NewLectureDropdownsVM>()

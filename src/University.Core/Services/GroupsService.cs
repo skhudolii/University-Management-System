@@ -51,10 +51,8 @@ namespace University.Core.Services
         {
             try
             {
-                var groups = await _groupsRepository.GetAllAsync(n => n.Faculty);
-                var filteredGroups = groups.Where(f => f.FacultyId != null);
-
-                if (!filteredGroups.Any())
+                var groups = (await _groupsRepository.GetAllAsync(n => n.Faculty)).Where(f => f.FacultyId != null);
+                if (!groups.Any())
                 {
                     return new BaseResponse<IEnumerable<Group>>()
                     {
@@ -65,7 +63,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<IEnumerable<Group>>()
                 {
-                    Data = filteredGroups,
+                    Data = groups,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -84,7 +82,7 @@ namespace University.Core.Services
             try
             {
                 var groupDetails = await _groupsRepository.GetByIdAsync(id);
-                if (groupDetails == null)
+                if (groupDetails == null || groupDetails.FacultyId == null)
                 {
                     return new BaseResponse<NewGroupVM>()
                     {
@@ -120,7 +118,7 @@ namespace University.Core.Services
             try
             {
                 var groupDetails = await _groupsRepository.GetByIdAsync(id, f => f.Faculty, s => s.Students);
-                if (groupDetails == null || groupDetails.Faculty == null)
+                if (groupDetails == null || groupDetails.FacultyId == null)
                 {
                     return new BaseResponse<Group>()
                     {
@@ -175,7 +173,7 @@ namespace University.Core.Services
             try
             {
                 var dbGroup = await _groupsRepository.GetByIdAsync(model.Id);
-                if (dbGroup == null)
+                if (dbGroup == null || dbGroup.FacultyId == null)
                 {
                     return new BaseResponse<Group>()
                     {

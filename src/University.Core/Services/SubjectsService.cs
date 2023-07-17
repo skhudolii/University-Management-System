@@ -77,7 +77,7 @@ namespace University.Core.Services
             try
             {
                 var subjectDetails = await _subjectsRepository.GetByIdAsync(id);
-                if (subjectDetails == null)
+                if (subjectDetails == null || subjectDetails.FacultyId == null)
                 {
                     return new BaseResponse<NewSubjectVM>()
                     {
@@ -113,7 +113,7 @@ namespace University.Core.Services
             try
             {
                 var subjectDetails = await _subjectsRepository.GetByIdAsync(id, f => f.Faculty);
-                if (subjectDetails == null || subjectDetails.Faculty == null)
+                if (subjectDetails == null || subjectDetails.FacultyId == null)
                 {
                     return new BaseResponse<Subject>()
                     {
@@ -142,10 +142,8 @@ namespace University.Core.Services
         {
             try
             {
-                var subjects = await _subjectsRepository.GetAllAsync(n => n.Faculty);
-                var filteredSubjects = subjects.Where(f => f.FacultyId != null);
-
-                if (!filteredSubjects.Any())
+                var subjects = (await _subjectsRepository.GetAllAsync(n => n.Faculty)).Where(f => f.FacultyId != null);
+                if (!subjects.Any())
                 {
                     return new BaseResponse<IEnumerable<Subject>>()
                     {
@@ -156,7 +154,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<IEnumerable<Subject>>()
                 {
-                    Data = filteredSubjects,
+                    Data = subjects,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -175,7 +173,7 @@ namespace University.Core.Services
             try
             {
                 var dbSubject = await _subjectsRepository.GetByIdAsync(model.Id);
-                if (dbSubject == null)
+                if (dbSubject == null || dbSubject.FacultyId == null)
                 {
                     return new BaseResponse<Subject>()
                     {

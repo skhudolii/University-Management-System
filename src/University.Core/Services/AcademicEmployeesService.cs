@@ -90,7 +90,7 @@ namespace University.Core.Services
             try
             {
                 var academicEmployeeDetails = await _academicEmployeesRepository.GetByIdAsync(id);
-                if (academicEmployeeDetails == null)
+                if (academicEmployeeDetails == null || academicEmployeeDetails.FacultyId == null)
                 {
                     return new BaseResponse<NewAcademicEmployeeVM>()
                     {
@@ -128,10 +128,10 @@ namespace University.Core.Services
         {
             try
             {
-                var academicEmployees = await _academicEmployeesRepository.GetAllAsync(n => n.Faculty);
-                var filteredAcademicEmployees = academicEmployees.Where(f => f.FacultyId != null);
+                var academicEmployees = (await _academicEmployeesRepository.GetAllAsync(n => n.Faculty)).
+                    Where(f => f.FacultyId != null);
 
-                if (!filteredAcademicEmployees.Any())
+                if (!academicEmployees.Any())
                 {
                     return new BaseResponse<IEnumerable<AcademicEmployee>>()
                     {
@@ -142,7 +142,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<IEnumerable<AcademicEmployee>>()
                 {
-                    Data = filteredAcademicEmployees,
+                    Data = academicEmployees,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -216,7 +216,7 @@ namespace University.Core.Services
             try
             {
                 var dbAcademicEmployee = await _academicEmployeesRepository.GetByIdAsync(model.Id);
-                if (dbAcademicEmployee == null)
+                if (dbAcademicEmployee == null || dbAcademicEmployee.FacultyId == null)
                 {
                     return new BaseResponse<AcademicEmployee>()
                     {

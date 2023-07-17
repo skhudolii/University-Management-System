@@ -21,10 +21,10 @@ namespace University.Core.Services
         {
             try
             {
-                var students = await _studentsRepository.GetAllAsync(n => n.Group, f => f.Group.Faculty);
-                var filteredStudents = students.Where(f => f.Group.FacultyId != null);
+                var students = (await _studentsRepository.GetAllAsync(n => n.Group, f => f.Group.Faculty))
+                    .Where(f => f.Group.FacultyId != null);
 
-                if (!filteredStudents.Any())
+                if (!students.Any())
                 {
                     return new BaseResponse<IEnumerable<Student>>()
                     {
@@ -35,7 +35,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<IEnumerable<Student>>()
                 {
-                    Data = filteredStudents,
+                    Data = students,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -54,7 +54,7 @@ namespace University.Core.Services
             try
             {
                 var studentDetails = await _studentsRepository.GetByIdAsync(id, g =>g.Group, f => f.Group.Faculty);
-                if (studentDetails == null || studentDetails.Group.Faculty == null)
+                if (studentDetails == null || studentDetails.Group.FacultyId == null)
                 {
                     return new BaseResponse<Student>()
                     {
@@ -114,7 +114,7 @@ namespace University.Core.Services
             try
             {
                 var student = await _studentsRepository.GetByIdAsync(id, g => g.Group);
-                if (student == null)
+                if (student == null || student.Group.FacultyId == null)
                 {
                     return new BaseResponse<NewStudentVM>()
                     {
@@ -153,7 +153,7 @@ namespace University.Core.Services
             try
             {
                 var dbStudent = await _studentsRepository.GetByIdAsync(model.Id);
-                if (dbStudent == null)
+                if (dbStudent == null || dbStudent.Group.FacultyId == null)
                 {
                     return new BaseResponse<Student>()
                     {

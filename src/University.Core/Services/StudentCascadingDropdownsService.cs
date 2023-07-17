@@ -47,12 +47,10 @@ namespace University.Core.Services
         {
             try
             {
-                var groups = await _groupsRepository.GetAllAsync();
-                var filteredGroups = groups.Where(f => f.FacultyId != null);
-
+                var groups = (await _groupsRepository.GetAllAsync()).Where(f => f.FacultyId != null);
                 var studentDropdownsGroups = new NewStudentDropdownsVM()
                 {
-                    Groups = filteredGroups.OrderBy(n => n.Name).ToList()
+                    Groups = groups.OrderBy(n => n.Name).ToList()
                 };
 
                 return new BaseResponse<NewStudentDropdownsVM>()

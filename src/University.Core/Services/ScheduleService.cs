@@ -20,7 +20,8 @@ namespace University.Core.Services
         {
             try
             {
-                var lectures = await _lecturesRepository.GetAllAsync(s => s.Subject, lr => lr.LectureRoom, f => f.Faculty);
+                var lectures = (await _lecturesRepository.GetAllAsync(s => s.Subject, lr => lr.LectureRoom, f => f.Faculty))
+                    .Where(f => f.FacultyId != null);
                 var scheduleForFaculty = lectures
                     .Where(f => f.FacultyId == id)
                     .Where(d => d.LectureDate >= DateTime.Now.Date)
@@ -55,7 +56,7 @@ namespace University.Core.Services
         {
             try
             {
-                var lectures = await _lecturesRepository.GetLecturesByStudentIdAsync(id);
+                var lectures = (await _lecturesRepository.GetLecturesByStudentIdAsync(id)).Where(f => f.FacultyId != null);
                 if (!lectures.Any())
                 {
                     return new BaseResponse<IEnumerable<Lecture>>()
@@ -96,11 +97,12 @@ namespace University.Core.Services
         {
             try
             {
-                var lectures = await _lecturesRepository.GetAllAsync(
+                var lectures =(await _lecturesRepository.GetAllAsync(
                     s => s.Subject, 
                     lr => lr.LectureRoom, 
                     f => f.Faculty, 
-                    a => a.AcademicEmployee);
+                    a => a.AcademicEmployee))
+                    .Where(f => f.FacultyId != null);
 
                 var sheduleForTeacher = lectures
                     .Where(a => a.AcademicEmployeeId == id)

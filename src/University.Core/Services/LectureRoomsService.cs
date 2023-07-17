@@ -53,7 +53,7 @@ namespace University.Core.Services
             try
             {
                 var lectureRoomDetails = await _lectureRoomsRepository.GetByIdAsync(id);
-                if (lectureRoomDetails == null)
+                if (lectureRoomDetails == null || lectureRoomDetails.FacultyId == null)
                 {
                     return new BaseResponse<NewLectureRoomVM>()
                     {
@@ -90,7 +90,7 @@ namespace University.Core.Services
             try
             {
                 var lectureRoomDetails = await _lectureRoomsRepository.GetByIdAsync(id, f => f.Faculty);
-                if (lectureRoomDetails == null || lectureRoomDetails.Faculty == null)
+                if (lectureRoomDetails == null || lectureRoomDetails.FacultyId == null)
                 {
                     return new BaseResponse<LectureRoom>()
                     {
@@ -177,7 +177,7 @@ namespace University.Core.Services
             try
             {
                 var dbLectureRoom = await _lectureRoomsRepository.GetByIdAsync(model.Id);
-                if (dbLectureRoom == null)
+                if (dbLectureRoom == null || dbLectureRoom.FacultyId == null)
                 {
                     return new BaseResponse<LectureRoom>()
                     {

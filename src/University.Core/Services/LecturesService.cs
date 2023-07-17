@@ -21,12 +21,11 @@ namespace University.Core.Services
         {
             try
             {
-                var lectures = await _lecturesRepository.GetAllAsync(s => s.Subject, lr => lr.LectureRoom, f => f.Faculty);
-                var filteredLectures = lectures
+                var lectures = (await _lecturesRepository.GetAllAsync(s => s.Subject, lr => lr.LectureRoom, f => f.Faculty))
                     .Where(f => f.FacultyId != null)
                     .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
 
-                if (!filteredLectures.Any())
+                if (!lectures.Any())
                 {
                     return new BaseResponse<IEnumerable<Lecture>>()
                     {
@@ -37,7 +36,7 @@ namespace University.Core.Services
 
                 return new BaseResponse<IEnumerable<Lecture>>()
                 {
-                    Data = filteredLectures,
+                    Data = lectures,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -56,7 +55,7 @@ namespace University.Core.Services
             try
             {
                 var lectureDetails = await _lecturesRepository.GetLectureWithIncludePropertiesByIdAsync(id);
-                if (lectureDetails == null || lectureDetails.Faculty == null)
+                if (lectureDetails == null || lectureDetails.FacultyId == null)
                 {
                     return new BaseResponse<Lecture>()
                     {
@@ -108,7 +107,7 @@ namespace University.Core.Services
             try
             {
                 var lecture = await _lecturesRepository.GetByIdAsync(id, lg => lg.LecturesGroups);
-                if (lecture == null)
+                if (lecture == null || lecture.FacultyId == null)
                 {
                     return new BaseResponse<NewLectureVM>()
                     {
@@ -150,7 +149,7 @@ namespace University.Core.Services
             try
             {
                 var dbLecture = await _lecturesRepository.GetByIdAsync(newLectureVM.Id);
-                if (dbLecture == null)
+                if (dbLecture == null || dbLecture.FacultyId == null)
                 {
                     return new BaseResponse<Lecture>()
                     {
@@ -215,11 +214,12 @@ namespace University.Core.Services
         {
             try
             {
-                var lectures = await _lecturesRepository.GetAllAsync(
+                var lectures = (await _lecturesRepository.GetAllAsync(
                     a => a.AcademicEmployee, 
                     f => f.Faculty, 
                     lr => lr.LectureRoom, 
-                    s => s.Subject);
+                    s => s.Subject))
+                    .Where(f => f.FacultyId != null);
 
                 if (!string.IsNullOrEmpty(searchString))
                 {
