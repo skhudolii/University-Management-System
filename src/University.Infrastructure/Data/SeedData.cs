@@ -59,7 +59,8 @@ namespace University.Infrastructure.Data
                 context.AcademicEmployees.AddRange(
                     new AcademicEmployee
                     {
-                        FullName = "Dmytro Lezhen",
+                        FirstName = "Dmytro",
+                        LastName = "Lezhen",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Prof,
@@ -67,7 +68,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Mykola Kuzub",
+                        FirstName = "Mykola",
+                        LastName = "Kuzub",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Prof,
@@ -75,7 +77,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Andriy Vynnychuk",
+                        FirstName = "Andriy",
+                        LastName = "Vynnychuk",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssocProf,
@@ -83,7 +86,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Ievgenii Karpenko",
+                        FirstName = "Ievgenii",
+                        LastName = "Karpenko",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.SrRsch,
@@ -91,7 +95,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Anton Gusev",
+                        FirstName = "Anton",
+                        LastName = "Gusev",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Prof,
@@ -99,7 +104,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Viktor Gogilchyn",
+                        FirstName = "Viktor",
+                        LastName = "Gogilchyn",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssocProf,
@@ -107,7 +113,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Tetiana Iefimenko",
+                        FirstName = "Tetiana",
+                        LastName = "Iefimenko",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
                         AcademicPosition = AcademicPosition.SrRsch,
@@ -115,7 +122,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Boryslav Kolomiiets",
+                        FirstName = "Boryslav",
+                        LastName = "Kolomiiets",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AsstProf,
@@ -123,7 +131,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Dan Gladshtein",
+                        FirstName = "Dan",
+                        LastName = "Gladshtein",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Prof,
@@ -131,7 +140,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Yaroslav Rudnyk",
+                        FirstName = "Yaroslav",
+                        LastName = "Rudnyk",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssocProf,
@@ -139,7 +149,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Natalia Kulbaka",
+                        FirstName = "Natalia",
+                        LastName = "Kulbaka",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
                         AcademicPosition = AcademicPosition.AsstProf,
@@ -147,7 +158,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Serhii Tytarenko",
+                        FirstName = "Serhii",
+                        LastName = "Tytarenko",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Prof,
@@ -155,7 +167,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Vadym Serdiuk",
+                        FirstName = "Vadym",
+                        LastName = "Serdiuk",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssocProf,
@@ -163,7 +176,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Eugene Chernyshov",
+                        FirstName = "Eugene",
+                        LastName = "Chernyshov",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.SrRsch,
@@ -171,7 +185,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Nikita Galkin",
+                        FirstName = "Nikita",
+                        LastName = "Galkin",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.Prof,
@@ -179,7 +194,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Pavel Koryagin",
+                        FirstName = "Pavel",
+                        LastName = "Koryagin",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssocProf,
@@ -187,7 +203,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Aleksei Chestnykh",
+                        FirstName = "Aleksei",
+                        LastName = "Chestnykh",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.SrRsch,
@@ -195,7 +212,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Ilyana Gurova",
+                        FirstName = "Ilyana",
+                        LastName = "Gurova",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/2922/2922561.png",
                         AcademicPosition = AcademicPosition.Prof,
@@ -203,7 +221,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Ivan Matiash",
+                        FirstName = "Ivan",
+                        LastName = "Matiash",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.AssocProf,
@@ -211,7 +230,8 @@ namespace University.Infrastructure.Data
                     },
                     new AcademicEmployee
                     {
-                        FullName = "Oleg Dereka",
+                        FirstName = "Oleg",
+                        LastName = "Dereka",
                         Email = "test@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001758.png",
                         AcademicPosition = AcademicPosition.SrRsch,
@@ -226,378 +246,432 @@ namespace University.Infrastructure.Data
                 context.Students.AddRange(
                     new Student
                     {
-                        FullName = "Test Student1",
+                        FirstName = "Test",
+                        LastName = "Student1",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 1
                     },
                     new Student
                     {
-                        FullName = "Test Student2",
+                        FirstName = "Test",
+                        LastName = "Student2",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 1
                     },
                     new Student
                     {
-                        FullName = "Test Student3",
+                        FirstName = "Test",
+                        LastName = "Student3",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 1
                     },
                     new Student
                     {
-                        FullName = "Test Student4",
+                        FirstName = "Test",
+                        LastName = "Student4",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 1
                     },
                     new Student
                     {
-                        FullName = "Test Student5",
+                        FirstName = "Test",
+                        LastName = "Student5",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 1
                     },
                     new Student
                     {
-                        FullName = "Test Student6",
+                        FirstName = "Test",
+                        LastName = "Student6",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 2
                     },
                     new Student
                     {
-                        FullName = "Test Student7",
+                        FirstName = "Test",
+                        LastName = "Student7",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 2
                     },
                     new Student
                     {
-                        FullName = "Test Student8",
+                        FirstName = "Test",
+                        LastName = "Student8",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 2
                     },
                     new Student
                     {
-                        FullName = "Test Student9",
+                        FirstName = "Test",
+                        LastName = "Student9",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 2
                     },
                     new Student
                     {
-                        FullName = "Test Student10",
+                        FirstName = "Test",
+                        LastName = "Student10",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 2
                     },
                     new Student
                     {
-                        FullName = "Test Student11",
+                        FirstName = "Test",
+                        LastName = "Student11",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 3
                     },
                     new Student
                     {
-                        FullName = "Test Student12",
+                        FirstName = "Test",
+                        LastName = "Student12",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 3
                     },
                     new Student
                     {
-                        FullName = "Test Student13",
+                        FirstName = "Test",
+                        LastName = "Student13",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 3
                     },
                     new Student
                     {
-                        FullName = "Test Student14",
+                        FirstName = "Test",
+                        LastName = "Student14",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 3
                     },
                     new Student
                     {
-                        FullName = "Test Student15",
+                        FirstName = "Test",
+                        LastName = "Student15",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 3
                     },
                     new Student
                     {
-                        FullName = "Test Student16",
+                        FirstName = "Test",
+                        LastName = "Student16",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 4
                     },
                     new Student
                     {
-                        FullName = "Test Student17",
+                        FirstName = "Test",
+                        LastName = "Student17",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 4
                     },
                     new Student
                     {
-                        FullName = "Test Student18",
+                        FirstName = "Test",
+                        LastName = "Student18",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 4
                     },
                     new Student
                     {
-                        FullName = "Test Student19",
+                        FirstName = "Test",
+                        LastName = "Student19",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 4
                     },
                     new Student
                     {
-                        FullName = "Test Student20",
+                        FirstName = "Test",
+                        LastName = "Student20",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 4
                     },
                     new Student
                     {
-                        FullName = "Test Student21",
+                        FirstName = "Test",
+                        LastName = "Student21",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 5
                     },
                     new Student
                     {
-                        FullName = "Test Student22",
+                        FirstName = "Test",
+                        LastName = "Student22",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 5
                     },
                     new Student
                     {
-                        FullName = "Test Student23",
+                        FirstName = "Test",
+                        LastName = "Student23",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 5
                     },
                     new Student
                     {
-                        FullName = "Test Student24",
+                        FirstName = "Test",
+                        LastName = "Student24",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 6
                     },
                     new Student
                     {
-                        FullName = "Test Student25",
+                        FirstName = "Test",
+                        LastName = "Student25",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 6
                     },
                     new Student
                     {
-                        FullName = "Test Student26",
+                        FirstName = "Test",
+                        LastName = "Student26",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 6
                     },
                     new Student
                     {
-                        FullName = "Test Student27",
+                        FirstName = "Test",
+                        LastName = "Student27",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 7
                     },
                     new Student
                     {
-                        FullName = "Test Student28",
+                        FirstName = "Test",
+                        LastName = "Student28",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 7
                     },
                     new Student
                     {
-                        FullName = "Test Student29",
+                        FirstName = "Test",
+                        LastName = "Student29",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 7
                     },
                     new Student
                     {
-                        FullName = "Test Student30",
+                        FirstName = "Test",
+                        LastName = "Student30",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 7
                     },
                     new Student
                     {
-                        FullName = "Test Student31",
+                        FirstName = "Test",
+                        LastName = "Student31",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 8
                     },
                     new Student
                     {
-                        FullName = "Test Student32",
+                        FirstName = "Test",
+                        LastName = "Student32",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 8
                     },
                     new Student
                     {
-                        FullName = "Test Student33",
+                        FirstName = "Test",
+                        LastName = "Student33",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 8
                     },
                     new Student
                     {
-                        FullName = "Test Student34",
+                        FirstName = "Test",
+                        LastName = "Student34",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 9
                     },
                     new Student
                     {
-                        FullName = "Test Student35",
+                        FirstName = "Test",
+                        LastName = "Student35",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 9
                     },
                     new Student
                     {
-                        FullName = "Test Student36",
+                        FirstName = "Test",
+                        LastName = "Student36",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 9
                     },
                     new Student
                     {
-                        FullName = "Test Student37",
+                        FirstName = "Test",
+                        LastName = "Student37",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 10
                     },
                     new Student
                     {
-                        FullName = "Test Student38",
+                        FirstName = "Test",
+                        LastName = "Student38",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 10
                     },
                     new Student
                     {
-                        FullName = "Test Student39",
+                        FirstName = "Test",
+                        LastName = "Student39",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 10
                     },
                     new Student
                     {
-                        FullName = "Test Student40",
+                        FirstName = "Test",
+                        LastName = "Student40",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 10
                     },
                     new Student
                     {
-                        FullName = "Test Student41",
+                        FirstName = "Test",
+                        LastName = "Student41",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 11
                     },
                     new Student
                     {
-                        FullName = "Test Student42",
+                        FirstName = "Test",
+                        LastName = "Student42",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 11
                     },
                     new Student
                     {
-                        FullName = "Test Student43",
+                        FirstName = "Test",
+                        LastName = "Student43",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 11
                     },
                     new Student
                     {
-                        FullName = "Test Student44",
+                        FirstName = "Test",
+                        LastName = "Student44",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 12
                     },
                     new Student
                     {
-                        FullName = "Test Student45",
+                        FirstName = "Test",
+                        LastName = "Student45",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 12
                     },
                     new Student
                     {
-                        FullName = "Test Student46",
+                        FirstName = "Test",
+                        LastName = "Student46",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 12
                     },
                     new Student
                     {
-                        FullName = "Test Student47",
+                        FirstName = "Test",
+                        LastName = "Student47",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 12
                     },
                     new Student
                     {
-                        FullName = "Test Student48",
+                        FirstName = "Test",
+                        LastName = "Student48",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 12
                     },
                     new Student
                     {
-                        FullName = "Test Student49",
+                        FirstName = "Test",
+                        LastName = "Student49",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 13
                     },
                     new Student
                     {
-                        FullName = "Test Student50",
+                        FirstName = "Test",
+                        LastName = "Student50",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 13
                     },
                     new Student
                     {
-                        FullName = "Test Student51",
+                        FirstName = "Test",
+                        LastName = "Student51",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 13
                     },
                     new Student
                     {
-                        FullName = "Test Student52",
+                        FirstName = "Test",
+                        LastName = "Student52",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 14
                     },
                     new Student
                     {
-                        FullName = "Test Student53",
+                        FirstName = "Test",
+                        LastName = "Student53",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/3001/3001785.png",
                         GroupId = 14
                     },
                     new Student
                     {
-                        FullName = "Test Student54",
+                        FirstName = "Test",
+                        LastName = "Student54",
                         Email = "student@test.com",
                         ProfilePictureURL = "https://cdn-icons-png.flaticon.com/512/9159/9159762.png",
                         GroupId = 14

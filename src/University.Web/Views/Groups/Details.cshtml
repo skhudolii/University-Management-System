@@ -28,7 +28,7 @@
                         @foreach (var student in Model.Students)
                         {
                             <div class="flex-column">
-                                <a asp-controller="Students" asp-action="Details" asp-route-id="@student.Id">@student.FullName</a>
+                                <a asp-controller="Students" asp-action="Details" asp-route-id="@student.Id">@student.FirstName @student.LastName</a>
                             </div>
                         }
                     </div>

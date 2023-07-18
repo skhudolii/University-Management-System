@@ -67,7 +67,7 @@
                         <div class="mb-3">
                             <label asp-for="AcademicEmployee" class="control-label"></label>
                             <div class="form-control">
-                                <a asp-controller="AcademicEmployees" asp-action="Details" asp-route-id="@Model.AcademicEmployeeId">@Model.AcademicEmployee.FullName</a>
+                                <a asp-controller="AcademicEmployees" asp-action="Details" asp-route-id="@Model.AcademicEmployeeId">@Model.AcademicEmployee.FirstName @Model.AcademicEmployee.LastName</a>
                             </div>
                         </div>
                         <div class="mb-3">

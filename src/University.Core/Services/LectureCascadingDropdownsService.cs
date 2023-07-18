@@ -64,7 +64,7 @@ namespace University.Core.Services
 
                 var lectureDropdownsValues = new NewLectureDropdownsVM()
                 {
-                    AcademicEmployees = academicEmployees.OrderBy(n => n.FullName).ToList(),
+                    AcademicEmployees = academicEmployees.OrderBy(n => n.LastName).ToList(),
                     Groups = groups.OrderBy(n => n.Name).ToList(),
                     LectureRooms = lectureRooms.OrderBy(n => n.Name).ToList(),
                     Subjects = subjects.OrderBy(n => n.Name).ToList()

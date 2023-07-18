@@ -40,7 +40,7 @@ namespace University.Core.Tests.Services
                 Id = lectureId,
                 FacultyId = 1,
                 Subject = new Subject { Name = "Mathematics" },
-                AcademicEmployee = new AcademicEmployee { FullName = "John Doe" },
+                AcademicEmployee = new AcademicEmployee { FirstName = "John Doe" },
                 LectureDate = new DateTime(2023, 7, 1),
                 StartTime = TimeSpan.Parse("10:00"),
                 EndTime = TimeSpan.Parse("12:00")
@@ -103,9 +103,9 @@ namespace University.Core.Tests.Services
             var searchString = "Mathematics";
             var lectures = new List<Lecture>
             {
-                new Lecture { Id = 1, FacultyId = 1, Subject = new Subject { Name = "Mathematics" }, AcademicEmployee = new AcademicEmployee { FullName = "John Doe" }, LectureDate = new DateTime(2023, 7, 1), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") },
-                new Lecture { Id = 2, FacultyId = 1, Subject = new Subject { Name = "Physics" }, AcademicEmployee = new AcademicEmployee { FullName = "Jane Smith" }, LectureDate = new DateTime(2023, 7, 2), StartTime = TimeSpan.Parse("14:00"), EndTime = TimeSpan.Parse("16:00") },
-                new Lecture { Id = 3, FacultyId = 1, Subject = new Subject { Name = "Mathematical Analysis" }, AcademicEmployee = new AcademicEmployee { FullName = "Bob Johnson" }, LectureDate = new DateTime(2023, 7, 3), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }
+                new Lecture { Id = 1, FacultyId = 1, Subject = new Subject { Name = "Mathematics" }, AcademicEmployee = new AcademicEmployee { FirstName = "John", LastName= "Doe" }, LectureDate = new DateTime(2023, 7, 1), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") },
+                new Lecture { Id = 2, FacultyId = 1, Subject = new Subject { Name = "Physics" }, AcademicEmployee = new AcademicEmployee { FirstName = "Jane", LastName = "Smith" }, LectureDate = new DateTime(2023, 7, 2), StartTime = TimeSpan.Parse("14:00"), EndTime = TimeSpan.Parse("16:00") },
+                new Lecture { Id = 3, FacultyId = 1, Subject = new Subject { Name = "Mathematical Analysis" }, AcademicEmployee = new AcademicEmployee { FirstName = "Bob", LastName = "Johnson" }, LectureDate = new DateTime(2023, 7, 3), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }
             };
 
             _mockLecturesRepository.Setup(r => r.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()))
@@ -130,9 +130,9 @@ namespace University.Core.Tests.Services
             var searchString = "John";
             var lectures = new List<Lecture>
             {
-                new Lecture { Id = 1, FacultyId = 1, Subject = new Subject { Name = "Mathematics" }, AcademicEmployee = new AcademicEmployee { FullName = "John Doe" }, LectureDate = new DateTime(2023, 7, 1), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") },
-                new Lecture { Id = 2, FacultyId = 1, Subject = new Subject { Name = "Physics" }, AcademicEmployee = new AcademicEmployee { FullName = "Jane Smith" }, LectureDate = new DateTime(2023, 7, 2), StartTime = TimeSpan.Parse("14:00"), EndTime = TimeSpan.Parse("16:00") },
-                new Lecture { Id = 3, FacultyId = 1, Subject = new Subject { Name = "Mathematical Analysis" }, AcademicEmployee = new AcademicEmployee { FullName = "John Deere" }, LectureDate = new DateTime(2023, 7, 3), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }
+                new Lecture { Id = 1, FacultyId = 1, Subject = new Subject { Name = "Mathematics" }, AcademicEmployee = new AcademicEmployee { FirstName = "John", LastName= "Doe" }, LectureDate = new DateTime(2023, 7, 1), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") },
+                new Lecture { Id = 2, FacultyId = 1, Subject = new Subject { Name = "Physics" }, AcademicEmployee = new AcademicEmployee { FirstName = "Jane", LastName = "Smith" }, LectureDate = new DateTime(2023, 7, 2), StartTime = TimeSpan.Parse("14:00"), EndTime = TimeSpan.Parse("16:00") },
+                new Lecture { Id = 3, FacultyId = 1, Subject = new Subject { Name = "Mathematical Analysis" }, AcademicEmployee = new AcademicEmployee { FirstName = "John", LastName = "Deere" }, LectureDate = new DateTime(2023, 7, 3), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }
             };
 
             _mockLecturesRepository.Setup(r => r.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()))
@@ -145,9 +145,9 @@ namespace University.Core.Tests.Services
 
             // Assert
             Assert.Equal(2, response.Data.Count());
-            Assert.Contains(response.Data, l => l.AcademicEmployee.FullName == "John Doe");
-            Assert.Contains(response.Data, l => l.AcademicEmployee.FullName == "John Deere");
-            Assert.DoesNotContain(response.Data, l => l.AcademicEmployee.FullName == "Jane Smith");
+            Assert.Contains(response.Data, l => l.AcademicEmployee.FirstName == "John");
+            Assert.Contains(response.Data, l => l.AcademicEmployee.FirstName == "John");
+            Assert.DoesNotContain(response.Data, l => l.AcademicEmployee.FirstName == "Jane");
         }
 
         [Fact]
@@ -157,9 +157,9 @@ namespace University.Core.Tests.Services
             var searchString = "02.07"; // Consider your regional settings!
             var lectures = new List<Lecture>
             { 
-                new Lecture { Id = 1, FacultyId = 1, Subject = new Subject { Name = "Mathematics" }, AcademicEmployee = new AcademicEmployee { FullName = "John Doe" }, LectureDate = new DateTime(2023, 7, 1), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }, 
-                new Lecture { Id = 2, FacultyId = 1, Subject = new Subject { Name = "Physics" }, AcademicEmployee = new AcademicEmployee { FullName = "Jane Smith" }, LectureDate = new DateTime(2023, 7, 2), StartTime = TimeSpan.Parse("14:00"), EndTime = TimeSpan.Parse("16:00") }, 
-                new Lecture { Id = 3, FacultyId = 1, Subject = new Subject { Name = "Mathematical Analysis" }, AcademicEmployee = new AcademicEmployee { FullName = "John Deere" }, LectureDate = new DateTime(2023, 7, 3), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }
+                new Lecture { Id = 1, FacultyId = 1, Subject = new Subject { Name = "Mathematics" }, AcademicEmployee = new AcademicEmployee { FirstName = "John", LastName= "Doe" }, LectureDate = new DateTime(2023, 7, 1), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }, 
+                new Lecture { Id = 2, FacultyId = 1, Subject = new Subject { Name = "Physics" }, AcademicEmployee = new AcademicEmployee { FirstName = "Jane", LastName = "Smith" }, LectureDate = new DateTime(2023, 7, 2), StartTime = TimeSpan.Parse("14:00"), EndTime = TimeSpan.Parse("16:00") }, 
+                new Lecture { Id = 3, FacultyId = 1, Subject = new Subject { Name = "Mathematical Analysis" }, AcademicEmployee = new AcademicEmployee { FirstName = "John", LastName = "Deere" }, LectureDate = new DateTime(2023, 7, 3), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }
             };
 
             _mockLecturesRepository.Setup(r => r.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()))
@@ -183,9 +183,9 @@ namespace University.Core.Tests.Services
             var searchString = "Chemistry";
             var lectures = new List<Lecture>
             { 
-                new Lecture { Id = 1, FacultyId = 1, Subject = new Subject { Name = "Mathematics" }, AcademicEmployee = new AcademicEmployee { FullName = "John Doe" }, LectureDate = new DateTime(2023, 7, 1), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }, 
-                new Lecture { Id = 2, FacultyId = 1, Subject = new Subject { Name = "Physics" }, AcademicEmployee = new AcademicEmployee { FullName = "Jane Smith" }, LectureDate = new DateTime(2023, 7, 2), StartTime = TimeSpan.Parse("14:00"), EndTime = TimeSpan.Parse("16:00") }, 
-                new Lecture { Id = 3, FacultyId = 1, Subject = new Subject { Name = "Mathematical Analysis" }, AcademicEmployee = new AcademicEmployee { FullName = "John Deere" }, LectureDate = new DateTime(2023, 7, 3), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }
+                new Lecture { Id = 1, FacultyId = 1, Subject = new Subject { Name = "Mathematics" }, AcademicEmployee = new AcademicEmployee {FirstName = "John", LastName = "Doe"}, LectureDate = new DateTime(2023, 7, 1), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }, 
+                new Lecture { Id = 2, FacultyId = 1, Subject = new Subject { Name = "Physics" }, AcademicEmployee = new AcademicEmployee {FirstName = "Jane", LastName = "Smith"}, LectureDate = new DateTime(2023, 7, 2), StartTime = TimeSpan.Parse("14:00"), EndTime = TimeSpan.Parse("16:00") }, 
+                new Lecture { Id = 3, FacultyId = 1, Subject = new Subject { Name = "Mathematical Analysis" }, AcademicEmployee = new AcademicEmployee { FirstName = "John", LastName = "Deere" }, LectureDate = new DateTime(2023, 7, 3), StartTime = TimeSpan.Parse("10:00"), EndTime = TimeSpan.Parse("12:00") }
             };
 
             _mockLecturesRepository.Setup(r => r.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()))

@@ -29,8 +29,8 @@ namespace University.Core.Tests.Services
             // Arrange
             var academicEmployees = new List<AcademicEmployee>
             {
-                new AcademicEmployee { Id = 1, FullName = "FN1", FacultyId = 1 },
-                new AcademicEmployee { Id = 2, FullName = "FN2", FacultyId = 2 }
+                new AcademicEmployee { Id = 1, FirstName = "FN1", FacultyId = 1 },
+                new AcademicEmployee { Id = 2, FirstName = "FN2", FacultyId = 2 }
             };
 
             var groups = new List<Group>
@@ -73,7 +73,7 @@ namespace University.Core.Tests.Services
             Assert.NotNull(result);
             Assert.Equal(StatusCode.OK, result.StatusCode);
             Assert.NotNull(result.Data);
-            Assert.Equal(academicEmployees.OrderBy(e => e.FullName).ToList(), result.Data.AcademicEmployees);
+            Assert.Equal(academicEmployees.OrderBy(e => e.LastName).ToList(), result.Data.AcademicEmployees);
             Assert.Equal(groups.OrderBy(g => g.Name).ToList(), result.Data.Groups);
             Assert.Equal(lectureRooms.OrderBy(r => r.Name).ToList(), result.Data.LectureRooms);
             Assert.Equal(subjects.OrderBy(s => s.Name).ToList(), result.Data.Subjects);

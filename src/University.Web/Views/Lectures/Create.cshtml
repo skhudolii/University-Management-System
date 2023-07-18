@@ -98,7 +98,7 @@
                     $('#academicEmployeeId').find('option').remove()
                     $(data.academicEmployees).each(
                         function (index, item) {
-                            $('#academicEmployeeId').append('<option value="' + item.id + '">' + item.fullName + '</option')
+                            $('#academicEmployeeId').append('<option value="' + item.id + '">' + item.firstName + ' ' + item.lastName + '</option')
                         }
                     );
                     $('#groupId').find('option').remove()

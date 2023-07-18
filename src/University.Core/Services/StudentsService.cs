@@ -85,7 +85,8 @@ namespace University.Core.Services
             {
                 var newStudent = new Student()
                 {
-                    FullName = model.FullName,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     Email = model.Email,
                     ProfilePictureURL = model.ProfilePictureURL,
                     GroupId = (int)model.GroupId
@@ -125,7 +126,8 @@ namespace University.Core.Services
                 var data = new NewStudentVM()
                 {
                     Id = student.Id,
-                    FullName = student.FullName,
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
                     Email = student.Email,
                     ProfilePictureURL = student.ProfilePictureURL,
                     GroupId = (int)student.GroupId,
@@ -153,7 +155,7 @@ namespace University.Core.Services
             try
             {
                 var dbStudent = await _studentsRepository.GetByIdAsync(model.Id);
-                if (dbStudent == null || dbStudent.Group.FacultyId == null)
+                if (dbStudent == null)
                 {
                     return new BaseResponse<Student>()
                     {
@@ -163,7 +165,8 @@ namespace University.Core.Services
                 }
 
                 dbStudent.Id = model.Id;
-                dbStudent.FullName = model.FullName;
+                dbStudent.FirstName = model.FirstName;
+                dbStudent.LastName = model.LastName;
                 dbStudent.Email = model.Email;
                 dbStudent.ProfilePictureURL = model.ProfilePictureURL;
                 dbStudent.GroupId = (int)model.GroupId;

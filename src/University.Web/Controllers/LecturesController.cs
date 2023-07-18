@@ -102,7 +102,8 @@ namespace University.Web.Controllers
             ViewBag.LectureRooms = new SelectList(lectureDropdownsData.Data.LectureRooms
                 .Where(f => f.FacultyId == lectureDetails.Data.FacultyId), "Id", "Name");
             ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Data.AcademicEmployees
-                .Where(f => f.FacultyId == lectureDetails.Data.FacultyId), "Id", "FullName");
+                .Where(f => f.FacultyId == lectureDetails.Data.FacultyId)
+                .Select(a => new SelectListItem { Value = a.Id.ToString(), Text = $"{a.FirstName} {a.LastName}" }), "Value", "Text");
             ViewBag.Groups = new SelectList(lectureDropdownsData.Data.Groups
                 .Where(f => f.FacultyId == lectureDetails.Data.FacultyId), "Id", "Name");
 
@@ -126,7 +127,7 @@ namespace University.Web.Controllers
 
                 ViewBag.Subjects = new SelectList(lectureDropdownsData.Data.Subjects, "Id", "Name");
                 ViewBag.LectureRooms = new SelectList(lectureDropdownsData.Data.LectureRooms, "Id", "Name");
-                ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Data.AcademicEmployees, "Id", "FullName");
+                ViewBag.AcademicEmployees = new SelectList(lectureDropdownsData.Data.AcademicEmployees, "Id", "FirstName", "LastName");
                 ViewBag.Groups = new SelectList(lectureDropdownsData.Data.Groups, "Id", "Name");
 
                 return View(lectureVM);
@@ -184,7 +185,7 @@ namespace University.Web.Controllers
         }
 
         public async Task<IActionResult> ScheduleForTeacher(int id, int daysForward)
-        {            
+        {
             var schedule = await _scheduleService.GetScheduleForTeacher(id, DateTime.Now.Date.AddDays(daysForward));
             if (schedule.StatusCode != Core.Enums.StatusCode.OK)
             {

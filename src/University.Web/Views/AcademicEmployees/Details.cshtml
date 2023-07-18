@@ -7,7 +7,7 @@
 <div class="row text">
     <div class="col-md-8 offset-2">
         <p>
-            <h3 class="text-center">Details for @Model.FullName</h3>
+            <h3 class="text-center">Details for @Model.FirstName @Model.LastName</h3>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
@@ -23,9 +23,14 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="FullName" class="control-label"></label>
-                    <input asp-for="FullName" class="form-control" readonly />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" readonly />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" readonly />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="AcademicPosition" class="control-label"></label>

@@ -33,7 +33,8 @@ namespace University.Infrastructure.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AcademicPosition = table.Column<int>(type: "int", nullable: false),
                     FacultyId = table.Column<int>(type: "int", nullable: true),
-                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfilePictureURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -112,7 +113,8 @@ namespace University.Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GroupId = table.Column<int>(type: "int", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfilePictureURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

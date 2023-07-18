@@ -26,7 +26,8 @@ namespace University.Core.Services
             {
                 var newAcademicEmployee = new AcademicEmployee()
                 {
-                    FullName = model.FullName,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     Email = model.Email,
                     ProfilePictureURL = model.ProfilePictureURL,
                     AcademicPosition = (AcademicPosition)model.AcademicPosition,
@@ -101,7 +102,8 @@ namespace University.Core.Services
                 var data = new NewAcademicEmployeeVM()
                 {
                     Id = academicEmployeeDetails.Id,
-                    FullName = academicEmployeeDetails.FullName,
+                    FirstName = academicEmployeeDetails.FirstName,
+                    LastName = academicEmployeeDetails.LastName,
                     Email = academicEmployeeDetails.Email,
                     ProfilePictureURL = academicEmployeeDetails.ProfilePictureURL,
                     AcademicPosition = academicEmployeeDetails.AcademicPosition,
@@ -226,7 +228,8 @@ namespace University.Core.Services
                 }
 
                 dbAcademicEmployee.Id = model.Id;
-                dbAcademicEmployee.FullName = model.FullName;
+                dbAcademicEmployee.FirstName = model.FirstName;
+                dbAcademicEmployee.LastName = model.LastName;
                 dbAcademicEmployee.Email = model.Email;
                 dbAcademicEmployee.ProfilePictureURL = model.ProfilePictureURL;
                 dbAcademicEmployee.AcademicPosition = (AcademicPosition)model.AcademicPosition;

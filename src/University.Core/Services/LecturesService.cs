@@ -234,7 +234,8 @@ namespace University.Core.Services
                 {
                     var filteredResult = lectures.Where(n =>
                     n.Subject.Name.ToLower().Contains(searchString.ToLower()) || 
-                    n.AcademicEmployee.FullName.ToLower().Contains(searchString.ToLower()) || 
+                    n.AcademicEmployee.FirstName.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.LastName.ToLower().Contains(searchString.ToLower()) ||
                     n.LectureDate.ToString().Contains(searchString))
                     .OrderBy(n => n.LectureDate)
                     .ThenBy(n => n.StartTime).ToList();

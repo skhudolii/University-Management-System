@@ -12,7 +12,7 @@ using University.Infrastructure.Data;
 namespace University.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(UniversityDbContext))]
-    [Migration("20230123230450_Init")]
+    [Migration("20230718192543_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -43,10 +43,15 @@ namespace University.Infrastructure.Data.Migrations
                     b.Property<int?>("FacultyId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("ProfilePictureURL")
                         .IsRequired()
@@ -196,13 +201,18 @@ namespace University.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("ProfilePictureURL")
                         .IsRequired()
@@ -257,7 +267,7 @@ namespace University.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("University.Core.Entities.Lecture", b =>
                 {
-                    b.HasOne("University.Core.Entities.AcademicEmployee", "Teacher")
+                    b.HasOne("University.Core.Entities.AcademicEmployee", "AcademicEmployee")
                         .WithMany("Lectures")
                         .HasForeignKey("AcademicEmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -279,13 +289,13 @@ namespace University.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AcademicEmployee");
+
                     b.Navigation("Faculty");
 
                     b.Navigation("LectureRoom");
 
                     b.Navigation("Subject");
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("University.Core.Entities.LectureGroup", b =>

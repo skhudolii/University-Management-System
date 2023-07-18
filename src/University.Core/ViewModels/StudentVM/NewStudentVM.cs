@@ -5,10 +5,15 @@ namespace University.Core.ViewModels.StudentVM
 {
     public class NewStudentVM : BaseViewModel
     {
-        [Display(Name = "Full name")]
-        [Required(ErrorMessage = "Full name is required")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Full name must be between 3 and 50 chars")]
-        public string FullName { get; set; }
+        [Display(Name = "First name")]
+        [Required(ErrorMessage = "First name is required")]
+        [StringLength(25, MinimumLength = 1, ErrorMessage = "First name must be between 1 and 25 chars")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last name")]
+        [Required(ErrorMessage = "Last name is required")]
+        [StringLength(25, MinimumLength = 1, ErrorMessage = "Last name must be between 1 and 25 chars")]
+        public string LastName { get; set; }
 
         [EmailAddress]
         [Display(Name = "Email")]

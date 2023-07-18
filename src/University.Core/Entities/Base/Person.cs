@@ -7,10 +7,15 @@ namespace University.Core.Entities.Base
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Full Name")]
-        [Required(ErrorMessage = "Full Name is required")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Full Name must be between 3 and 50 chars")]
-        public string FullName { get; set; }        
+        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "First Name is required")]
+        [StringLength(25, MinimumLength = 1, ErrorMessage = "First name must be between 1 and 25 chars")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Lastt Name is required")]
+        [StringLength(25, MinimumLength = 1, ErrorMessage = "Last name must be between 1 and 25 chars")]
+        public string LastName { get; set; }
 
         [EmailAddress]
         [Required(ErrorMessage = "Email is required")]
