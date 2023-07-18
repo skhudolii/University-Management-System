@@ -17,7 +17,7 @@ University Management System is an ASP.NET Core application that aims to provide
 
 Here is a UML diagram representing the schema of the University Management System application:
 
-![UML Diagram](/UniversityUML.png "UML diagramm")
+![UML Diagram](UniversityUML.png "UML diagramm")
 
 ## Architecture
 
