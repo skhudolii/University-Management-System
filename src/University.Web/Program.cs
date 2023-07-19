@@ -44,7 +44,10 @@ var app = builder.Build();
 app.UseStatusCodePages();
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.MapDefaultControllerRoute();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Faculties}/{action=Index}/{id?}"
+);
 
 SeedData.EnsurePopulated(app);
 
