@@ -56,7 +56,9 @@
                                     @foreach (var academicEmployee in Model.AcademicEmployees)
                                     {
                                         <div class="col text-center">
-                                            <img class="border-info rounded-circle" src="@academicEmployee.ProfilePictureURL" style="max-width: 100px" />
+                                            <a asp-controller="AcademicEmployees" asp-action="Details" asp-route-id="@academicEmployee.Id">
+                                                <img class="border-info rounded-circle" src="@academicEmployee.ProfilePictureURL" style="max-width: 100px" />
+                                            </a>
                                             <br />
                                             <a asp-controller="AcademicEmployees" asp-action="Details" asp-route-id="@academicEmployee.Id">@academicEmployee.FirstName @academicEmployee.LastName</a>
                                             <br />

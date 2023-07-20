@@ -29,6 +29,9 @@
                             @foreach (var student in Model.Students)
                             {
                                 <div class="flex-column">
+                                    <a asp-controller="Students" asp-action="Details" asp-route-id="@student.Id">
+                                        <img class="rounded-circle" src="@student.ProfilePictureURL" style="max-width: 40px" />
+                                    </a>
                                     <a asp-controller="Students" asp-action="Details" asp-route-id="@student.Id">@student.FirstName @student.LastName</a>
                                 </div>
                             }

@@ -24,7 +24,9 @@
                 {
                     <tr class="text-center">
                         <td class="align-middle">
-                            <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FirstName @item.LastName" style="max-width: 120px" />
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FirstName @item.LastName" style="max-width: 120px" />
+                            </a>
                         </td>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.FirstName)
