@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using University.Core.Services;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.FacultyVM;
 
@@ -38,14 +39,19 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(NewFacultyVM facultyVM)
+        public async Task<IActionResult> Create(NewFacultyVM facultyVM)
         {
             if (!ModelState.IsValid)
             {
                 return View(facultyVM);
             }
 
-            await _facultiesService.AddNewFaculty(facultyVM);
+            var response = await _facultiesService.AddNewFaculty(facultyVM);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -74,7 +80,12 @@ namespace University.Web.Controllers
                 return View(facultyVM);
             }
 
-            await _facultiesService.UpdateFaculty(facultyVM);
+            var response = await _facultiesService.UpdateFaculty(facultyVM);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 

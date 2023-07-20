@@ -21,6 +21,15 @@ namespace University.Core.Services
         {
             try
             {
+                if (await IsFacultyNameAlreadyTaken(model.Name))
+                {
+                    return new BaseResponse<Faculty>()
+                    {
+                        Description = "Faculty name is already taken",
+                        StatusCode = StatusCode.PreconditionFailed
+                    };
+                }
+
                 var newFaculty = new Faculty()
                 {
                     Name = model.Name,
@@ -159,6 +168,15 @@ namespace University.Core.Services
                     };
                 }
 
+                if (await IsFacultyNameAlreadyTaken(model.Name))
+                {
+                    return new BaseResponse<Faculty>()
+                    {
+                        Description = "Faculty name is already taken",
+                        StatusCode = StatusCode.PreconditionFailed
+                    };
+                }
+
                 dbFaculty.Id = model.Id;
                 dbFaculty.Name = model.Name;
                 dbFaculty.Logo = model.Logo;
@@ -213,6 +231,15 @@ namespace University.Core.Services
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+        }
+
+        private async Task<bool> IsFacultyNameAlreadyTaken(string facultyName)
+        {
+            // Retrieve the list of all existing faculties
+            IEnumerable<Faculty> existingFaculties = await _facultiesRepository.GetAllAsync();
+
+            // Check if any faculty in the list has the same name
+            return existingFaculties.Any(f => f.Name == facultyName);
         }
     }
 }

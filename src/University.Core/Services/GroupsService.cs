@@ -23,6 +23,15 @@ namespace University.Core.Services
         {
             try
             {
+                if (await IsGroupNameAlreadyTaken(model.Name))
+                {
+                    return new BaseResponse<Group>()
+                    {
+                        Description = "Group name is already taken",
+                        StatusCode = StatusCode.PreconditionFailed
+                    };
+                }
+
                 var newGroup = new Group()
                 {
                     Name = model.Name,
@@ -182,6 +191,15 @@ namespace University.Core.Services
                     };
                 }
 
+                if (await IsGroupNameAlreadyTaken(model.Name))
+                {
+                    return new BaseResponse<Group>()
+                    {
+                        Description = "Group name is already taken",
+                        StatusCode = StatusCode.PreconditionFailed
+                    };
+                }
+
                 dbGroup.Id = model.Id;
                 dbGroup.Name = model.Name;
                 dbGroup.FacultyId = model.FacultyId;
@@ -246,6 +264,15 @@ namespace University.Core.Services
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+        }
+
+        private async Task<bool> IsGroupNameAlreadyTaken(string groupName)
+        {
+            // Retrieve the list of all existing groups
+            IEnumerable<Group> existingGroups = await _groupsRepository.GetAllAsync();
+
+            // Check if any group in the list has the same name
+            return existingGroups.Any(g => g.Name == groupName);
         }
     }
 }

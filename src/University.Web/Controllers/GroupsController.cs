@@ -52,7 +52,12 @@ namespace University.Web.Controllers
                 return View(groupVM);
             }
 
-            await _groupsService.AddNewGroup(groupVM);
+            var response = await _groupsService.AddNewGroup(groupVM);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -87,7 +92,12 @@ namespace University.Web.Controllers
                 return View(groupVM);
             }
 
-            await _groupsService.UpdateGroup(groupVM);
+            var response = await _groupsService.UpdateGroup(groupVM);
+            if (response.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {response.StatusCode}, {response.Description}");
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
