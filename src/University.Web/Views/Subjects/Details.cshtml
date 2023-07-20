@@ -4,29 +4,31 @@
     ViewData["Title"] = "Details of the subject";
 }
 
-<div class="row text">
-    <div class="col-md-8 offset-2">
-        <p>
-            <h3 class="text-center">Details for @Model.Name</h3>
-        </p>
-        <div class="row">
-            <div class="col-md-8 offset-2">
-                <div class="mb-3">
-                    <label asp-for="Faculty" class="control-label"></label>
-                    <input asp-for="Faculty.Name" class="form-control" readonly />
-                    <span asp-validation-for="Faculty.Name" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" readonly />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Details for @Model.Name</h3>
+            </p>
+            <div class="row justify-content-evenly">
+                <div class="col-10">
+                    <div class="mb-3">
+                        <label asp-for="Faculty" class="control-label"></label>
+                        <input asp-for="Faculty.Name" class="form-control" readonly />
+                        <span asp-validation-for="Faculty.Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" readonly />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3">
-                    <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
-                </div>
+                    <div class="mb-3">
+                        <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>

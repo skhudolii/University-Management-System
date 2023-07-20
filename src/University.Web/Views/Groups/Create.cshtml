@@ -5,34 +5,36 @@
     ViewData["Title"] = "Add a new group";
 }
 
-<div class="row text">
-    <div class="col-md-8 offset-2">
-        <p>
-            <h3 class="text-center">Add a New Group</h3>
-        </p>
-        <div class="row">
-            <div class="col-md-8 offset-2">
-                <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    
-                    <div class="mb-3">
-                        <label asp-for="FacultyId" class="col-form-label"></label>
-                        <select asp-for="FacultyId" class="form-select" asp-items="ViewBag.Faculties">
-                            <option disabled selected>--Select a Faculty--</option>
-                        </select>
-                        <span asp-validation-for="FacultyId" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Name" class="col-form-label"></label>
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Add a New Group</h3>
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <div class="mb-3">
-                        <input type="submit" value="Create" class="btn btn-outline-success float-end" />
-                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
-                    </div>
-                </form>                
+                        <div class="mb-3">
+                            <label asp-for="FacultyId" class="col-form-label"></label>
+                            <select asp-for="FacultyId" class="form-select" asp-items="ViewBag.Faculties">
+                                <option disabled selected>--Select a Faculty--</option>
+                            </select>
+                            <span asp-validation-for="FacultyId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Name" class="col-form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Create" class="btn btn-outline-success float-end" />
+                            <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

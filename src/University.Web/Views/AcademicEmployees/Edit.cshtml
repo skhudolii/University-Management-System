@@ -6,56 +6,58 @@
     ViewData["Title"] = "Update academic employee";
 }
 
-<div class="row text">
-    <div class="col-md-8 offset-2">
-        <p>
-            <h3 class="text-center">Update for @Model.FirstName @Model.LastName</h3>
-        </p>
-        <div class="row">
-            <div class="col-md-8 offset-2">
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="container">
+    <div class="row justify-content-evenly">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Update for @Model.FirstName @Model.LastName</h3>
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <div class="mb-3 text-center">
-                        <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
-                    </div>
+                        <div class="mb-3 text-center">
+                            <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
+                        </div>
 
-                    <div class="mb-3">
-                        <label asp-for="FacultyId" class="col-form-label"></label>
-                        <select asp-for="FacultyId" class="form-select" asp-items="ViewBag.Faculties"></select>
-                        <span asp-validation-for="FacultyId" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="FirstName" class="control-label"></label>
-                        <input asp-for="FirstName" class="form-control" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="LastName" class="control-label"></label>
-                        <input asp-for="LastName" class="form-control" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="AcademicPosition" class="control-label"></label>
-                        <select asp-for="AcademicPosition" class="form-select" asp-items="Html.GetEnumSelectList<AcademicPosition>()"></select>
-                        <span asp-validation-for="AcademicPosition" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="ProfilePictureURL" class="control-label"></label>
-                        <input asp-for="ProfilePictureURL" class="form-control" />
-                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
-                    </div>
+                        <div class="mb-3">
+                            <label asp-for="FacultyId" class="col-form-label"></label>
+                            <select asp-for="FacultyId" class="form-select" asp-items="ViewBag.Faculties"></select>
+                            <span asp-validation-for="FacultyId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="AcademicPosition" class="control-label"></label>
+                            <select asp-for="AcademicPosition" class="form-select" asp-items="Html.GetEnumSelectList<AcademicPosition>()"></select>
+                            <span asp-validation-for="AcademicPosition" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ProfilePictureURL" class="control-label"></label>
+                            <input asp-for="ProfilePictureURL" class="form-control" />
+                            <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                        </div>
 
-                    <div class="mb-3">
-                        <input type="submit" value="Update" class="btn btn-outline-success float-end" />
-                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
-                    </div>
-                </form>                
+                        <div class="mb-3">
+                            <input type="submit" value="Update" class="btn btn-outline-success float-end" />
+                            <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -73,5 +75,5 @@
             var output = document.getElementById('ProfilePicturePreview');
             output.src = $(this).val();
         })
-    </script>    
+    </script>
 }

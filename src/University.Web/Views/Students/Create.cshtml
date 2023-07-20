@@ -5,58 +5,60 @@
     ViewData["Title"] = "Add a new student";
 }
 
-<div class="row text">
-    <div class="col-md-8 offset-2">
-        <p>
-            <h3 class ="text-center">Add a new student</h3>
-        </p>
-        <div class="row">
-            <div class="col-md-8 offset-2">
-                <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Add a new student</h3>
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <div class="mb-3 text-center">
-                        <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label asp-for="FacultyId" class="control-label"></label>
-                        <select asp-for="FacultyId" class="form-select" id="facultyId" asp-items="@ViewBag.faculties">
-                            <option disabled selected>--Select a Faculty--</option>
-                        </select>
-                        <span asp-validation-for="FacultyId" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="GroupId" class="control-label"></label>
-                        <select asp-for="GroupId" class="form-select" id="groupId"></select>
-                        <span asp-validation-for="GroupId" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="FirstName" class="control-label"></label>
-                        <input asp-for="FirstName" class="form-control" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="LastName" class="control-label"></label>
-                        <input asp-for="LastName" class="form-control" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="ProfilePictureURL" class="control-label"></label>
-                        <input asp-for="ProfilePictureURL" class="form-control" />
-                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
-                    </div>
+                        <div class="mb-3 text-center">
+                            <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
+                        </div>
 
-                    <div class="mb-3">
-                        <input type="submit" value="Create" class="btn btn-outline-success float-end" />
-                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
-                    </div>
-                </form>
+                        <div class="mb-3">
+                            <label asp-for="FacultyId" class="control-label"></label>
+                            <select asp-for="FacultyId" class="form-select" id="facultyId" asp-items="@ViewBag.faculties">
+                                <option disabled selected>--Select a Faculty--</option>
+                            </select>
+                            <span asp-validation-for="FacultyId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="GroupId" class="control-label"></label>
+                            <select asp-for="GroupId" class="form-select" id="groupId"></select>
+                            <span asp-validation-for="GroupId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ProfilePictureURL" class="control-label"></label>
+                            <input asp-for="ProfilePictureURL" class="form-control" />
+                            <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Create" class="btn btn-outline-success float-end" />
+                            <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -84,15 +86,15 @@
         var GetGroupsByFacultyId = function () {
             $.ajax({
                 url: '@Url.Action("GetGroupsByFacultyId","Students")',
-                type:'GET',
-                data:{
+                type: 'GET',
+                data: {
                     facultyId: $('#facultyId').val(),
                 },
-                success: function(data){
+                success: function (data) {
                     $('#groupId').find('option').remove()
                     $(data).each(
-                        function(index,item){
-                            $('#groupId').append('<option value="'+item.id+'">'+item.name+'</option')
+                        function (index, item) {
+                            $('#groupId').append('<option value="' + item.id + '">' + item.name + '</option')
                         }
                     );
                 }

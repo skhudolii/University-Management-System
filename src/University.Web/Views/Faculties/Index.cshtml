@@ -4,6 +4,7 @@
     ViewData["Title"] = "List of Faculties";
 }
 
+<div class="container">
 <div class="row">
     @foreach (var item in Model)
     {
@@ -41,6 +42,7 @@
             </div>
         </div>
     }
+</div>
 </div>
 
 @await Html.PartialAsync("_CreateItem", "Faculties")

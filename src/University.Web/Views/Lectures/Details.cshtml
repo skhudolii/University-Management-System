@@ -4,91 +4,93 @@
     ViewData["Title"] = "Lecture Details";
 }
 
-<div class="row text">
-    <div class="col-md-8 offset-2">
-        <p>
-            <h3 class="text-center">Details for @Model.Subject.Name</h3>
-        </p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Details for @Model.Subject.Name</h3>
+            </p>
 
-        <div class="row">
-            <div class="col-md-8 offset-2">
+            <div class="row justify-content-center">
+                <div class="col-10">
 
-                <div class="mb-3">
-                    <p class="card-text">
-                        Status:
-                        @if (DateTime.Now <= Model.LectureDate)
-                        {
-                            <span class="badge text-bg-success text-white">UPCOMING</span>
-                        }
-                        else
-                        {
-                            <span class="badge text-bg-danger text-white">EXPIRED</span>
-                        }
-                    </p>
-                </div>
+                    <div class="mb-3">
+                        <p class="card-text">
+                            Status:
+                            @if (DateTime.Now <= Model.LectureDate)
+                            {
+                                <span class="badge text-bg-success text-white">UPCOMING</span>
+                            }
+                            else
+                            {
+                                <span class="badge text-bg-danger text-white">EXPIRED</span>
+                            }
+                        </p>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label asp-for="Faculty" class="control-label"></label>
-                            <div class="form-control">
-                                <a asp-controller="Faculties" asp-action="Details" asp-route-id="@Model.FacultyId">@Model.Faculty.Name</a>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Faculty" class="control-label"></label>
+                                <div class="form-control">
+                                    <a asp-controller="Faculties" asp-action="Details" asp-route-id="@Model.FacultyId">@Model.Faculty.Name</a>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="LectureDate" class="control-label"></label>
+                                <input asp-for="LectureDate" class="form-control" readonly />
+                                <span asp-validation-for="LectureDate" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="StartTime" class="control-label"></label>
+                                <input asp-for="StartTime" class="form-control" readonly />
+                                <span asp-validation-for="StartTime" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="EndTime" class="control-label"></label>
+                                <input asp-for="EndTime" class="form-control" readonly />
+                                <span asp-validation-for="EndTime" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label asp-for="LectureDate" class="control-label"></label>
-                            <input asp-for="LectureDate" class="form-control" readonly />
-                            <span asp-validation-for="LectureDate" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="StartTime" class="control-label"></label>
-                            <input asp-for="StartTime" class="form-control" readonly />
-                            <span asp-validation-for="StartTime" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="EndTime" class="control-label"></label>
-                            <input asp-for="EndTime" class="form-control" readonly />
-                            <span asp-validation-for="EndTime" class="text-danger"></span>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Subject.Name" class="control-label"></label>
+                                <div class="form-control">
+                                    <a asp-controller="Subjects" asp-action="Details" asp-route-id="@Model.SubjectId">@Model.Subject.Name</a>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="LectureRoom.Name" class="control-label"></label>
+                                <div class="form-control">
+                                    <a asp-controller="LectureRooms" asp-action="Details" asp-route-id="@Model.LectureRoomId">@Model.LectureRoom.Name</a>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="AcademicEmployee" class="control-label"></label>
+                                <div class="form-control">
+                                    <a asp-controller="AcademicEmployees" asp-action="Details" asp-route-id="@Model.AcademicEmployeeId">@Model.AcademicEmployee.FirstName @Model.AcademicEmployee.LastName</a>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="LecturesGroups" class="control-label">Groups</label>
+                                <div class="form-control">
+                                    @foreach (var group in Model.LecturesGroups)
+                                    {
+                                        <div class="flex-column">
+                                            <a asp-controller="Groups" asp-action="Details" asp-route-id="@group.GroupId">@group.Group.Name</a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label asp-for="Subject.Name" class="control-label"></label>
-                            <div class="form-control">
-                                <a asp-controller="Subjects" asp-action="Details" asp-route-id="@Model.SubjectId">@Model.Subject.Name</a>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="LectureRoom.Name" class="control-label"></label>
-                            <div class="form-control">
-                                <a asp-controller="LectureRooms" asp-action="Details" asp-route-id="@Model.LectureRoomId">@Model.LectureRoom.Name</a>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="AcademicEmployee" class="control-label"></label>
-                            <div class="form-control">
-                                <a asp-controller="AcademicEmployees" asp-action="Details" asp-route-id="@Model.AcademicEmployeeId">@Model.AcademicEmployee.FirstName @Model.AcademicEmployee.LastName</a>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="LecturesGroups" class="control-label">Groups</label>
-                            <div class="form-control">
-                                @foreach (var group in Model.LecturesGroups)
-                                {
-                                    <div class="flex-column">
-                                        <a asp-controller="Groups" asp-action="Details" asp-route-id="@group.GroupId">@group.Group.Name</a>
-                                    </div>
-                                }
-                            </div>
-                        </div>
+
+                    <div class="mb-3">
+                        <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
                     </div>
-                </div>
 
-                <div class="mb-3">
-                    <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
                 </div>
-
             </div>
         </div>
     </div>

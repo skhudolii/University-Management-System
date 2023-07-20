@@ -4,8 +4,9 @@
     ViewData["Title"] = "Faculty Details";
 }
 
-<div class="row">    
-        <div class="col-md-8 offset-2">
+<div class="container">
+    <div class="row justify-content-evenly">
+        <div class="col-10">
             <div class="card mb-12">
                 <div class="row g-0">
                     <div class="col-md-12">
@@ -19,7 +20,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <img src="@Model.Logo" style="width: 100%" alt="@Model.Name" />
+                        <img src="@Model.Logo" style="width: 100%" class="img-fluid" alt="@Model.Name" />
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -73,7 +74,7 @@
                                     <i class="bi bi-arrow-left"></i> Back to List
                                 </a>
                                 <a class="btn btn-info text-white float-end" asp-controller="Lectures" asp-action="ScheduleForFaculty" asp-route-id="@Model.Id">
-                                    <i class="bi bi-calendar2-event"></i> Schedule 
+                                    <i class="bi bi-calendar2-event"></i> Schedule
                                 </a>
                             </p>
                         </div>
@@ -81,5 +82,6 @@
                 </div>
             </div>
         </div>
+    </div>
 </div>
 
