@@ -17,13 +17,12 @@ namespace University.Core.Services
             _lecturesRepository = lecturesRepository;
         }
 
-        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetLecturesList()
+        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetSortedLecturesList(string sortOrder)
         {
             try
             {
                 var lectures = (await _lecturesRepository.GetAllAsync(s => s.Subject, lr => lr.LectureRoom, f => f.Faculty))
-                    .Where(f => f.FacultyId != null)
-                    .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
+                    .Where(f => f.FacultyId != null);
 
                 if (!lectures.Any())
                 {
@@ -34,9 +33,37 @@ namespace University.Core.Services
                     };
                 }
 
+                switch (sortOrder)
+                {
+                    case "date_desc":
+                        lectures = lectures.OrderByDescending(l => l.LectureDate);
+                        break;
+                    case "Subject":
+                        lectures = lectures.OrderBy(l => l.Subject.Name);
+                        break;
+                    case "subject_desc":
+                        lectures = lectures.OrderByDescending(l => l.Subject.Name);
+                        break;
+                    case "LectureRoom":
+                        lectures = lectures.OrderBy(l => l.LectureRoom.Name);
+                        break;
+                    case "lectureRoom_desc":
+                        lectures = lectures.OrderByDescending(l => l.LectureRoom.Name);
+                        break;
+                    case "Faculty":
+                        lectures = lectures.OrderBy(l => l.Faculty.Name);
+                        break;
+                    case "faculty_desc":
+                        lectures = lectures.OrderByDescending(l => l.Faculty.Name);
+                        break;
+                    default:
+                        lectures = lectures.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime);
+                        break;
+                }
+
                 return new BaseResponse<IEnumerable<Lecture>>()
                 {
-                    Data = lectures,
+                    Data = lectures.ToList(),
                     StatusCode = StatusCode.OK
                 };
             }

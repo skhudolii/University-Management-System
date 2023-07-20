@@ -6,7 +6,7 @@ namespace University.Core.Services.Interfaces
 {
     public interface IGroupsService
     {
-        Task<IBaseResponse<IEnumerable<Group>>> GetGroupsList();
+        Task<IBaseResponse<IEnumerable<Group>>> GetSortedGroupsList(string sortOrder);
         Task<IBaseResponse<NewGroupVM>> GetGroupById(int id);
         Task<IBaseResponse<Group>> GetGroupWithIncludePropertiesById(int id);
         Task<IBaseResponse<NewGroupDropdownsVM>> GetNewGroupDropdownsValues();

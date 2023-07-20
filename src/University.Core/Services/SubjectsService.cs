@@ -138,7 +138,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Subject>>> GetSubjectsList()
+        public async Task<IBaseResponse<IEnumerable<Subject>>> GetSortedSubjectsList(string sortOrder)
         {
             try
             {
@@ -150,6 +150,22 @@ namespace University.Core.Services
                         Description = "0 items found",
                         StatusCode = StatusCode.OK
                     };
+                }
+
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        subjects = subjects.OrderByDescending(s => s.Name);
+                        break;
+                    case "FacultyName":
+                        subjects = subjects.OrderBy(s => s.Faculty.Name);
+                        break;
+                    case "facultyname_desc":
+                        subjects = subjects.OrderByDescending(s => s.Faculty.Name);
+                        break;
+                    default:
+                        subjects = subjects.OrderBy(s => s.Name);
+                        break;
                 }
 
                 return new BaseResponse<IEnumerable<Subject>>()

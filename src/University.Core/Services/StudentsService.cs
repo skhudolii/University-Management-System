@@ -17,7 +17,7 @@ namespace University.Core.Services
             _studentsRepository = studentsRepository;
         }
 
-        public async Task<IBaseResponse<IEnumerable<Student>>> GetStudentsList()
+        public async Task<IBaseResponse<IEnumerable<Student>>> GetSortedStudentsList(string sortOrder)
         {
             try
             {
@@ -31,6 +31,34 @@ namespace University.Core.Services
                         Description = "0 items found",
                         StatusCode = StatusCode.OK
                     };
+                }
+
+                switch (sortOrder)
+                {
+                    case "lastname_desc":
+                        students = students.OrderByDescending(s => s.LastName);
+                        break;
+                    case "FirstName":
+                        students = students.OrderBy(s => s.FirstName);
+                        break;
+                    case "firstname_desc":
+                        students = students.OrderByDescending(s => s.FirstName);
+                        break;
+                    case "GroupName":
+                        students = students.OrderBy(s => s.Group.Name);
+                        break;
+                    case "groupname_desc":
+                        students = students.OrderByDescending(s => s.Group.Name);
+                        break;
+                    case "FacultyName":
+                        students = students.OrderBy(s => s.Group.Faculty.Name);
+                        break;
+                    case "facultyname_desc":
+                        students = students.OrderByDescending(s => s.Group.Faculty.Name);
+                        break;
+                    default:
+                        students = students.OrderBy(s => s.LastName);
+                        break;
                 }
 
                 return new BaseResponse<IEnumerable<Student>>()

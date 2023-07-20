@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.SubjectVM;
 
@@ -15,10 +16,14 @@ namespace University.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var allSubjects = await _subjectsService.GetSubjectsList();
-            return View(allSubjects.Data);
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["FacultyNameSortParm"] = sortOrder == "FacultyName" ? "facultyname_desc" : "FacultyName";
+
+            var subjects = await _subjectsService.GetSortedSubjectsList(sortOrder);
+
+            return View(subjects.Data);
         }
 
         // GET: Subjects/Details/1

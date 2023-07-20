@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.LectureVM;
 
@@ -20,10 +21,16 @@ namespace University.Web.Controllers
             _scheduleService = scheduleService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var allLectures = await _lecturesService.GetLecturesList();
-            return View(allLectures.Data);
+            ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewData["SubjectSortParm"] = sortOrder == "Subject" ? "subject_desc" : "Subject";
+            ViewData["LectureRoomSortParm"] = sortOrder == "LectureRoom" ? "lectureRoom_desc" : "LectureRoom";
+            ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
+
+            var lectures = await _lecturesService.GetSortedLecturesList(sortOrder);
+
+            return View(lectures.Data);
         }
 
         // GET: Lectures/Details/1

@@ -126,7 +126,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<AcademicEmployee>>> GetAcademicEmployeesList()
+        public async Task<IBaseResponse<IEnumerable<AcademicEmployee>>> GetSortedAcademicEmployeesList(string sortOrder)
         {
             try
             {
@@ -142,9 +142,31 @@ namespace University.Core.Services
                     };
                 }
 
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        academicEmployees = academicEmployees.OrderByDescending(ae => ae.LastName);
+                        break;
+                    case "AcademicPosition":
+                        academicEmployees = academicEmployees.OrderBy(ae => ae.AcademicPosition);
+                        break;
+                    case "academicPosition_desc":
+                        academicEmployees = academicEmployees.OrderByDescending(ae => ae.AcademicPosition);
+                        break;
+                    case "Faculty":
+                        academicEmployees = academicEmployees.OrderBy(ae => ae.Faculty.Name);
+                        break;
+                    case "faculty_desc":
+                        academicEmployees = academicEmployees.OrderByDescending(ae => ae.Faculty.Name);
+                        break;
+                    default:
+                        academicEmployees = academicEmployees.OrderBy(ae => ae.LastName);
+                        break;
+                }
+
                 return new BaseResponse<IEnumerable<AcademicEmployee>>()
                 {
-                    Data = academicEmployees,
+                    Data = academicEmployees.ToList(),
                     StatusCode = StatusCode.OK
                 };
             }

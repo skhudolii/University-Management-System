@@ -10,9 +10,15 @@
         <table class="table">
             <thead>
                 <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.Capacity)</th>
-                    <th>@Html.DisplayNameFor(model => model.Faculty.Name)</th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["CapacitySortParm"]">@Html.DisplayNameFor(model => model.Capacity)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]">@Html.DisplayNameFor(model => model.Faculty.Name)</a>
+                    </th>
                     <th>Actions</th>
                 </tr>
             </thead>

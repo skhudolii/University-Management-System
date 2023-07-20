@@ -11,10 +11,18 @@
             <thead>
                 <tr class="text-center">
                     <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
-                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Group.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.Group.Faculty.Name)</th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["FirstNameSortParm"]">@Html.DisplayNameFor(model => model.FirstName)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["LastNameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["GroupNameSortParm"]">@Html.DisplayNameFor(model => model.Group.Name)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultyNameSortParm"]">@Html.DisplayNameFor(model => model.Group.Faculty.Name)</a>
+                    </th>
                     <th>Actions</th>
                 </tr>
             </thead>

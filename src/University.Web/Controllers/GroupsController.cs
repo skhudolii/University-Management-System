@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.GroupVM;
 
@@ -14,10 +15,14 @@ namespace University.Web.Controllers
             _groupsService = groupsService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var allGroups = await _groupsService.GetGroupsList();
-            return View(allGroups.Data);
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
+
+            var groups = await _groupsService.GetSortedGroupsList(sortOrder);
+
+            return View(groups.Data);
         }
 
         // GET: Groups/Details/1

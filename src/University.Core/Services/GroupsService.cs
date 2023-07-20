@@ -56,7 +56,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Group>>> GetGroupsList()
+        public async Task<IBaseResponse<IEnumerable<Group>>> GetSortedGroupsList(string sortOrder)
         {
             try
             {
@@ -70,9 +70,25 @@ namespace University.Core.Services
                     };
                 }
 
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        groups = groups.OrderByDescending(g => g.Name);
+                        break;
+                    case "Faculty":
+                        groups = groups.OrderBy(g => g.Faculty.Name);
+                        break;
+                    case "faculty_desc":
+                        groups = groups.OrderByDescending(g => g.Faculty.Name);
+                        break;
+                    default:
+                        groups = groups.OrderBy(g => g.Name);
+                        break;
+                }
+
                 return new BaseResponse<IEnumerable<Group>>()
                 {
-                    Data = groups,
+                    Data = groups.ToList(),
                     StatusCode = StatusCode.OK
                 };
             }

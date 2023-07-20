@@ -12,9 +12,15 @@
                 <tr class="text-center">
                     <th class="align-middle">@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
                     <th class="align-middle">@Html.DisplayNameFor(model => model.FirstName)</th>
-                    <th class="align-middle">@Html.DisplayNameFor(model => model.LastName)</th>
-                    <th class="align-middle">@Html.DisplayNameFor(model => model.AcademicPosition)</th>
-                    <th class="align-middle">@Html.DisplayNameFor(model => model.Faculty.Name)</th>
+                    <th class="align-middle">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
+                    </th>
+                    <th class="align-middle">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["AcademicPositionSortParm"]">@Html.DisplayNameFor(model => model.AcademicPosition)</a>
+                    </th>
+                    <th class="align-middle">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]">@Html.DisplayNameFor(model => model.Faculty.Name)</a>
+                    </th>
                     <th class="align-middle">Actions</th>
                 </tr>
             </thead>

@@ -6,7 +6,7 @@ namespace University.Core.Services.Interfaces
 {
     public interface IStudentsService
     {
-        Task<IBaseResponse<IEnumerable<Student>>> GetStudentsList();
+        Task<IBaseResponse<IEnumerable<Student>>> GetSortedStudentsList(string sortOrder);
         Task<IBaseResponse<NewStudentVM>> GetStudentById(int id);
         Task<IBaseResponse<Student>> GetStudentWithIncludePropertiesById(int id);
         Task<IBaseResponse<Student>> AddNewStudent(NewStudentVM model);

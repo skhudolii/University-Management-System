@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.StudentVM;
 
@@ -17,10 +18,16 @@ namespace University.Web.Controllers
             _studentCascadingDropdownsService = studentCascadingDropdownsService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var allStudents = await _studentsService.GetStudentsList();
-            return View(allStudents.Data);
+            ViewData["LastNameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "lastname_desc" : "";
+            ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "firstname_desc" : "FirstName";
+            ViewData["GroupNameSortParm"] = sortOrder == "GroupName" ? "groupname_desc" : "GroupName";
+            ViewData["FacultyNameSortParm"] = sortOrder == "FacultyName" ? "facultyname_desc" : "FacultyName";
+
+            var students = await _studentsService.GetSortedStudentsList(sortOrder);
+
+            return View(students.Data);
         }
 
         // GET: Students/Details/1

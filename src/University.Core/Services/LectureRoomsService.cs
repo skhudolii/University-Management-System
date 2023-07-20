@@ -115,14 +115,12 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<LectureRoom>>> GetLectureRoomsList()
+        public async Task<IBaseResponse<IEnumerable<LectureRoom>>> GetSortedLectureRoomsList(string sortOrder)
         {
             try
             {
-                var lectureRooms = await _lectureRoomsRepository.GetAllAsync(n => n.Faculty);
-                var filteredLectureRooms = lectureRooms.Where(f => f.FacultyId != null);
-
-                if (!filteredLectureRooms.Any())
+                var lectureRooms = (await _lectureRoomsRepository.GetAllAsync(n => n.Faculty)).Where(f => f.FacultyId != null);
+                if (!lectureRooms.Any())
                 {
                     return new BaseResponse<IEnumerable<LectureRoom>>()
                     {
@@ -131,9 +129,31 @@ namespace University.Core.Services
                     };
                 }
 
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        lectureRooms = lectureRooms.OrderByDescending(lr => lr.Name);
+                        break;
+                    case "Capacity":
+                        lectureRooms = lectureRooms.OrderBy(lr => lr.Capacity);
+                        break;
+                    case "capacity_desc":
+                        lectureRooms = lectureRooms.OrderByDescending(lr => lr.Capacity);
+                        break;
+                    case "Faculty":
+                        lectureRooms = lectureRooms.OrderBy(lr => lr.Faculty.Name);
+                        break;
+                    case "faculty_desc":
+                        lectureRooms = lectureRooms.OrderByDescending(lr => lr.Faculty.Name);
+                        break;
+                    default:
+                        lectureRooms = lectureRooms.OrderBy(lr => lr.Name);
+                        break;
+                }
+
                 return new BaseResponse<IEnumerable<LectureRoom>>()
                 {
-                    Data = filteredLectureRooms,
+                    Data = lectureRooms.ToList(),
                     StatusCode = StatusCode.OK
                 };
             }

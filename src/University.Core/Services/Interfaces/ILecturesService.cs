@@ -6,7 +6,7 @@ namespace University.Core.Services.Interfaces
 {
     public interface ILecturesService
     {
-        Task<IBaseResponse<IEnumerable<Lecture>>> GetLecturesList();
+        Task<IBaseResponse<IEnumerable<Lecture>>> GetSortedLecturesList(string sortOrder);
         Task<IBaseResponse<NewLectureVM>> GetLectureById(int id);
         Task<IBaseResponse<Lecture>> GetLectureWithIncludePropertiesById(int id);
         Task<IBaseResponse<Lecture>> AddNewLecture(NewLectureVM newLectureVM);

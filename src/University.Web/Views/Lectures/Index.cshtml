@@ -10,15 +10,23 @@
         <table class="table">
             <thead>
                 <tr class="text-center">
-                    <th class="align-middle">@Html.DisplayNameFor(model => model.LectureDate)</th>
+                    <th class="align-middle">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.LectureDate)</a>
+                    </th>
                     <th class="align-middle">
                         @Html.DisplayNameFor(model => model.StartTime)
                         <br />
                         @Html.DisplayNameFor(model => model.EndTime)
                     </th>
-                    <th class="align-middle">@Html.DisplayNameFor(model => model.Subject.Name)</th>
-                    <th class="align-middle">@Html.DisplayNameFor(model => model.LectureRoom.Name)</th>
-                    <th class="align-middle">@Html.DisplayNameFor(model => model.Faculty.Name)</th>
+                    <th class="align-middle">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["SubjectSortParm"]">@Html.DisplayNameFor(model => model.Subject.Name)</a>
+                    </th>
+                    <th class="align-middle">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["LectureRoomSortParm"]">@Html.DisplayNameFor(model => model.LectureRoom.Name)</a>
+                    </th>
+                    <th class="align-middle">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]">@Html.DisplayNameFor(model => model.Faculty.Name)</a>
+                    </th>
                     <th class="align-middle">Actions</th>
                 </tr>
             </thead>
