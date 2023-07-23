@@ -65,8 +65,8 @@
 </div>
 
 @section Scripts{
+    <partial name="_ValidationScriptsPartial" />
     <script>
-
         $(document).ready(function () {
             var output = document.getElementById('ProfilePicturePreview');
             output.src = $("#ProfilePictureURL").val();

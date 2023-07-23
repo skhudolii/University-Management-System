@@ -79,11 +79,8 @@
 </div>
 
 @section Scripts{
+    <partial name="_ValidationScriptsPartial" />
     <script>
-
-        //$(document).ready(function () {
-        //    GetValuesByFacultyId();
-        //})
         $("#facultyId").change(function () {
             GetValuesByFacultyId();
         });
@@ -122,6 +119,5 @@
                 }
             })
         }
-
     </script>
 }
