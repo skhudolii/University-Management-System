@@ -4,64 +4,74 @@
     ViewData["Title"] = "List of Students";
 }
 
-<div class="row">
-    <div class="col-md-8 offset-md-2">
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-10">
 
-        <table class="table">
-            <thead>
-                <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["FirstNameSortParm"]">@Html.DisplayNameFor(model => model.FirstName)</a>
-                    </th>
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["LastNameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
-                    </th>
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["GroupNameSortParm"]">@Html.DisplayNameFor(model => model.Group.Name)</a>
-                    </th>
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultyNameSortParm"]">@Html.DisplayNameFor(model => model.Group.Faculty.Name)</a>
-                    </th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+            @using (Html.BeginForm())
+            {
+                <p>
+                    Find by name: @Html.TextBox("SearchString")
+                    <input type="submit" value="Search" />
+                </p>
+            }
+
+            <table class="table">
+                <thead>
                     <tr class="text-center">
-                        <td class="align-middle">
-                            <a asp-action="Details" asp-route-id="@item.Id">
-                                <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FirstName @item.LastName" style="max-width: 120px" />
-                            </a>
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td class="align-middle">
-                            <a asp-controller="Groups" asp-action="Details" asp-route-id="@item.Group.Id">
-                                @Html.DisplayFor(modelItem => item.Group.Name)
-                            </a>
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.Group.Faculty.Name)
-                        </td>
-
-                        <td class="align-middle">
-                            <div class="btn-group">
-                                <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit </a>
-                                <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details </a>
-                                <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Delete </a>
-                            </div>
-                        </td>
+                        <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FirstNameSortParm"]">@Html.DisplayNameFor(model => model.FirstName)</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["LastNameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["GroupNameSortParm"]">@Html.DisplayNameFor(model => model.Group.Name)</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultyNameSortParm"]">@Html.DisplayNameFor(model => model.Group.Faculty.Name)</a>
+                        </th>
+                        <th>Actions</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td class="align-middle">
+                                <a asp-action="Details" asp-route-id="@item.Id">
+                                    <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FirstName @item.LastName" style="max-width: 120px" />
+                                </a>
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td class="align-middle">
+                                <a asp-controller="Groups" asp-action="Details" asp-route-id="@item.Group.Id">
+                                    @Html.DisplayFor(modelItem => item.Group.Name)
+                                </a>
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Group.Faculty.Name)
+                            </td>
 
+                            <td class="align-middle">
+                                <div class="btn-group">
+                                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit </a>
+                                    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details </a>
+                                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Delete </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
     </div>
 </div>
 

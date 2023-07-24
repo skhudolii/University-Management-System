@@ -15,13 +15,12 @@ namespace University.Web.Controllers
             _subjectsService = subjectsService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["FacultyNameSortParm"] = sortOrder == "FacultyName" ? "facultyname_desc" : "FacultyName";
 
-            var subjects = await _subjectsService.GetSortedSubjectsList(sortOrder);
+            var subjects = await _subjectsService.GetSortedSubjectsList(sortOrder, searchString);
 
             return View(subjects.Data);
         }

@@ -56,7 +56,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Group>>> GetSortedGroupsList(string sortOrder)
+        public async Task<IBaseResponse<IEnumerable<Group>>> GetSortedGroupsList(string sortOrder, string searchString)
         {
             try
             {
@@ -68,6 +68,11 @@ namespace University.Core.Services
                         Description = "0 items found",
                         StatusCode = StatusCode.OK
                     };
+                }
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    groups = groups.Where(g => g.Name.ToLower().Contains(searchString.ToLower()));
                 }
 
                 switch (sortOrder)

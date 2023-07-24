@@ -17,11 +17,15 @@ namespace University.Core.Services
             _lecturesRepository = lecturesRepository;
         }
 
-        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetSortedLecturesList(string sortOrder)
+        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetSortedLecturesList(string sortOrder, string searchString)
         {
             try
             {
-                var lectures = (await _lecturesRepository.GetAllAsync(s => s.Subject, lr => lr.LectureRoom, f => f.Faculty))
+                var lectures = (await _lecturesRepository.GetAllAsync(
+                    a => a.AcademicEmployee,
+                    f => f.Faculty,
+                    lr => lr.LectureRoom,
+                    s => s.Subject))
                     .Where(f => f.FacultyId != null);
 
                 if (!lectures.Any())
@@ -31,6 +35,17 @@ namespace University.Core.Services
                         Description = "0 items found",
                         StatusCode = StatusCode.OK
                     };
+                }
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    lectures = lectures.Where(n =>
+                    n.Subject.Name.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.FirstName.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.LastName.ToLower().Contains(searchString.ToLower()) ||
+                    n.LectureDate.ToString().Contains(searchString))
+                    .OrderBy(n => n.LectureDate)
+                    .ThenBy(n => n.StartTime).ToList();                   
                 }
 
                 switch (sortOrder)
@@ -232,62 +247,6 @@ namespace University.Core.Services
                 return new BaseResponse<bool>
                 {
                     Description = $"[LecturesService.DeleteLecture] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<IBaseResponse<IEnumerable<Lecture>>> Filter(string searchString)
-        {
-            try
-            {
-                var lectures = (await _lecturesRepository.GetAllAsync(
-                    a => a.AcademicEmployee,
-                    f => f.Faculty,
-                    lr => lr.LectureRoom,
-                    s => s.Subject))
-                    .Where(f => f.FacultyId != null);
-
-                if (lectures == null || !lectures.Any())
-                {
-                    return new BaseResponse<IEnumerable<Lecture>>()
-                    {
-                        Description = "0 items found",
-                        StatusCode = StatusCode.NoContent
-                    };
-                }
-
-                if (!string.IsNullOrEmpty(searchString))
-                {
-                    var filteredResult = lectures.Where(n =>
-                    n.Subject.Name.ToLower().Contains(searchString.ToLower()) || 
-                    n.AcademicEmployee.FirstName.ToLower().Contains(searchString.ToLower()) ||
-                    n.AcademicEmployee.LastName.ToLower().Contains(searchString.ToLower()) ||
-                    n.LectureDate.ToString().Contains(searchString))
-                    .OrderBy(n => n.LectureDate)
-                    .ThenBy(n => n.StartTime).ToList();
-
-                    if (filteredResult.Any())
-                    {
-                        return new BaseResponse<IEnumerable<Lecture>>()
-                        {
-                            Data = filteredResult,
-                            StatusCode = StatusCode.OK
-                        };
-                    }
-                }
-
-                return new BaseResponse<IEnumerable<Lecture>>()
-                {
-                    Description = "0 items found",
-                    StatusCode = StatusCode.NoContent
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<IEnumerable<Lecture>>()
-                {
-                    Description = $"[LecturesService.Filter] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

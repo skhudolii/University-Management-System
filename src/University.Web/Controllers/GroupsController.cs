@@ -15,12 +15,12 @@ namespace University.Web.Controllers
             _groupsService = groupsService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
-            var groups = await _groupsService.GetSortedGroupsList(sortOrder);
+            var groups = await _groupsService.GetSortedGroupsList(sortOrder, searchString);
 
             return View(groups.Data);
         }

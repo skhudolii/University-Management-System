@@ -126,7 +126,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<AcademicEmployee>>> GetSortedAcademicEmployeesList(string sortOrder)
+        public async Task<IBaseResponse<IEnumerable<AcademicEmployee>>> GetSortedAcademicEmployeesList(string sortOrder, string searchString)
         {
             try
             {
@@ -140,6 +140,12 @@ namespace University.Core.Services
                         Description = "0 items found",
                         StatusCode = StatusCode.OK
                     };
+                }
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    academicEmployees = academicEmployees.Where(ae => ae.FirstName.ToLower().Contains(searchString.ToLower())
+                                           || ae.LastName.ToLower().Contains(searchString.ToLower()));
                 }
 
                 switch (sortOrder)

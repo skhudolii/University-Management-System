@@ -138,7 +138,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Subject>>> GetSortedSubjectsList(string sortOrder)
+        public async Task<IBaseResponse<IEnumerable<Subject>>> GetSortedSubjectsList(string sortOrder, string searchString)
         {
             try
             {
@@ -150,6 +150,11 @@ namespace University.Core.Services
                         Description = "0 items found",
                         StatusCode = StatusCode.OK
                     };
+                }
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    subjects = subjects.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
                 }
 
                 switch (sortOrder)

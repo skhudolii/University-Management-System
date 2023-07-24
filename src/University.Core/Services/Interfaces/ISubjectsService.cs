@@ -6,7 +6,7 @@ namespace University.Core.Services.Interfaces
 {
     public interface ISubjectsService
     {
-        Task<IBaseResponse<IEnumerable<Subject>>> GetSortedSubjectsList(string sortOrder);
+        Task<IBaseResponse<IEnumerable<Subject>>> GetSortedSubjectsList(string sortOrder, string searchString);
         Task<IBaseResponse<NewSubjectVM>> GetSubjectById(int id);
         Task<IBaseResponse<Subject>> GetSubjectWithIncludePropertiesById(int id);
         Task<IBaseResponse<NewSubjectDropdownsVM>> GetNewSubjectDropdownsValues();

@@ -18,14 +18,14 @@ namespace University.Web.Controllers
             _studentCascadingDropdownsService = studentCascadingDropdownsService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["LastNameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "lastname_desc" : "";
             ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "firstname_desc" : "FirstName";
             ViewData["GroupNameSortParm"] = sortOrder == "GroupName" ? "groupname_desc" : "GroupName";
             ViewData["FacultyNameSortParm"] = sortOrder == "FacultyName" ? "facultyname_desc" : "FacultyName";
 
-            var students = await _studentsService.GetSortedStudentsList(sortOrder);
+            var students = await _studentsService.GetSortedStudentsList(sortOrder, searchString);
 
             return View(students.Data);
         }

@@ -17,7 +17,7 @@ namespace University.Core.Services
             _studentsRepository = studentsRepository;
         }
 
-        public async Task<IBaseResponse<IEnumerable<Student>>> GetSortedStudentsList(string sortOrder)
+        public async Task<IBaseResponse<IEnumerable<Student>>> GetSortedStudentsList(string sortOrder, string searchString)
         {
             try
             {
@@ -31,6 +31,12 @@ namespace University.Core.Services
                         Description = "0 items found",
                         StatusCode = StatusCode.OK
                     };
+                }
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    students = students.Where(ae => ae.FirstName.ToLower().Contains(searchString.ToLower())
+                                           || ae.LastName.ToLower().Contains(searchString.ToLower()));
                 }
 
                 switch (sortOrder)

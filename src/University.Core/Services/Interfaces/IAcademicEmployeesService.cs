@@ -6,7 +6,7 @@ namespace University.Core.Services.Interfaces
 {
     public interface IAcademicEmployeesService
     {
-        Task<IBaseResponse<IEnumerable<AcademicEmployee>>> GetSortedAcademicEmployeesList(string sortOrder);
+        Task<IBaseResponse<IEnumerable<AcademicEmployee>>> GetSortedAcademicEmployeesList(string sortOrder, string searchString);
         Task<IBaseResponse<NewAcademicEmployeeVM>> GetAcademicEmployeeById(int id);
         Task<IBaseResponse<AcademicEmployee>> GetAcademicEmployeeWithIncludePropertiesById(int id);
         Task<IBaseResponse<NewAcademicEmployeeDropdownsVM>> GetNewAcademicEmployeeDropdownsValues();

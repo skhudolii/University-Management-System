@@ -14,13 +14,14 @@ namespace University.Web.Controllers
             _academicEmployeesService = academicEmployeesService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["AcademicPositionSortParm"] = sortOrder == "AcademicPosition" ? "academicPosition_desc" : "AcademicPosition";
             ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
-            var academicEmployees = await _academicEmployeesService.GetSortedAcademicEmployeesList(sortOrder);
+            var academicEmployees = await _academicEmployeesService.GetSortedAcademicEmployeesList(sortOrder, searchString);
+
             
             return View(academicEmployees.Data);
         }

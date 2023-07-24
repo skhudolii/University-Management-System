@@ -21,14 +21,14 @@ namespace University.Web.Controllers
             _scheduleService = scheduleService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewData["SubjectSortParm"] = sortOrder == "Subject" ? "subject_desc" : "Subject";
             ViewData["LectureRoomSortParm"] = sortOrder == "LectureRoom" ? "lectureRoom_desc" : "LectureRoom";
             ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
-            var lectures = await _lecturesService.GetSortedLecturesList(sortOrder);
+            var lectures = await _lecturesService.GetSortedLecturesList(sortOrder, searchString);
 
             return View(lectures.Data);
         }
@@ -167,17 +167,6 @@ namespace University.Web.Controllers
             }
 
             return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Filter(string searchString)
-        {
-            var response = await _lecturesService.Filter(searchString);
-            if (response.StatusCode == Core.Enums.StatusCode.NoContent)
-            {
-                return View("Error", $"{response.StatusCode}, {response.Description}");
-            }
-
-            return View("Index", response.Data);
         }
 
         public async Task<IActionResult> ScheduleForFaculty(int id)
