@@ -39,6 +39,7 @@ The project is structured into three main layers:
    - Interfaces: Defines interfaces used by other layers.
    - Domain Services: Implements business logic and rules.
    - ViewModels: Provides data models for views.
+   - Attributes: Contains custom attributes for data validation and other purposes.
 
 2. Infrastructure:
    - EF Core types: Includes the DbContext and migration configurations.
@@ -55,6 +56,13 @@ The project is structured into three main layers:
 - Dependent dropdowns: The application includes functionality for dynamic dropdowns that update based on user selections, providing an intuitive user experience.
 - Schedules: The system supports schedules for faculties, students, and teachers, allowing them to view and their respective schedules.
 - Group deletion constraint: A group cannot be deleted if there is at least one student assigned to that group, ensuring data integrity and preventing accidental deletions.
+- Sorting: Implemented sorting functionality to allow users to sort data in ascending or descending order based on different columns.
+- Searching: Implemented searching functionality to enable users to search for specific records using keywords or filters.
+- Pagination: Utilizes the X.PagedList library to implement pagination, breaking down large datasets into smaller, manageable pages for improved user experience.
+
+## Responsive Design
+
+The University Management System features a responsive design that adapts to various screen sizes and devices. Whether accessed from a desktop computer, tablet, or smartphone, the application's UI will adjust to provide an optimal viewing experience.
 
 ## Installation
 
