@@ -157,22 +157,13 @@ namespace University.Core.Services
                     subjects = subjects.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
                 }
 
-                switch (sortOrder)
+                subjects = sortOrder switch
                 {
-                    case "name_desc":
-                        subjects = subjects.OrderByDescending(s => s.Name);
-                        break;
-                    case "FacultyName":
-                        subjects = subjects.OrderBy(s => s.Faculty.Name);
-                        break;
-                    case "facultyname_desc":
-                        subjects = subjects.OrderByDescending(s => s.Faculty.Name);
-                        break;
-                    default:
-                        subjects = subjects.OrderBy(s => s.Name);
-                        break;
-                }
-
+                    "name_desc" => subjects.OrderByDescending(s => s.Name),
+                    "FacultyName" => subjects.OrderBy(s => s.Faculty.Name),
+                    "facultyname_desc" => subjects.OrderByDescending(s => s.Faculty.Name),
+                    _ => subjects.OrderBy(s => s.Name),
+                };
                 return new BaseResponse<IEnumerable<Subject>>()
                 {
                     Data = subjects,

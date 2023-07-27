@@ -1,4 +1,5 @@
-﻿using University.Core.Entities;
+﻿using System.Text.RegularExpressions;
+using University.Core.Entities;
 using University.Core.Enums;
 using University.Core.Repositories;
 using University.Core.Response;
@@ -54,7 +55,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Faculty>>> GetFacultiesList()
+        public async Task<IBaseResponse<IEnumerable<Faculty>>> GetFacultiesList(string searchString)
         {
             try
             {
@@ -67,6 +68,11 @@ namespace University.Core.Services
                         Description = "0 items found",
                         StatusCode = StatusCode.OK
                     };
+                }
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    faculties = faculties.Where(g => g.Name.ToLower().Contains(searchString.ToLower()));
                 }
 
                 return new BaseResponse<IEnumerable<Faculty>>()

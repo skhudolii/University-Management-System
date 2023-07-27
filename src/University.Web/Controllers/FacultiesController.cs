@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using University.Core.Services;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.FacultyVM;
 
@@ -14,9 +13,9 @@ namespace University.Web.Controllers
             _facultiesService = facultiesService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var allFaculties = await _facultiesService.GetFacultiesList();
+            var allFaculties = await _facultiesService.GetFacultiesList(searchString);
             return View(allFaculties.Data);
         }
 

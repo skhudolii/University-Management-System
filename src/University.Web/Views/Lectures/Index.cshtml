@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Lecture>
+﻿@model IPagedList<Lecture>
 
 @{
     ViewData["Title"] = "List of Lectures";
@@ -8,25 +8,36 @@
     <div class="row justify-content-md-center">
         <div class="col-10">
 
+            <form class="row ms-auto my-2 my-lg-0" asp-action="Index" method="get">
+                <div class="col-auto">
+                    <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]"
+                           placeholder="By Teacher/Subject/Date..." />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" value="Search" class="btn btn-outline-primary"><i class="bi bi-search"></i></button>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
+                </div>
+            </form>
+
             <table class="table">
                 <thead>
                     <tr class="text-center">
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.LectureDate)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Lecture Date</a>
                         </th>
                         <th class="align-middle">
-                            @Html.DisplayNameFor(model => model.StartTime)
-                            <br />
-                            @Html.DisplayNameFor(model => model.EndTime)
+                            Start Time<br />EndTime
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["SubjectSortParm"]">@Html.DisplayNameFor(model => model.Subject.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["SubjectSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Subject</a>
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["LectureRoomSortParm"]">@Html.DisplayNameFor(model => model.LectureRoom.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["LectureRoomSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Lecture Room</a>
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]">@Html.DisplayNameFor(model => model.Faculty.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Faculty</a>
                         </th>
                         <th class="align-middle">Actions</th>
                     </tr>
@@ -64,10 +75,14 @@
                 </tbody>
             </table>
 
+            <!-- Use the partial view for pagination -->
+            @await Html.PartialAsync("_Pagination", Model)
+
         </div>
     </div>
 </div>
 
+<!-- Use the partial view for 'Add New' button -->
 @await Html.PartialAsync("_CreateItem", "Lectures")
 
 

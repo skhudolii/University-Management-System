@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.LectureRoomVM;
+using X.PagedList;
 
 namespace University.Web.Controllers
 {
@@ -15,15 +15,34 @@ namespace University.Web.Controllers
             _lectureRoomsService = lectureRoomsService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CapacitySortParm"] = sortOrder == "Capacity" ? "capacity_desc" : "Capacity";
             ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
-            var lectureRooms = await _lectureRoomsService.GetSortedLectureRoomsList(sortOrder, searchString);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            return View(lectureRooms.Data);
+            ViewData["CurrentFilter"] = searchString;
+
+            var lectureRooms = await _lectureRoomsService.GetSortedLectureRoomsList(sortOrder, searchString);
+            if (lectureRooms.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {lectureRooms.StatusCode}, {lectureRooms.Description}");
+            }
+
+            int pageSize = 8; // Set the desired page size here
+            int pageNumber = page ?? 1; // If page is null, default to page 1
+
+            return View(lectureRooms.Data.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Subjects/Details/1

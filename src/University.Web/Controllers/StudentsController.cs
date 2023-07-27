@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.StudentVM;
+using X.PagedList;
 
 namespace University.Web.Controllers
 {
@@ -18,16 +18,35 @@ namespace University.Web.Controllers
             _studentCascadingDropdownsService = studentCascadingDropdownsService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["LastNameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "lastname_desc" : "";
             ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "firstname_desc" : "FirstName";
             ViewData["GroupNameSortParm"] = sortOrder == "GroupName" ? "groupname_desc" : "GroupName";
             ViewData["FacultyNameSortParm"] = sortOrder == "FacultyName" ? "facultyname_desc" : "FacultyName";
 
-            var students = await _studentsService.GetSortedStudentsList(sortOrder, searchString);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            return View(students.Data);
+            ViewData["CurrentFilter"] = searchString;
+
+            var students = await _studentsService.GetSortedStudentsList(sortOrder, searchString);
+            if (students.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {students.StatusCode}, {students.Description}");
+            }
+
+            int pageSize = 5; // Set the desired page size here
+            int pageNumber = page ?? 1; // If page is null, default to page 1
+
+            return View(students.Data.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Students/Details/1

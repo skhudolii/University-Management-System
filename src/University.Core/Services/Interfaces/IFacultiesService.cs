@@ -6,7 +6,7 @@ namespace University.Core.Services.Interfaces
 {
     public interface IFacultiesService
     {
-        Task<IBaseResponse<IEnumerable<Faculty>>> GetFacultiesList();
+        Task<IBaseResponse<IEnumerable<Faculty>>> GetFacultiesList(string searchString);
         Task<IBaseResponse<NewFacultyVM>> GetFacultyById(int id);
         Task<IBaseResponse<Faculty>> GetFacultyWithIncludePropertiesById(int id);
         Task<IBaseResponse<Faculty>> AddNewFaculty(NewFacultyVM model);

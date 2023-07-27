@@ -135,28 +135,15 @@ namespace University.Core.Services
                     lectureRooms = lectureRooms.Where(lr => lr.Name.ToLower().Contains(searchString.ToLower()));
                 }
 
-                switch (sortOrder)
+                lectureRooms = sortOrder switch
                 {
-                    case "name_desc":
-                        lectureRooms = lectureRooms.OrderByDescending(lr => lr.Name);
-                        break;
-                    case "Capacity":
-                        lectureRooms = lectureRooms.OrderBy(lr => lr.Capacity);
-                        break;
-                    case "capacity_desc":
-                        lectureRooms = lectureRooms.OrderByDescending(lr => lr.Capacity);
-                        break;
-                    case "Faculty":
-                        lectureRooms = lectureRooms.OrderBy(lr => lr.Faculty.Name);
-                        break;
-                    case "faculty_desc":
-                        lectureRooms = lectureRooms.OrderByDescending(lr => lr.Faculty.Name);
-                        break;
-                    default:
-                        lectureRooms = lectureRooms.OrderBy(lr => lr.Name);
-                        break;
-                }
-
+                    "name_desc" => lectureRooms.OrderByDescending(lr => lr.Name),
+                    "Capacity" => lectureRooms.OrderBy(lr => lr.Capacity),
+                    "capacity_desc" => lectureRooms.OrderByDescending(lr => lr.Capacity),
+                    "Faculty" => lectureRooms.OrderBy(lr => lr.Faculty.Name),
+                    "faculty_desc" => lectureRooms.OrderByDescending(lr => lr.Faculty.Name),
+                    _ => lectureRooms.OrderBy(lr => lr.Name),
+                };
                 return new BaseResponse<IEnumerable<LectureRoom>>()
                 {
                     Data = lectureRooms.ToList(),

@@ -39,34 +39,17 @@ namespace University.Core.Services
                                            || ae.LastName.ToLower().Contains(searchString.ToLower()));
                 }
 
-                switch (sortOrder)
+                students = sortOrder switch
                 {
-                    case "lastname_desc":
-                        students = students.OrderByDescending(s => s.LastName);
-                        break;
-                    case "FirstName":
-                        students = students.OrderBy(s => s.FirstName);
-                        break;
-                    case "firstname_desc":
-                        students = students.OrderByDescending(s => s.FirstName);
-                        break;
-                    case "GroupName":
-                        students = students.OrderBy(s => s.Group.Name);
-                        break;
-                    case "groupname_desc":
-                        students = students.OrderByDescending(s => s.Group.Name);
-                        break;
-                    case "FacultyName":
-                        students = students.OrderBy(s => s.Group.Faculty.Name);
-                        break;
-                    case "facultyname_desc":
-                        students = students.OrderByDescending(s => s.Group.Faculty.Name);
-                        break;
-                    default:
-                        students = students.OrderBy(s => s.LastName);
-                        break;
-                }
-
+                    "lastname_desc" => students.OrderByDescending(s => s.LastName),
+                    "FirstName" => students.OrderBy(s => s.FirstName),
+                    "firstname_desc" => students.OrderByDescending(s => s.FirstName),
+                    "GroupName" => students.OrderBy(s => s.Group.Name),
+                    "groupname_desc" => students.OrderByDescending(s => s.Group.Name),
+                    "FacultyName" => students.OrderBy(s => s.Group.Faculty.Name),
+                    "facultyname_desc" => students.OrderByDescending(s => s.Group.Faculty.Name),
+                    _ => students.OrderBy(s => s.LastName),
+                };
                 return new BaseResponse<IEnumerable<Student>>()
                 {
                     Data = students,

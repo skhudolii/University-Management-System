@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.GroupVM;
+using X.PagedList;
 
 namespace University.Web.Controllers
 {
@@ -15,14 +15,33 @@ namespace University.Web.Controllers
             _groupsService = groupsService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
-            var groups = await _groupsService.GetSortedGroupsList(sortOrder, searchString);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            return View(groups.Data);
+            ViewData["CurrentFilter"] = searchString;
+
+            var groups = await _groupsService.GetSortedGroupsList(sortOrder, searchString);
+            if (groups.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {groups.StatusCode}, {groups.Description}");
+            }
+
+            int pageSize = 6; // Set the desired page size here
+            int pageNumber = page ?? 1; // If page is null, default to page 1
+
+            return View(groups.Data.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Groups/Details/1

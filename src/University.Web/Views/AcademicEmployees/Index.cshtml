@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AcademicEmployee>
+﻿@model IPagedList<AcademicEmployee>
 
 @{
     ViewData["Title"] = "List of Academic Employees";
@@ -8,27 +8,22 @@
     <div class="row justify-content-lg-center">
         <div class="col-10">
 
-            @using (Html.BeginForm())
-            {
-                <p>
-                    Find by name: @Html.TextBox("SearchString")
-                    <input type="submit" value="Search" />
-                </p>
-            }
+            <!-- Use the partial view for search form 'by name' -->
+            @{await Html.RenderPartialAsync("_SearchForm");}
 
             <table class="table">
                 <thead>
                     <tr class="text-center">
-                        <th class="align-middle">@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
-                        <th class="align-middle">@Html.DisplayNameFor(model => model.FirstName)</th>
+                        <th class="align-middle">Profile Picture</th>
+                        <th class="align-middle">First Name</th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["AcademicPositionSortParm"]">@Html.DisplayNameFor(model => model.AcademicPosition)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["AcademicPositionSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Academic Position</a>
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]">@Html.DisplayNameFor(model => model.Faculty.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Faculty</a>
                         </th>
                         <th class="align-middle">Actions</th>
                     </tr>
@@ -69,18 +64,12 @@
                 </tbody>
             </table>
 
+            <!-- Use the partial view for pagination -->
+            @await Html.PartialAsync("_Pagination", Model)
+
         </div>
     </div>
 </div>
 
+<!-- Use the partial view for 'Add New' button -->
 @await Html.PartialAsync("_CreateItem", "AcademicEmployees")
-
-@*<script>
-    var screenWidth = window.screen.width;
-    var screenHeight = window.screen.height;
-    var isWideScreen = screenWidth >= 1920 && screenHeight >= 1080;
-
-    if (isWideScreen) {
-        document.getElementById("content-column").classList.add("mx-md-auto");
-    }
-</script>*@

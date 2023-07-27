@@ -48,34 +48,17 @@ namespace University.Core.Services
                     .ThenBy(n => n.StartTime).ToList();                   
                 }
 
-                switch (sortOrder)
+                lectures = sortOrder switch
                 {
-                    case "date_desc":
-                        lectures = lectures.OrderByDescending(l => l.LectureDate);
-                        break;
-                    case "Subject":
-                        lectures = lectures.OrderBy(l => l.Subject.Name);
-                        break;
-                    case "subject_desc":
-                        lectures = lectures.OrderByDescending(l => l.Subject.Name);
-                        break;
-                    case "LectureRoom":
-                        lectures = lectures.OrderBy(l => l.LectureRoom.Name);
-                        break;
-                    case "lectureRoom_desc":
-                        lectures = lectures.OrderByDescending(l => l.LectureRoom.Name);
-                        break;
-                    case "Faculty":
-                        lectures = lectures.OrderBy(l => l.Faculty.Name);
-                        break;
-                    case "faculty_desc":
-                        lectures = lectures.OrderByDescending(l => l.Faculty.Name);
-                        break;
-                    default:
-                        lectures = lectures.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime);
-                        break;
-                }
-
+                    "date_desc" => lectures.OrderByDescending(l => l.LectureDate),
+                    "Subject" => lectures.OrderBy(l => l.Subject.Name),
+                    "subject_desc" => lectures.OrderByDescending(l => l.Subject.Name),
+                    "LectureRoom" => lectures.OrderBy(l => l.LectureRoom.Name),
+                    "lectureRoom_desc" => lectures.OrderByDescending(l => l.LectureRoom.Name),
+                    "Faculty" => lectures.OrderBy(l => l.Faculty.Name),
+                    "faculty_desc" => lectures.OrderByDescending(l => l.Faculty.Name),
+                    _ => lectures.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime),
+                };
                 return new BaseResponse<IEnumerable<Lecture>>()
                 {
                     Data = lectures.ToList(),

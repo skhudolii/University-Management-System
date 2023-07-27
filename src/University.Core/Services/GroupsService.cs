@@ -75,22 +75,13 @@ namespace University.Core.Services
                     groups = groups.Where(g => g.Name.ToLower().Contains(searchString.ToLower()));
                 }
 
-                switch (sortOrder)
+                groups = sortOrder switch
                 {
-                    case "name_desc":
-                        groups = groups.OrderByDescending(g => g.Name);
-                        break;
-                    case "Faculty":
-                        groups = groups.OrderBy(g => g.Faculty.Name);
-                        break;
-                    case "faculty_desc":
-                        groups = groups.OrderByDescending(g => g.Faculty.Name);
-                        break;
-                    default:
-                        groups = groups.OrderBy(g => g.Name);
-                        break;
-                }
-
+                    "name_desc" => groups.OrderByDescending(g => g.Name),
+                    "Faculty" => groups.OrderBy(g => g.Faculty.Name),
+                    "faculty_desc" => groups.OrderByDescending(g => g.Faculty.Name),
+                    _ => groups.OrderBy(g => g.Name),
+                };
                 return new BaseResponse<IEnumerable<Group>>()
                 {
                     Data = groups.ToList(),

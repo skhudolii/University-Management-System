@@ -16,16 +16,19 @@ namespace University.Core.Services
             _lecturesRepository = lecturesRepository;
         }
 
-        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetScheduleForFaculty(int id)
+        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetScheduleForFaculty(int id, string sortOrder, string searchString)
         {
             try
             {
-                var lectures = (await _lecturesRepository.GetAllAsync(s => s.Subject, lr => lr.LectureRoom, f => f.Faculty))
-                    .Where(f => f.FacultyId != null);
-                var scheduleForFaculty = lectures
+                var scheduleForFaculty = (await _lecturesRepository.GetAllAsync(
+                    a => a.AcademicEmployee,
+                    f => f.Faculty,
+                    lr => lr.LectureRoom,
+                    s => s.Subject))
                     .Where(f => f.FacultyId == id)
                     .Where(d => d.LectureDate >= DateTime.Now.Date)
-                    .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
+                    .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime)
+                    .ToList();
 
                 if (!scheduleForFaculty.Any())
                 {
@@ -35,6 +38,29 @@ namespace University.Core.Services
                         StatusCode = StatusCode.NoContent
                     };
                 }
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    scheduleForFaculty = scheduleForFaculty.Where(n =>
+                    n.Subject.Name.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.FirstName.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.LastName.ToLower().Contains(searchString.ToLower()) ||
+                    n.LectureDate.ToString().Contains(searchString))
+                    .OrderBy(n => n.LectureDate)
+                    .ThenBy(n => n.StartTime).ToList();
+                }
+
+                scheduleForFaculty = sortOrder switch
+                {
+                    "date_desc" => scheduleForFaculty.OrderByDescending(l => l.LectureDate).ToList(),
+                    "Subject" => scheduleForFaculty.OrderBy(l => l.Subject.Name).ToList(),
+                    "subject_desc" => scheduleForFaculty.OrderByDescending(l => l.Subject.Name).ToList(),
+                    "LectureRoom" => scheduleForFaculty.OrderBy(l => l.LectureRoom.Name).ToList(),
+                    "lectureRoom_desc" => scheduleForFaculty.OrderByDescending(l => l.LectureRoom.Name).ToList(),
+                    "Faculty" => scheduleForFaculty.OrderBy(l => l.Faculty.Name).ToList(),
+                    "faculty_desc" => scheduleForFaculty.OrderByDescending(l => l.Faculty.Name).ToList(),
+                    _ => scheduleForFaculty.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime).ToList(),
+                };
 
                 return new BaseResponse<IEnumerable<Lecture>>()
                 {
@@ -52,7 +78,69 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetScheduleForStudent(int id, DateTime lastDateOfPeriod)
+        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetScheduleForTeacher(int id, DateTime lastDateOfPeriod, string sortOrder, string searchString)
+        {
+            try
+            {
+                var scheduleForTeacher = (await _lecturesRepository.GetAllAsync(
+                    a => a.AcademicEmployee,
+                    f => f.Faculty,
+                    lr => lr.LectureRoom,
+                    s => s.Subject))
+                    .Where(f => f.FacultyId != null)
+                    .Where(a => a.AcademicEmployeeId == id)
+                    .Where(d => d.LectureDate >= DateTime.Now.Date && d.LectureDate <= lastDateOfPeriod.Date);
+
+
+                if (!scheduleForTeacher.Any())
+                {
+                    return new BaseResponse<IEnumerable<Lecture>>()
+                    {
+                        Description = "0 items found",
+                        StatusCode = StatusCode.NoContent
+                    };
+                }
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    scheduleForTeacher = scheduleForTeacher.Where(n =>
+                    n.Subject.Name.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.FirstName.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.LastName.ToLower().Contains(searchString.ToLower()) ||
+                    n.LectureDate.ToString().Contains(searchString))
+                    .OrderBy(n => n.LectureDate)
+                    .ThenBy(n => n.StartTime).ToList();
+                }
+
+                scheduleForTeacher = sortOrder switch
+                {
+                    "date_desc" => scheduleForTeacher.OrderByDescending(l => l.LectureDate).ToList(),
+                    "Subject" => scheduleForTeacher.OrderBy(l => l.Subject.Name).ToList(),
+                    "subject_desc" => scheduleForTeacher.OrderByDescending(l => l.Subject.Name).ToList(),
+                    "LectureRoom" => scheduleForTeacher.OrderBy(l => l.LectureRoom.Name).ToList(),
+                    "lectureRoom_desc" => scheduleForTeacher.OrderByDescending(l => l.LectureRoom.Name).ToList(),
+                    "Faculty" => scheduleForTeacher.OrderBy(l => l.Faculty.Name).ToList(),
+                    "faculty_desc" => scheduleForTeacher.OrderByDescending(l => l.Faculty.Name).ToList(),
+                    _ => scheduleForTeacher.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime).ToList(),
+                };
+
+                return new BaseResponse<IEnumerable<Lecture>>()
+                {
+                    Data = scheduleForTeacher.ToList(),
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<Lecture>>()
+                {
+                    Description = $"[ScheduleService.GetScheduleForTeacher] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetScheduleForStudent(int id, DateTime lastDateOfPeriod, string sortOrder, string searchString)
         {
             try
             {
@@ -73,13 +161,37 @@ namespace University.Core.Services
                     lecturesWithProperties.Add(lectureDetails);
                 }
 
-                var sheduleForStudent = lecturesWithProperties
+                var scheduleForStudent = lecturesWithProperties
                     .Where(d => d.LectureDate >= DateTime.Now.Date && d.LectureDate <= lastDateOfPeriod.Date)
-                    .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
+                    .OrderBy(n => n.LectureDate)
+                    .ThenBy(n => n.StartTime);
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    scheduleForStudent = scheduleForStudent.Where(n =>
+                    n.Subject.Name.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.FirstName.ToLower().Contains(searchString.ToLower()) ||
+                    n.AcademicEmployee.LastName.ToLower().Contains(searchString.ToLower()) ||
+                    n.LectureDate.ToString().Contains(searchString))
+                    .OrderBy(n => n.LectureDate)
+                    .ThenBy(n => n.StartTime);
+                }
+
+                scheduleForStudent = sortOrder switch
+                {
+                    "date_desc" => scheduleForStudent.OrderByDescending(l => l.LectureDate),
+                    "Subject" => scheduleForStudent.OrderBy(l => l.Subject.Name),
+                    "subject_desc" => scheduleForStudent.OrderByDescending(l => l.Subject.Name),
+                    "LectureRoom" => scheduleForStudent.OrderBy(l => l.LectureRoom.Name),
+                    "lectureRoom_desc" => scheduleForStudent.OrderByDescending(l => l.LectureRoom.Name),
+                    "Faculty" => scheduleForStudent.OrderBy(l => l.Faculty.Name),
+                    "faculty_desc" => scheduleForStudent.OrderByDescending(l => l.Faculty.Name),
+                    _ => scheduleForStudent.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime)
+                };
 
                 return new BaseResponse<IEnumerable<Lecture>>()
                 {
-                    Data = sheduleForStudent,
+                    Data = scheduleForStudent,
                     StatusCode = StatusCode.OK
                 };
             }
@@ -88,48 +200,6 @@ namespace University.Core.Services
                 return new BaseResponse<IEnumerable<Lecture>>()
                 {
                     Description = $"[ScheduleService.GetScheduleForStudent] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<IBaseResponse<IEnumerable<Lecture>>> GetScheduleForTeacher(int id, DateTime lastDateOfPeriod)
-        {
-            try
-            {
-                var lectures =(await _lecturesRepository.GetAllAsync(
-                    s => s.Subject, 
-                    lr => lr.LectureRoom, 
-                    f => f.Faculty, 
-                    a => a.AcademicEmployee))
-                    .Where(f => f.FacultyId != null);
-
-                var sheduleForTeacher = lectures
-                    .Where(a => a.AcademicEmployeeId == id)
-                    .Where(d => d.LectureDate >= DateTime.Now.Date && d.LectureDate <= lastDateOfPeriod.Date)
-                    .OrderBy(n => n.LectureDate).ThenBy(n => n.StartTime);
-
-
-                if (!sheduleForTeacher.Any())
-                {
-                    return new BaseResponse<IEnumerable<Lecture>>()
-                    {
-                        Description = "0 items found",
-                        StatusCode = StatusCode.NoContent
-                    };
-                }
-
-                return new BaseResponse<IEnumerable<Lecture>>()
-                {
-                    Data = sheduleForTeacher,
-                    StatusCode = StatusCode.OK
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<IEnumerable<Lecture>>()
-                {
-                    Description = $"[ScheduleService.GetScheduleForTeacher] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

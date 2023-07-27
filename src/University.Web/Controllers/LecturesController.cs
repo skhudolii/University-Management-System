@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.LectureVM;
+using X.PagedList;
 
 namespace University.Web.Controllers
 {
@@ -21,16 +21,35 @@ namespace University.Web.Controllers
             _scheduleService = scheduleService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewData["SubjectSortParm"] = sortOrder == "Subject" ? "subject_desc" : "Subject";
             ViewData["LectureRoomSortParm"] = sortOrder == "LectureRoom" ? "lectureRoom_desc" : "LectureRoom";
             ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
-            var lectures = await _lecturesService.GetSortedLecturesList(sortOrder, searchString);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            return View(lectures.Data);
+            ViewData["CurrentFilter"] = searchString;
+
+            var lectures = await _lecturesService.GetSortedLecturesList(sortOrder, searchString);
+            if (lectures.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {lectures.StatusCode}, {lectures.Description}");
+            }
+
+            int pageSize = 6; // Set the desired page size here
+            int pageNumber = page ?? 1; // If page is null, default to page 1
+
+            return View(lectures.Data.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Lectures/Details/1
@@ -167,39 +186,6 @@ namespace University.Web.Controllers
             }
 
             return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> ScheduleForFaculty(int id)
-        {
-            var schedule = await _scheduleService.GetScheduleForFaculty(id);
-            if (schedule.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {schedule.StatusCode}, {schedule.Description}");
-            }
-
-            return View("Index", schedule.Data);
-        }
-
-        public async Task<IActionResult> ScheduleForTeacher(int id, int daysForward)
-        {
-            var schedule = await _scheduleService.GetScheduleForTeacher(id, DateTime.Now.Date.AddDays(daysForward));
-            if (schedule.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {schedule.StatusCode}, {schedule.Description}");
-            }
-
-            return View("Index", schedule.Data);
-        }
-
-        public async Task<IActionResult> ScheduleForStudent(int id, int daysForward)
-        {
-            var schedule = await _scheduleService.GetScheduleForStudent(id, DateTime.Now.Date.AddDays(daysForward));
-            if (schedule.StatusCode != Core.Enums.StatusCode.OK)
-            {
-                return View("Error", $"Error {schedule.StatusCode}, {schedule.Description}");
-            }
-
-            return View("Index", schedule.Data);
         }
     }
 }

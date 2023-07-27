@@ -148,28 +148,15 @@ namespace University.Core.Services
                                            || ae.LastName.ToLower().Contains(searchString.ToLower()));
                 }
 
-                switch (sortOrder)
+                academicEmployees = sortOrder switch
                 {
-                    case "name_desc":
-                        academicEmployees = academicEmployees.OrderByDescending(ae => ae.LastName);
-                        break;
-                    case "AcademicPosition":
-                        academicEmployees = academicEmployees.OrderBy(ae => ae.AcademicPosition);
-                        break;
-                    case "academicPosition_desc":
-                        academicEmployees = academicEmployees.OrderByDescending(ae => ae.AcademicPosition);
-                        break;
-                    case "Faculty":
-                        academicEmployees = academicEmployees.OrderBy(ae => ae.Faculty.Name);
-                        break;
-                    case "faculty_desc":
-                        academicEmployees = academicEmployees.OrderByDescending(ae => ae.Faculty.Name);
-                        break;
-                    default:
-                        academicEmployees = academicEmployees.OrderBy(ae => ae.LastName);
-                        break;
-                }
-
+                    "name_desc" => academicEmployees.OrderByDescending(ae => ae.LastName),
+                    "AcademicPosition" => academicEmployees.OrderBy(ae => ae.AcademicPosition),
+                    "academicPosition_desc" => academicEmployees.OrderByDescending(ae => ae.AcademicPosition),
+                    "Faculty" => academicEmployees.OrderBy(ae => ae.Faculty.Name),
+                    "faculty_desc" => academicEmployees.OrderByDescending(ae => ae.Faculty.Name),
+                    _ => academicEmployees.OrderBy(ae => ae.LastName),
+                };
                 return new BaseResponse<IEnumerable<AcademicEmployee>>()
                 {
                     Data = academicEmployees.ToList(),

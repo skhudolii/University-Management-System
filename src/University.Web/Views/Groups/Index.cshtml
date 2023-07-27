@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Group>
+﻿@model IPagedList<Group>
 
 @{
     ViewData["Title"] = "List of Groups";
@@ -8,22 +8,17 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
 
-            @using (Html.BeginForm())
-            {
-                <p>
-                    Find by name: @Html.TextBox("SearchString")
-                    <input type="submit" value="Search" />
-                </p>
-            }
+            <!-- Use the partial view for search form 'by name' -->
+            @{await Html.RenderPartialAsync("_SearchForm");}
 
             <table class="table">
                 <thead>
                     <tr class="text-center">
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Group Name</a>
                         </th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]">@Html.DisplayNameFor(model => model.Faculty.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Faculty</a>
                         </th>
                         <th>Actions</th>
                     </tr>
@@ -52,9 +47,13 @@
                 </tbody>
             </table>
 
+            <!-- Use the partial view for pagination -->
+            @await Html.PartialAsync("_Pagination", Model)
+
         </div>
     </div>
 </div>
 
+<!-- Use the partial view for 'Add New' button -->
 @await Html.PartialAsync("_CreateItem", "Groups")
 

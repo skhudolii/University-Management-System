@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.SubjectVM;
+using X.PagedList;
 
 namespace University.Web.Controllers
 {
@@ -15,14 +15,33 @@ namespace University.Web.Controllers
             _subjectsService = subjectsService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["FacultyNameSortParm"] = sortOrder == "FacultyName" ? "facultyname_desc" : "FacultyName";
 
-            var subjects = await _subjectsService.GetSortedSubjectsList(sortOrder, searchString);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            return View(subjects.Data);
+            ViewData["CurrentFilter"] = searchString;
+
+            var subjects = await _subjectsService.GetSortedSubjectsList(sortOrder, searchString);
+            if (subjects.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {subjects.StatusCode}, {subjects.Description}");
+            }
+
+            int pageSize = 8; // Set the desired page size here
+            int pageNumber = page ?? 1; // If page is null, default to page 1
+
+            return View(subjects.Data.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Subjects/Details/1

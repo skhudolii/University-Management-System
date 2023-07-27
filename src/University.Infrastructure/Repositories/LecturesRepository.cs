@@ -43,7 +43,7 @@ namespace University.Infrastructure.Repositories
                 .ThenInclude(lg => lg.Lecture)
                 .FirstOrDefault(s => s.Id == id);
 
-            var lectures = student?.Group?.LecturesGroups.Select(lg => lg.Lecture).ToList();
+            var lectures = student?.Group?.LecturesGroups?.Select(lg => lg.Lecture).ToList();
 
             return lectures;
         }

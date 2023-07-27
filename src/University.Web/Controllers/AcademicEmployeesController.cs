@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.AcademicEmployeeVM;
+using X.PagedList;
 
 namespace University.Web.Controllers
 {
@@ -14,16 +15,34 @@ namespace University.Web.Controllers
             _academicEmployeesService = academicEmployeesService;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["AcademicPositionSortParm"] = sortOrder == "AcademicPosition" ? "academicPosition_desc" : "AcademicPosition";
             ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
-            var academicEmployees = await _academicEmployeesService.GetSortedAcademicEmployeesList(sortOrder, searchString);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            
-            return View(academicEmployees.Data);
+            ViewData["CurrentFilter"] = searchString;
+
+            var academicEmployees = await _academicEmployeesService.GetSortedAcademicEmployeesList(sortOrder, searchString);
+            if (academicEmployees.StatusCode != Core.Enums.StatusCode.OK)
+            {
+                return View("Error", $"Error {academicEmployees.StatusCode}, {academicEmployees.Description}");
+            }
+
+            int pageSize = 5; // Set the desired page size here
+            int pageNumber = page ?? 1; // If page is null, default to page 1
+
+            return View(academicEmployees.Data.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: AcademicEmployees/Details/1
