@@ -32,7 +32,7 @@ namespace University.Core.Tests.Services
             _mockFacultiesRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(facultyList);
 
             // Act
-            var result = await facultiesService.GetFacultiesList();
+            var result = await facultiesService.GetFacultiesList("");
 
             // Assert
             Assert.NotNull(result);

@@ -9,136 +9,270 @@ namespace University.Core.Tests.Services
 {
     public class ScheduleServiceTests
     {
-        private readonly Mock<ILecturesRepository> _mockLecturesRepository;
-
-        public ScheduleServiceTests()
+        private Mock<ILecturesRepository> CreateMockLecturesRepository(List<Lecture> lectures)
         {
-            _mockLecturesRepository = new Mock<ILecturesRepository>();
+            var mockLecturesRepository = new Mock<ILecturesRepository>();
+            mockLecturesRepository
+                .Setup(repo => repo.GetAllAsync(
+                    It.IsAny<Expression<Func<Lecture, object>>>(),
+                    It.IsAny<Expression<Func<Lecture, object>>>(),
+                    It.IsAny<Expression<Func<Lecture, object>>>(),
+                    It.IsAny<Expression<Func<Lecture, object>>>()
+                ))
+                .ReturnsAsync(lectures);
+
+            return mockLecturesRepository;
         }
 
         [Fact]
-        public async Task GetScheduleForFaculty_ReturnScheduleForFaculty()
+        public async Task GetScheduleForFaculty_WithDataSorteredByDate_Success()
         {
             // Arrange
-            int facultyId = 1;
+            var facultyId = 1;
+            var sortOrder = "date_desc";
+            var searchString = "";
+
+            // Sample data to be returned by the mock repository
             var lectures = new List<Lecture>
             {
-                new Lecture { Id = 1, FacultyId = 1, LectureDate = DateTime.Now.AddDays(1), StartTime = new TimeSpan(9, 0, 0) },
-                new Lecture { Id = 2, FacultyId = 1, LectureDate = DateTime.Now.AddDays(2), StartTime = new TimeSpan(10, 0, 0) },
-                new Lecture { Id = 3, FacultyId = 2, LectureDate = DateTime.Now.AddDays(1), StartTime = new TimeSpan(11, 0, 0) },
+                new Lecture { Id = 1, FacultyId = 1, AcademicEmployeeId = 1, SubjectId = 1, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(2), StartTime = new TimeSpan(9, 0, 0) },
+                new Lecture { Id = 2, FacultyId = 1, AcademicEmployeeId = 1, SubjectId = 2, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(3), StartTime = new TimeSpan(10, 0, 0) },
+                new Lecture { Id = 3, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 3, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(1), StartTime = new TimeSpan(11, 0, 0) }
             };
 
-            _mockLecturesRepository.Setup(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()))
-                .ReturnsAsync(lectures);
+            var mockLecturesRepository = CreateMockLecturesRepository(lectures);
 
-            var scheduleService = new ScheduleService(_mockLecturesRepository.Object);
+            var scheduleService = new ScheduleService(mockLecturesRepository.Object);
 
             // Act
-            var result = await scheduleService.GetScheduleForFaculty(facultyId);
+            var response = await scheduleService.GetScheduleForFaculty(facultyId, sortOrder, searchString);
+
+            // Sort the lectures list to match the response.Data sorting
+            var expectedSorted = lectures.OrderByDescending(l => l.LectureDate);
 
             // Assert
-            Assert.Equal(2, result.Data.Count()); // Only lectures with facultyId = 1 should be returned
-            Assert.Equal(StatusCode.OK, result.StatusCode);
+            Assert.NotNull(response);
+            Assert.Equal(StatusCode.OK, response.StatusCode);
+            Assert.Equal(expectedSorted, response.Data);
+            Assert.True(expectedSorted.SequenceEqual(response.Data));
+        }
 
-            var scheduleList = result.Data.ToList();
-            Assert.Equal(1, scheduleList[0].Id); // Check the first lecture's ID
-            Assert.Equal(2, scheduleList[1].Id); // Check the second lecture's ID
+        [Fact]
+        public async Task GetScheduleForFaculty_WithNoData_Success()
+        {
+            // Arrange
+            var facultyId = 2;
+            var sortOrder = "date_desc";
+            var searchString = "Biology";
 
-            // Check if lecture dates and start times are in ascending order
-            for (int i = 1; i < scheduleList.Count; i++)
+            // Sample empty data to be returned by the mock repository
+            var lectures = new List<Lecture>();
+
+            var mockLecturesRepository = CreateMockLecturesRepository(lectures);
+
+            var scheduleService = new ScheduleService(mockLecturesRepository.Object);
+
+            // Act
+            var response = await scheduleService.GetScheduleForFaculty(facultyId, sortOrder, searchString);
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.Equal(StatusCode.NoContent, response.StatusCode);
+            Assert.Null(response.Data);
+        }
+
+        [Fact]
+        public async Task GetScheduleForFaculty_Error()
+        {
+            // Arrange
+            var facultyId = 3;
+            var sortOrder = "date_desc";
+            var searchString = "Chemistry";
+
+            // Sample data that throws an exception in the mock repository
+            var lectures = new List<Lecture>();
+
+            var mockLecturesRepository = new Mock<ILecturesRepository>();
+            mockLecturesRepository
+                .Setup(repo => repo.GetAllAsync(
+                    It.IsAny<Expression<Func<Lecture, object>>>(),
+                    It.IsAny<Expression<Func<Lecture, object>>>(),
+                    It.IsAny<Expression<Func<Lecture, object>>>(),
+                    It.IsAny<Expression<Func<Lecture, object>>>()
+                ))
+                .ThrowsAsync(new Exception("Mock repository error."));
+
+            var scheduleService = new ScheduleService(mockLecturesRepository.Object);
+
+            // Act
+            var response = await scheduleService.GetScheduleForFaculty(facultyId, sortOrder, searchString);
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.Equal(StatusCode.InternalServerError, response.StatusCode);
+            Assert.Null(response.Data);
+            Assert.Contains("Mock repository error.", response.Description);
+        }
+
+        [Fact]
+        public async Task GetScheduleForTeacher_WithDataSorteredByDate_Success()
+        {
+            // Arrange
+            var teacherId = 1;
+            var lastDateOfPeriod = DateTime.Now.AddDays(7); // Set the last date of the period to 7 days from now
+            var sortOrder = "date_desc";
+            var searchString = "";
+
+            // Sample data to be returned by the mock repository
+            var lectures = new List<Lecture>
             {
-                var previousLecture = scheduleList[i - 1];
-                var currentLecture = scheduleList[i];
-                Assert.True(previousLecture.LectureDate <= currentLecture.LectureDate);
-                Assert.True(previousLecture.StartTime <= currentLecture.StartTime);
-            }
-
-            _mockLecturesRepository.Verify(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()), Times.Once);
-        }
-
-        [Fact]
-        public async Task GetScheduleForFaculty_ExceptionOccurs_ReturnInternalServerError()
-        {
-            // Arrange
-            int facultyId = 1;
-
-            _mockLecturesRepository.Setup(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()))
-                .ThrowsAsync(new Exception("Something went wrong"));
-
-            var scheduleService = new ScheduleService(_mockLecturesRepository.Object);
-
-            // Act
-            var result = await scheduleService.GetScheduleForFaculty(facultyId);
-
-            // Assert
-            Assert.Equal(StatusCode.InternalServerError, result.StatusCode);
-            Assert.Equal("[ScheduleService.GetScheduleForFaculty] : Something went wrong", result.Description);
-
-            _mockLecturesRepository.Verify(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()), Times.Once);
-        }
-
-        [Fact]
-        public async Task GetScheduleForTeacher_ReturnScheduleForTeacher()
-        {
-            // Arrange
-            int teacherId = 1;
-            DateTime lastDateOfPeriod = DateTime.Now.AddDays(7);
-
-            var lectures = new List<Lecture> 
-            { 
-                new Lecture { Id = 1, FacultyId = 1, AcademicEmployeeId = 1, LectureDate = DateTime.Now.AddDays(1), StartTime = new TimeSpan(9, 0, 0) }, 
-                new Lecture { Id = 2, FacultyId = 1, AcademicEmployeeId = 1, LectureDate = DateTime.Now.AddDays(2), StartTime = new TimeSpan(10, 0, 0) }, 
-                new Lecture { Id = 3, FacultyId = 1, AcademicEmployeeId = 2, LectureDate = DateTime.Now.AddDays(1), StartTime = new TimeSpan(11, 0, 0) },
+                new Lecture { Id = 1, FacultyId = 1, AcademicEmployeeId = 1, SubjectId = 1, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(2), StartTime = new TimeSpan(9, 0, 0) },
+                new Lecture { Id = 2, FacultyId = 1, AcademicEmployeeId = 1, SubjectId = 2, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(3), StartTime = new TimeSpan(10, 0, 0) },
+                new Lecture { Id = 3, FacultyId = 1, AcademicEmployeeId = 1, SubjectId = 3, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(1), StartTime = new TimeSpan(11, 0, 0) },
+                new Lecture { Id = 4, FacultyId = 2, AcademicEmployeeId = 2, SubjectId = 4, LectureRoomId = 2, LectureDate = DateTime.Now.AddDays(5), StartTime = new TimeSpan(13, 0, 0) },
+                new Lecture { Id = 5, FacultyId = 2, AcademicEmployeeId = 2, SubjectId = 5, LectureRoomId = 2, LectureDate = DateTime.Now.AddDays(4), StartTime = new TimeSpan(14, 0, 0) },
             };
 
-            _mockLecturesRepository.Setup(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()))
-                .ReturnsAsync(lectures);
-
-            var scheduleService = new ScheduleService(_mockLecturesRepository.Object);
+            var mockLecturesRepository = CreateMockLecturesRepository(lectures);
+            var scheduleService = new ScheduleService(mockLecturesRepository.Object);
 
             // Act
-            var result = await scheduleService.GetScheduleForTeacher(teacherId, lastDateOfPeriod);
+            var response = await scheduleService.GetScheduleForTeacher(teacherId, lastDateOfPeriod, sortOrder, searchString);
+
+            // Sort the lectures list to match the response.Data sorting
+            var expectedSorted = lectures
+                .Where(l => l.AcademicEmployeeId == teacherId && l.LectureDate >= DateTime.Now.Date && l.LectureDate <= lastDateOfPeriod.Date)
+                .OrderByDescending(l => l.LectureDate)
+                .ThenBy(l => l.StartTime)
+                .ToList();
 
             // Assert
-            Assert.Equal(2, result.Data.Count()); // Only lectures with AcademicEmployeeId = 1 should be returned
-            Assert.Equal(StatusCode.OK, result.StatusCode);
-
-            var scheduleList = result.Data.ToList();
-            Assert.Equal(1, scheduleList[0].Id); // Check the first lecture's ID
-            Assert.Equal(2, scheduleList[1].Id); // Check the second lecture's ID
-
-            // Check if lecture dates and start times are within the specified period
-            foreach (var lecture in scheduleList)
-            {
-                Assert.True(lecture.LectureDate >= DateTime.Now.Date && lecture.LectureDate <= lastDateOfPeriod.Date);
-            }
-
-            _mockLecturesRepository.Verify(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()), Times.Once);
+            Assert.NotNull(response);
+            Assert.Equal(StatusCode.OK, response.StatusCode);
+            Assert.Equal(expectedSorted, response.Data);
+            Assert.True(expectedSorted.SequenceEqual(response.Data));
         }
 
         [Fact]
-        public async Task GetScheduleForTeacher_ReturnNoContent_WhenTeacherHasNoLectures()
+        public async Task GetScheduleForTeacher_WithNoLecturesFromToday_NoContent()
         {
             // Arrange
-            int teacherId = 1;
-            DateTime lastDateOfPeriod = DateTime.Now.AddDays(7);
+            var teacherId = 2;
+            var lastDateOfPeriod = DateTime.Now.AddDays(7); // Set the last date of the period to 7 days from now
+            var sortOrder = "date_desc";
+            var searchString = "";
 
-            // Mock the repository to return an empty collection of lectures for the teacher
-            _mockLecturesRepository.Setup(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()))
-                .ReturnsAsync(Enumerable.Empty<Lecture>());
+            // Sample data to be returned by the mock repository
+            var lectures = new List<Lecture>
+            {
+                new Lecture { Id = 1, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 1, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(-2), StartTime = new TimeSpan(9, 0, 0) },
+                new Lecture { Id = 2, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 2, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(-3), StartTime = new TimeSpan(10, 0, 0) },
+                new Lecture { Id = 3, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 3, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(-1), StartTime = new TimeSpan(11, 0, 0) },
+                new Lecture { Id = 4, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 4, LectureRoomId = 2, LectureDate = DateTime.Now.AddDays(-5), StartTime = new TimeSpan(13, 0, 0) },
+                new Lecture { Id = 5, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 5, LectureRoomId = 2, LectureDate = DateTime.Now.AddDays(-4), StartTime = new TimeSpan(14, 0, 0) },
+            };
 
-            var scheduleService = new ScheduleService(_mockLecturesRepository.Object);
+            var mockLecturesRepository = CreateMockLecturesRepository(lectures);
+            var scheduleService = new ScheduleService(mockLecturesRepository.Object);
 
             // Act
-            var result = await scheduleService.GetScheduleForTeacher(teacherId, lastDateOfPeriod);
+            var response = await scheduleService.GetScheduleForTeacher(teacherId, lastDateOfPeriod, sortOrder, searchString);
 
             // Assert
-            Assert.Null(result.Data);
-            Assert.Equal("0 items found", result.Description);
-            Assert.Equal(StatusCode.NoContent, result.StatusCode);
-
-            _mockLecturesRepository.Verify(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Lecture, object>>[]>()), Times.Once);
+            Assert.NotNull(response);
+            Assert.Equal(StatusCode.NoContent, response.StatusCode);
+            Assert.Equal("0 items found", response.Description);
+            Assert.Null(response.Data);
         }
 
+        [Fact]
+        public async Task GetScheduleForStudent_WithNoLectures_NoContent()
+        {
+            // Arrange
+            var studentId = 2;
+            var lastDateOfPeriod = DateTime.Now.AddDays(7); // Set the last date of the period to 7 days from now
+            var sortOrder = "date_desc";
+            var searchString = "";
+
+            // Sample data to be returned by the mock repository
+            var lectures = new List<Lecture>(); // No lectures for the student
+
+            var mockLecturesRepository = new Mock<ILecturesRepository>();
+            mockLecturesRepository
+                .Setup(repo => repo.GetLecturesByStudentIdAsync(studentId))
+                .ReturnsAsync(lectures);
+
+            var scheduleService = new ScheduleService(mockLecturesRepository.Object);
+
+            // Act
+            var response = await scheduleService.GetScheduleForStudent(studentId, lastDateOfPeriod, sortOrder, searchString);
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.Equal(StatusCode.NoContent, response.StatusCode);
+            Assert.Equal("0 items found", response.Description);
+            Assert.Null(response.Data);
+        }
+
+        [Fact]
+        public async Task GetScheduleForStudent_WithDataSorteredByDate_Success()
+        {
+            // Arrange
+            var studentId = 1;
+            var lastDateOfPeriod = DateTime.Now.AddDays(7); // Set the last date of the period to 7 days from now
+            var sortOrder = "date_desc";
+            var searchString = "";
+
+            // Sample data to be returned by the mock repository
+            var mathSubject = new Subject { Id = 1, Name = "Math" };
+            var physicsSubject = new Subject { Id = 2, Name = "Physics" };
+
+            var lectures = new List<Lecture>
+            {
+                // Create sample lectures with various subjects and dates
+                new Lecture { Id = 1, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 1, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(2), StartTime = new TimeSpan(9, 0, 0) },
+                new Lecture { Id = 2, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 2, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(3), StartTime = new TimeSpan(10, 0, 0) },
+                new Lecture { Id = 3, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 1, LectureRoomId = 1, LectureDate = DateTime.Now.AddDays(1), StartTime = new TimeSpan(11, 0, 0) },
+                new Lecture { Id = 4, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 2, LectureRoomId = 2, LectureDate = DateTime.Now.AddDays(5), StartTime = new TimeSpan(13, 0, 0) },
+                new Lecture { Id = 5, FacultyId = 1, AcademicEmployeeId = 2, SubjectId = 1, LectureRoomId = 2, LectureDate = DateTime.Now.AddDays(4), StartTime = new TimeSpan(14, 0, 0) },
+            };
+
+            var mockLecturesRepository = new Mock<ILecturesRepository>();
+            mockLecturesRepository
+                .Setup(repo => repo.GetLecturesByStudentIdAsync(studentId))
+                .ReturnsAsync(lectures);
+
+            // Set up the mock repository to return the associated Subject entities for each lecture
+            mockLecturesRepository
+                .Setup(repo => repo.GetLectureWithIncludePropertiesByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync((int lectureId) =>
+                {
+                    var lecture = lectures.FirstOrDefault(l => l.Id == lectureId);
+                    if (lecture != null)
+                    {
+                        lecture.Subject = lecture.SubjectId switch
+                        {
+                            1 => mathSubject,
+                            2 => physicsSubject,
+                            _ => null,
+                        };
+                    }
+                    return lecture;
+                });
+
+            var scheduleService = new ScheduleService(mockLecturesRepository.Object);
+
+            // Act
+            var response = await scheduleService.GetScheduleForStudent(studentId, lastDateOfPeriod, sortOrder, searchString);
+
+            // Assert
+            Assert.NotNull(response);
+            Assert.Equal(StatusCode.OK, response.StatusCode);
+            Assert.NotNull(response.Data);
+
+            // Verify that all lectures are present in the response data
+            Assert.Equal(lectures.Count, response.Data.Count());
+            Assert.True(lectures.All(l => response.Data.Any(r => r.Id == l.Id)));
+        }
     }
 }
