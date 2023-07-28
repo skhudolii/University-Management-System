@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.GroupVM;
+using University.Web.ViewModels;
 using X.PagedList;
 
 namespace University.Web.Controllers
@@ -38,10 +39,19 @@ namespace University.Web.Controllers
                 return View("Error", $"Error {groups.StatusCode}, {groups.Description}");
             }
 
-            int pageSize = 6; // Set the desired page size here
+            int pageSize = 8; // Set the desired page size here
             int pageNumber = page ?? 1; // If page is null, default to page 1
 
-            return View(groups.Data.ToPagedList(pageNumber, pageSize));
+            var viewModel = new GroupsListViewModel
+            {
+                PagedGroups = groups.Data.ToPagedList(pageNumber, pageSize),
+                CurrentSort = sortOrder,
+                NameSortParm = ViewData["NameSortParm"] as string,
+                FacultySortParm = ViewData["FacultySortParm"] as string,
+                CurrentFilter = ViewData["CurrentFilter"] as string
+            };
+
+            return View(viewModel);
         }
 
         // GET: Groups/Details/1

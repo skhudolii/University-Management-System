@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.SubjectVM;
+using University.Web.ViewModels;
 using X.PagedList;
 
 namespace University.Web.Controllers
@@ -19,7 +20,7 @@ namespace University.Web.Controllers
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["FacultyNameSortParm"] = sortOrder == "FacultyName" ? "facultyname_desc" : "FacultyName";
+            ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
             if (searchString != null)
             {
@@ -41,7 +42,16 @@ namespace University.Web.Controllers
             int pageSize = 8; // Set the desired page size here
             int pageNumber = page ?? 1; // If page is null, default to page 1
 
-            return View(subjects.Data.ToPagedList(pageNumber, pageSize));
+            var viewModel = new SubjectsListViewModel
+            {
+                PagedSubjects = subjects.Data.ToPagedList(pageNumber, pageSize),
+                CurrentSort = sortOrder,
+                NameSortParm = ViewData["NameSortParm"] as string,
+                FacultySortParm = ViewData["FacultySortParm"] as string,
+                CurrentFilter = ViewData["CurrentFilter"] as string
+            };
+
+            return View(viewModel);
         }
 
         // GET: Subjects/Details/1

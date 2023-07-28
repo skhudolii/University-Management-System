@@ -44,10 +44,10 @@ namespace University.Core.Services
                     "lastname_desc" => students.OrderByDescending(s => s.LastName),
                     "FirstName" => students.OrderBy(s => s.FirstName),
                     "firstname_desc" => students.OrderByDescending(s => s.FirstName),
-                    "GroupName" => students.OrderBy(s => s.Group.Name),
-                    "groupname_desc" => students.OrderByDescending(s => s.Group.Name),
-                    "FacultyName" => students.OrderBy(s => s.Group.Faculty.Name),
-                    "facultyname_desc" => students.OrderByDescending(s => s.Group.Faculty.Name),
+                    "Group" => students.OrderBy(s => s.Group.Name),
+                    "group_desc" => students.OrderByDescending(s => s.Group.Name),
+                    "Faculty" => students.OrderBy(s => s.Group.Faculty.Name),
+                    "faculty_desc" => students.OrderByDescending(s => s.Group.Faculty.Name),
                     _ => students.OrderBy(s => s.LastName),
                 };
                 return new BaseResponse<IEnumerable<Student>>()

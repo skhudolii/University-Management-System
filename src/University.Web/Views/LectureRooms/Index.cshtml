@@ -1,4 +1,4 @@
-﻿@model IPagedList<LectureRoom>
+﻿@model LectureRoomsListViewModel
 
 @{
     ViewData["Title"] = "List of Lecture Rooms";
@@ -15,19 +15,19 @@
                 <thead>
                     <tr class="text-center">
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Lecture Room</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.NameSortParm" asp-route-currentFilter="@Model.CurrentFilter">Lecture Room</a>
                         </th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["CapacitySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Capacity</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.CapacitySortParm" asp-route-currentFilter="@Model.CurrentFilter">Capacity</a>
                         </th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Faculty</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
                         </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.PagedLectureRooms)
                     {
                         <tr class="text-center">
                             <td class="align-middle">
@@ -52,7 +52,7 @@
             </table>
 
             <!-- Use the partial view for pagination -->
-            @await Html.PartialAsync("_Pagination", Model)
+            @await Html.PartialAsync("_Pagination", Model.PagedLectureRooms)
 
         </div>
     </div>

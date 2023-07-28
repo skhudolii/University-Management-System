@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Subject>
+﻿@model SubjectsListViewModel
 
 @{
     ViewData["Title"] = "List of Subjects";
@@ -15,16 +15,16 @@
                 <thead>
                     <tr class="text-center">
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.NameSortParm" asp-route-currentFilter="@Model.CurrentFilter">Name</a>
                         </th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultyNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.Faculty.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
                         </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.PagedSubjects)
                     {
                         <tr class="text-center">
                             <td class="align-middle">
@@ -46,7 +46,7 @@
             </table>
 
             <!-- Use the partial view for pagination -->
-            @await Html.PartialAsync("_Pagination", Model)
+            @await Html.PartialAsync("_Pagination", Model.PagedSubjects)
 
         </div>
     </div>

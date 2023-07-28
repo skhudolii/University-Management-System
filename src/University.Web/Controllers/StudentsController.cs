@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.StudentVM;
+using University.Web.ViewModels;
 using X.PagedList;
 
 namespace University.Web.Controllers
@@ -23,8 +24,8 @@ namespace University.Web.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["LastNameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "lastname_desc" : "";
             ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "firstname_desc" : "FirstName";
-            ViewData["GroupNameSortParm"] = sortOrder == "GroupName" ? "groupname_desc" : "GroupName";
-            ViewData["FacultyNameSortParm"] = sortOrder == "FacultyName" ? "facultyname_desc" : "FacultyName";
+            ViewData["GroupSortParm"] = sortOrder == "Group" ? "group_desc" : "Group";
+            ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
             if (searchString != null)
             {
@@ -46,7 +47,18 @@ namespace University.Web.Controllers
             int pageSize = 5; // Set the desired page size here
             int pageNumber = page ?? 1; // If page is null, default to page 1
 
-            return View(students.Data.ToPagedList(pageNumber, pageSize));
+            var viewModel = new StudentsListViewModel
+            {
+                PagedStudents = students.Data.ToPagedList(pageNumber, pageSize),
+                CurrentSort = sortOrder,
+                LastNameSortParm = ViewData["LastNameSortParm"] as string,
+                FirstNameSortParm = ViewData["FirstNameSortParm"] as string,
+                GroupSortParm = ViewData["GroupSortParm"] as string,
+                FacultySortParm = ViewData["FacultySortParm"] as string,
+                CurrentFilter = ViewData["CurrentFilter"] as string
+            };
+
+            return View(viewModel);
         }
 
         // GET: Students/Details/1

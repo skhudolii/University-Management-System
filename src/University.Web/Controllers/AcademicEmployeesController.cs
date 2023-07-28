@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.AcademicEmployeeVM;
+using University.Web.ViewModels;
 using X.PagedList;
 
 namespace University.Web.Controllers
@@ -18,7 +19,7 @@ namespace University.Web.Controllers
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["LastNameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["AcademicPositionSortParm"] = sortOrder == "AcademicPosition" ? "academicPosition_desc" : "AcademicPosition";
             ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
@@ -42,7 +43,17 @@ namespace University.Web.Controllers
             int pageSize = 5; // Set the desired page size here
             int pageNumber = page ?? 1; // If page is null, default to page 1
 
-            return View(academicEmployees.Data.ToPagedList(pageNumber, pageSize));
+            var viewModel = new AcademicEmployeesListViewModel
+            {
+                PagedAcademicEmployees = academicEmployees.Data.ToPagedList(pageNumber, pageSize),
+                CurrentSort = sortOrder,
+                LastNameSortParm = ViewData["LastNameSortParm"] as string, // Updated property name
+                AcademicPositionSortParm = ViewData["AcademicPositionSortParm"] as string,
+                FacultySortParm = ViewData["FacultySortParm"] as string,
+                CurrentFilter = ViewData["CurrentFilter"] as string
+            };
+
+            return View(viewModel);
         }
 
         // GET: AcademicEmployees/Details/1

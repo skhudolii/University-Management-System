@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using University.Core.Services.Interfaces;
 using University.Core.ViewModels.LectureRoomVM;
+using University.Web.ViewModels;
 using X.PagedList;
 
 namespace University.Web.Controllers
@@ -42,7 +43,17 @@ namespace University.Web.Controllers
             int pageSize = 8; // Set the desired page size here
             int pageNumber = page ?? 1; // If page is null, default to page 1
 
-            return View(lectureRooms.Data.ToPagedList(pageNumber, pageSize));
+            var viewModel = new LectureRoomsListViewModel
+            {
+                PagedLectureRooms = lectureRooms.Data.ToPagedList(pageNumber, pageSize),
+                CurrentSort = sortOrder,
+                NameSortParm = ViewData["NameSortParm"] as string,
+                CapacitySortParm = ViewData["CapacitySortParm"] as string,
+                FacultySortParm = ViewData["FacultySortParm"] as string,
+                CurrentFilter = ViewData["CurrentFilter"] as string
+            };
+
+            return View(viewModel);
         }
 
         // GET: Subjects/Details/1

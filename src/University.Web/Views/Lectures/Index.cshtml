@@ -1,4 +1,4 @@
-﻿@model IPagedList<Lecture>
+﻿@model LecturesListViewModel
 
 @{
     ViewData["Title"] = "List of Lectures";
@@ -10,7 +10,7 @@
 
             <form class="row ms-auto my-2 my-lg-0" asp-action="Index" method="get">
                 <div class="col-auto">
-                    <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]"
+                    <input type="text" class="form-control" name="SearchString" value="@Model.CurrentFilter"
                            placeholder="By Teacher/Subject/Date..." />
                 </div>
                 <div class="col-auto">
@@ -25,25 +25,25 @@
                 <thead>
                     <tr class="text-center">
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Lecture Date</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.DateSortParm" asp-route-currentFilter="@Model.CurrentFilter">Lecture Date</a>
                         </th>
                         <th class="align-middle">
                             Start Time<br />EndTime
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["SubjectSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Subject</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.SubjectSortParm" asp-route-currentFilter="@Model.CurrentFilter">Subject</a>
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["LectureRoomSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Lecture Room</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.LectureRoomSortParm"]" asp-route-currentFilter="@Model.CurrentFilter">Lecture Room</a>
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Faculty</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
                         </th>
                         <th class="align-middle">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.PagedLectures)
                     {
                         <tr class="text-center">
                             <td class="align-middle">
@@ -76,7 +76,7 @@
             </table>
 
             <!-- Use the partial view for pagination -->
-            @await Html.PartialAsync("_Pagination", Model)
+            @await Html.PartialAsync("_Pagination", Model.PagedLectures)
 
         </div>
     </div>

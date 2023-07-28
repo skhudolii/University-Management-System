@@ -15,8 +15,8 @@ namespace University.Web.Controllers
 
         public async Task<IActionResult> Index(string searchString)
         {
-            var allFaculties = await _facultiesService.GetFacultiesList(searchString);
-            return View(allFaculties.Data);
+            var faculties = await _facultiesService.GetFacultiesList(searchString);
+            return View(faculties.Data);
         }
 
         // GET: Faculties/Details/1

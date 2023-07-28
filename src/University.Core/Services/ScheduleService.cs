@@ -57,8 +57,6 @@ namespace University.Core.Services
                     "subject_desc" => scheduleForFaculty.OrderByDescending(l => l.Subject.Name).ToList(),
                     "LectureRoom" => scheduleForFaculty.OrderBy(l => l.LectureRoom.Name).ToList(),
                     "lectureRoom_desc" => scheduleForFaculty.OrderByDescending(l => l.LectureRoom.Name).ToList(),
-                    "Faculty" => scheduleForFaculty.OrderBy(l => l.Faculty.Name).ToList(),
-                    "faculty_desc" => scheduleForFaculty.OrderByDescending(l => l.Faculty.Name).ToList(),
                     _ => scheduleForFaculty.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime).ToList(),
                 };
 
@@ -119,8 +117,6 @@ namespace University.Core.Services
                     "subject_desc" => scheduleForTeacher.OrderByDescending(l => l.Subject.Name).ToList(),
                     "LectureRoom" => scheduleForTeacher.OrderBy(l => l.LectureRoom.Name).ToList(),
                     "lectureRoom_desc" => scheduleForTeacher.OrderByDescending(l => l.LectureRoom.Name).ToList(),
-                    "Faculty" => scheduleForTeacher.OrderBy(l => l.Faculty.Name).ToList(),
-                    "faculty_desc" => scheduleForTeacher.OrderByDescending(l => l.Faculty.Name).ToList(),
                     _ => scheduleForTeacher.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime).ToList(),
                 };
 
@@ -184,8 +180,6 @@ namespace University.Core.Services
                     "subject_desc" => scheduleForStudent.OrderByDescending(l => l.Subject.Name),
                     "LectureRoom" => scheduleForStudent.OrderBy(l => l.LectureRoom.Name),
                     "lectureRoom_desc" => scheduleForStudent.OrderByDescending(l => l.LectureRoom.Name),
-                    "Faculty" => scheduleForStudent.OrderBy(l => l.Faculty.Name),
-                    "faculty_desc" => scheduleForStudent.OrderByDescending(l => l.Faculty.Name),
                     _ => scheduleForStudent.OrderBy(l => l.LectureDate).ThenBy(l => l.StartTime)
                 };
 

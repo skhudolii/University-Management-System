@@ -1,4 +1,4 @@
-﻿@model IPagedList<Group>
+﻿@model GroupsListViewModel
 
 @{
     ViewData["Title"] = "List of Groups";
@@ -15,16 +15,16 @@
                 <thead>
                     <tr class="text-center">
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Group Name</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.NameSortParm" asp-route-currentFilter="@Model.CurrentFilter">Group Name</a>
                         </th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Faculty</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
                         </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.PagedGroups)
                     {
                         <tr class="text-center">
                             <td class="align-middle">
@@ -48,7 +48,7 @@
             </table>
 
             <!-- Use the partial view for pagination -->
-            @await Html.PartialAsync("_Pagination", Model)
+            @await Html.PartialAsync("_Pagination", Model.PagedGroups)
 
         </div>
     </div>

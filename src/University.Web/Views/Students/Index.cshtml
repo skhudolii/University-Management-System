@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Student>
+﻿@model StudentsListViewModel
 
 @{
     ViewData["Title"] = "List of Students";
@@ -14,24 +14,24 @@
             <table class="table">
                 <thead>
                     <tr class="text-center">
-                        <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
+                        <th>Profile Picture</th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FirstNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.FirstName)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FirstNameSortParm" asp-route-currentFilter="@Model.CurrentFilter">First Name</a>
                         </th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["LastNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.LastName)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.LastNameSortParm" asp-route-currentFilter="@Model.CurrentFilter">Last Name</a>
                         </th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["GroupNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.Group.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.GroupSortParm" asp-route-currentFilter="@Model.CurrentFilter">Group</a>
                         </th>
                         <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultyNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">@Html.DisplayNameFor(model => model.Group.Faculty.Name)</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
                         </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.PagedStudents)
                     {
                         <tr class="text-center">
                             <td class="align-middle">
@@ -67,7 +67,7 @@
             </table>
 
             <!-- Use the partial view for pagination -->
-            @await Html.PartialAsync("_Pagination", Model)
+            @await Html.PartialAsync("_Pagination", Model.PagedStudents)
 
         </div>
     </div>

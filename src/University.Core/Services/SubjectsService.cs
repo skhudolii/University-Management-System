@@ -160,8 +160,8 @@ namespace University.Core.Services
                 subjects = sortOrder switch
                 {
                     "name_desc" => subjects.OrderByDescending(s => s.Name),
-                    "FacultyName" => subjects.OrderBy(s => s.Faculty.Name),
-                    "facultyname_desc" => subjects.OrderByDescending(s => s.Faculty.Name),
+                    "Faculty" => subjects.OrderBy(s => s.Faculty.Name),
+                    "faculty_desc" => subjects.OrderByDescending(s => s.Faculty.Name),
                     _ => subjects.OrderBy(s => s.Name),
                 };
                 return new BaseResponse<IEnumerable<Subject>>()

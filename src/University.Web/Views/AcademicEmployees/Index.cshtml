@@ -1,4 +1,4 @@
-﻿@model IPagedList<AcademicEmployee>
+﻿@model AcademicEmployeesListViewModel
 
 @{
     ViewData["Title"] = "List of Academic Employees";
@@ -17,20 +17,20 @@
                         <th class="align-middle">Profile Picture</th>
                         <th class="align-middle">First Name</th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.LastNameSortParm" asp-route-currentFilter="@Model.CurrentFilter">Last Name</a>
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["AcademicPositionSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Academic Position</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.AcademicPositionSortParm" asp-route-currentFilter="@Model.CurrentFilter">Academic Position</a>
                         </th>
                         <th class="align-middle">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Faculty</a>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
                         </th>
                         <th class="align-middle">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.PagedAcademicEmployees)
                     {
                         <tr class="text-center">
                             <td class="align-middle">
@@ -65,7 +65,7 @@
             </table>
 
             <!-- Use the partial view for pagination -->
-            @await Html.PartialAsync("_Pagination", Model)
+            @await Html.PartialAsync("_Pagination", Model.PagedAcademicEmployees)
 
         </div>
     </div>

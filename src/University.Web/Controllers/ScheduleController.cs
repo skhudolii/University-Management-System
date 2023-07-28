@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using University.Core.Services.Interfaces;
+using University.Web.ViewModels;
 using X.PagedList;
 
 namespace University.Web.Controllers
@@ -19,7 +20,6 @@ namespace University.Web.Controllers
             ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewData["SubjectSortParm"] = sortOrder == "Subject" ? "subject_desc" : "Subject";
             ViewData["LectureRoomSortParm"] = sortOrder == "LectureRoom" ? "lectureRoom_desc" : "LectureRoom";
-            ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
             if (searchString != null)
             {
@@ -38,10 +38,20 @@ namespace University.Web.Controllers
                 return View("Error", $"Error {scheduleForFaculty.StatusCode}, {scheduleForFaculty.Description}");
             }
 
-            int pageSize = 5; // Set the desired page size here
+            int pageSize = 6; // Set the desired page size here
             int pageNumber = page ?? 1; // If page is null, default to page 1
 
-            return View(scheduleForFaculty.Data.ToPagedList(pageNumber, pageSize));
+            var viewModel = new ScheduleForFacultyViewModel
+            {
+                PagedLectures = scheduleForFaculty.Data.ToPagedList(pageNumber, pageSize),
+                CurrentSort = sortOrder,
+                DateSortParm = ViewData["DateSortParm"] as string,
+                SubjectSortParm = ViewData["SubjectSortParm"] as string,
+                LectureRoomSortParm = ViewData["LectureRoomSortParm"] as string,
+                CurrentFilter = ViewData["CurrentFilter"] as string
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> ScheduleForTeacher(int id, int daysForward, string sortOrder, string currentFilter, string searchString, int? page)
@@ -51,7 +61,6 @@ namespace University.Web.Controllers
             ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewData["SubjectSortParm"] = sortOrder == "Subject" ? "subject_desc" : "Subject";
             ViewData["LectureRoomSortParm"] = sortOrder == "LectureRoom" ? "lectureRoom_desc" : "LectureRoom";
-            ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
             if (searchString != null)
             {
@@ -70,10 +79,21 @@ namespace University.Web.Controllers
                 return View("Error", $"Error {scheduleForTeacher.StatusCode}, {scheduleForTeacher.Description}");
             }
 
-            int pageSize = 5; // Set the desired page size here
+            int pageSize = 6; // Set the desired page size here
             int pageNumber = page ?? 1; // If page is null, default to page 1
 
-            return View(scheduleForTeacher.Data.ToPagedList(pageNumber, pageSize));
+            var viewModel = new ScheduleForTeacherViewModel
+            {
+                DaysForward = daysForward,
+                PagedLectures = scheduleForTeacher.Data.ToPagedList(pageNumber, pageSize),
+                CurrentSort = sortOrder,
+                DateSortParm = ViewData["DateSortParm"] as string,
+                SubjectSortParm = ViewData["SubjectSortParm"] as string,
+                LectureRoomSortParm = ViewData["LectureRoomSortParm"] as string,
+                CurrentFilter = ViewData["CurrentFilter"] as string
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> ScheduleForStudent(int id, int daysForward, string sortOrder, string currentFilter, string searchString, int? page)
@@ -83,7 +103,6 @@ namespace University.Web.Controllers
             ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewData["SubjectSortParm"] = sortOrder == "Subject" ? "subject_desc" : "Subject";
             ViewData["LectureRoomSortParm"] = sortOrder == "LectureRoom" ? "lectureRoom_desc" : "LectureRoom";
-            ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
 
             if (searchString != null)
             {
@@ -102,10 +121,21 @@ namespace University.Web.Controllers
                 return View("Error", $"Error {scheduleForStudent.StatusCode}, {scheduleForStudent.Description}");
             }
 
-            int pageSize = 3; // Set the desired page size here
+            int pageSize = 6; // Set the desired page size here
             int pageNumber = page ?? 1; // If page is null, default to page 1
 
-            return View(scheduleForStudent.Data.ToPagedList(pageNumber, pageSize));
+            var viewModel = new ScheduleForStudentViewModel
+            {
+                DaysForward = daysForward,
+                PagedLectures = scheduleForStudent.Data.ToPagedList(pageNumber, pageSize),
+                CurrentSort = sortOrder,
+                DateSortParm = ViewData["DateSortParm"] as string,
+                SubjectSortParm = ViewData["SubjectSortParm"] as string,
+                LectureRoomSortParm = ViewData["LectureRoomSortParm"] as string,
+                CurrentFilter = ViewData["CurrentFilter"] as string
+            };
+
+            return View(viewModel);
         }
     }
 }
