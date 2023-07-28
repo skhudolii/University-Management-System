@@ -15,7 +15,7 @@ University Management System is an ASP.NET Core application that aims to provide
 
 ## Schema of Project
 
-Here is a UML diagram representing the schema of the University Management System application:
+Here is a UML class diagram representing the schema of the University Management System application:
 
 ![UML Diagram](UniversityUML.png "UML diagramm")
 
@@ -35,20 +35,21 @@ The project utilizes a generic repository pattern to provide a common interface 
 The project is structured into three main layers:
 
 1. Core:
-   - Entities: Contains business model classes that are persisted.
-   - Interfaces: Defines interfaces used by other layers.
-   - Domain Services: Implements business logic and rules.
-   - ViewModels: Provides data models for views.
-   - Attributes: Contains custom attributes for data validation and other purposes.
+   - Entities: Contains business model classes that are persisted
+   - Interfaces: Defines interfaces used by other layers
+   - Domain Services: Implements business logic and rules
+   - Models: Provides data models for views
+   - Attributes: Contains custom attributes for data validation and other purposes
 
 2. Infrastructure:
-   - EF Core types: Includes the DbContext and migration configurations.
-   - Data access implementation types: Contains repositories for data access.
+   - EF Core types: Includes the DbContext and migration configurations
+   - Data access implementation types: Contains repositories for data access
 
 3. Web:
-   - Controllers: Handles the application's HTTP requests and responses.
-   - Views: Renders the UI and interacts with users.
-   - Program.cs: Contains the entry point of the application.
+   - Controllers: Handles the application's HTTP requests and responses
+   - Views: Renders the UI and interacts with users
+   - ViewModels: Strongly Typed ViewModels used to pass data from controller action method to view
+   - Program.cs: Contains the entry point of the application
 
 ## Features
 
@@ -78,4 +79,4 @@ Contributions to the University Management System are welcome! If you have any s
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE.txt).
