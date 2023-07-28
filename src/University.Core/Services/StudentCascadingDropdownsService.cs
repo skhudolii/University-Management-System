@@ -18,16 +18,16 @@ namespace University.Core.Services
             _groupsRepository = groupsRepository;
         }
 
-        public async Task<IBaseResponse<NewStudentDropdownsVM>> GetFaculties()
+        public async Task<IBaseResponse<NewStudentDropdownsModel>> GetFaculties()
         {
             try
             {
-                var studentDropdownsFaculties = new NewStudentDropdownsVM()
+                var studentDropdownsFaculties = new NewStudentDropdownsModel()
                 {
                     Faculties = (await _facultiesRepository.GetAllAsync()).OrderBy(n => n.Name).ToList()
                 };                
 
-                return new BaseResponse<NewStudentDropdownsVM>()
+                return new BaseResponse<NewStudentDropdownsModel>()
                 {
                     Data = studentDropdownsFaculties,
                     StatusCode = StatusCode.OK
@@ -35,7 +35,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewStudentDropdownsVM>()
+                return new BaseResponse<NewStudentDropdownsModel>()
                 {
                     Description = $"[StudentCascadingDropdownsService.GetFaculties] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -43,17 +43,17 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewStudentDropdownsVM>> GetDependentGroups()
+        public async Task<IBaseResponse<NewStudentDropdownsModel>> GetDependentGroups()
         {
             try
             {
                 var groups = (await _groupsRepository.GetAllAsync()).Where(f => f.FacultyId != null);
-                var studentDropdownsGroups = new NewStudentDropdownsVM()
+                var studentDropdownsGroups = new NewStudentDropdownsModel()
                 {
                     Groups = groups.OrderBy(n => n.Name).ToList()
                 };
 
-                return new BaseResponse<NewStudentDropdownsVM>()
+                return new BaseResponse<NewStudentDropdownsModel>()
                 {
                     Data = studentDropdownsGroups,
                     StatusCode = StatusCode.OK
@@ -61,7 +61,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewStudentDropdownsVM>()
+                return new BaseResponse<NewStudentDropdownsModel>()
                 {
                     Description = $"[StudentCascadingDropdownsService.GetDependentGroups] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError

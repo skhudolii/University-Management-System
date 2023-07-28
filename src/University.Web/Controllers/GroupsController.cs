@@ -76,7 +76,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(NewGroupVM groupVM)
+        public async Task<IActionResult> Create(NewGroupModel groupVM)
         {
             if (!ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, NewGroupVM groupVM)
+        public async Task<IActionResult> Edit(int id, NewGroupModel groupVM)
         {
             if (id != groupVM.Id)
             {

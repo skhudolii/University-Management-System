@@ -90,7 +90,7 @@ namespace University.Core.Tests.Services
         public async Task AddNewFaculty_ValidModel_ReturnsSuccessResponse()
         {
             // Arrange
-            var model = new NewFacultyVM { Name = "F1", Logo = "L1" };
+            var model = new NewFacultyModel { Name = "F1", Logo = "L1" };
             _mockFacultiesRepository.Setup(repo => repo.AddAsync(It.IsAny<Faculty>())).Returns(Task.CompletedTask);
             var facultiesService = new FacultiesService(_mockFacultiesRepository.Object);
 
@@ -112,7 +112,7 @@ namespace University.Core.Tests.Services
         public async Task UpdateFaculty_ValidModel_ReturnSuccessResponse()
         {
             // Arrange
-            var model = new NewFacultyVM { Id = 1, Name = "F1 - Updated", Logo = "L1 - Updated" };
+            var model = new NewFacultyModel { Id = 1, Name = "F1 - Updated", Logo = "L1 - Updated" };
             var existingFaculty = new Faculty { Id = 1, Name = "F1", Logo = "L1" };
 
             _mockFacultiesRepository.Setup(repo => repo.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(existingFaculty);

@@ -28,16 +28,16 @@ namespace University.Core.Services
             _subjectsRepository = subjectsRepository;
         }
 
-        public async Task<IBaseResponse<NewLectureDropdownsVM>> GetFaculties()
+        public async Task<IBaseResponse<NewLectureDropdownsModel>> GetFaculties()
         {
             try
             {
-                var lectureDropdownsFaculties = new NewLectureDropdownsVM()
+                var lectureDropdownsFaculties = new NewLectureDropdownsModel()
                 {
                     Faculties = (await _facultiesRepository.GetAllAsync()).OrderBy(n => n.Name).ToList()
                 };
 
-                return new BaseResponse<NewLectureDropdownsVM>()
+                return new BaseResponse<NewLectureDropdownsModel>()
                 {
                     Data = lectureDropdownsFaculties,
                     StatusCode = StatusCode.OK
@@ -45,7 +45,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewLectureDropdownsVM>()
+                return new BaseResponse<NewLectureDropdownsModel>()
                 {
                     Description = $"[LectureCascadingDropdownsService.GetFaculties] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -53,7 +53,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewLectureDropdownsVM>> GetDependentDropdownsValues()
+        public async Task<IBaseResponse<NewLectureDropdownsModel>> GetDependentDropdownsValues()
         {
             try
             {
@@ -62,7 +62,7 @@ namespace University.Core.Services
                 var lectureRooms = (await _lectureRoomsRepository.GetAllAsync()).Where(f => f.FacultyId != null);
                 var subjects = (await _subjectsRepository.GetAllAsync()).Where(f => f.FacultyId != null);
 
-                var lectureDropdownsValues = new NewLectureDropdownsVM()
+                var lectureDropdownsValues = new NewLectureDropdownsModel()
                 {
                     AcademicEmployees = academicEmployees.OrderBy(n => n.LastName).ToList(),
                     Groups = groups.OrderBy(n => n.Name).ToList(),
@@ -70,7 +70,7 @@ namespace University.Core.Services
                     Subjects = subjects.OrderBy(n => n.Name).ToList()
                 };
 
-                return new BaseResponse<NewLectureDropdownsVM>()
+                return new BaseResponse<NewLectureDropdownsModel>()
                 {
                     Data = lectureDropdownsValues,
                     StatusCode = StatusCode.OK
@@ -78,7 +78,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewLectureDropdownsVM>()
+                return new BaseResponse<NewLectureDropdownsModel>()
                 {
                     Description = $"[LectureCascadingDropdownsService.GetDependentDropdownsValues] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError

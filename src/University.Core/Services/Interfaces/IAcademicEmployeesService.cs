@@ -7,11 +7,11 @@ namespace University.Core.Services.Interfaces
     public interface IAcademicEmployeesService
     {
         Task<IBaseResponse<IEnumerable<AcademicEmployee>>> GetSortedAcademicEmployeesList(string sortOrder, string searchString);
-        Task<IBaseResponse<NewAcademicEmployeeVM>> GetAcademicEmployeeById(int id);
+        Task<IBaseResponse<NewAcademicEmployeeModel>> GetAcademicEmployeeById(int id);
         Task<IBaseResponse<AcademicEmployee>> GetAcademicEmployeeWithIncludePropertiesById(int id);
-        Task<IBaseResponse<NewAcademicEmployeeDropdownsVM>> GetNewAcademicEmployeeDropdownsValues();
-        Task<IBaseResponse<AcademicEmployee>> AddNewAcademicEmployee(NewAcademicEmployeeVM model);
-        Task<IBaseResponse<AcademicEmployee>> UpdateAcademicEmployee(NewAcademicEmployeeVM model);
+        Task<IBaseResponse<NewAcademicEmployeeDropdownsModel>> GetNewAcademicEmployeeDropdownsValues();
+        Task<IBaseResponse<AcademicEmployee>> AddNewAcademicEmployee(NewAcademicEmployeeModel model);
+        Task<IBaseResponse<AcademicEmployee>> UpdateAcademicEmployee(NewAcademicEmployeeModel model);
         Task<IBaseResponse<bool>> DeleteAcademicEmployee(int id);
     }
 }

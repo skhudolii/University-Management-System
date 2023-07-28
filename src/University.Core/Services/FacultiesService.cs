@@ -18,7 +18,7 @@ namespace University.Core.Services
             _facultiesRepository = facultiesRepository;
         }
 
-        public async Task<IBaseResponse<Faculty>> AddNewFaculty(NewFacultyVM model)
+        public async Task<IBaseResponse<Faculty>> AddNewFaculty(NewFacultyModel model)
         {
             try
             {
@@ -91,27 +91,27 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewFacultyVM>> GetFacultyById(int id)
+        public async Task<IBaseResponse<NewFacultyModel>> GetFacultyById(int id)
         {
             try
             {
                 var facultyDetails = await _facultiesRepository.GetByIdAsync(id);
                 if (facultyDetails == null)
                 {
-                    return new BaseResponse<NewFacultyVM>()
+                    return new BaseResponse<NewFacultyModel>()
                     {
                         Description = "Not found",
                         StatusCode = StatusCode.NotFound
                     };
                 }
-                var data = new NewFacultyVM()
+                var data = new NewFacultyModel()
                 {
                     Id = facultyDetails.Id,
                     Name = facultyDetails.Name,
                     Logo = facultyDetails.Logo
                 };
 
-                return new BaseResponse<NewFacultyVM>()
+                return new BaseResponse<NewFacultyModel>()
                 {
                     Data = data,
                     StatusCode = StatusCode.OK
@@ -119,7 +119,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewFacultyVM>()
+                return new BaseResponse<NewFacultyModel>()
                 {
                     Description = $"[FacultiesService.GetFacultyById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -160,7 +160,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<Faculty>> UpdateFaculty(NewFacultyVM model)
+        public async Task<IBaseResponse<Faculty>> UpdateFaculty(NewFacultyModel model)
         {
             try
             {

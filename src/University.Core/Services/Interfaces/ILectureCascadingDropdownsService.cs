@@ -6,7 +6,7 @@ namespace University.Core.Services.Interfaces
 {
     public interface ILectureCascadingDropdownsService
     {
-        Task<IBaseResponse<NewLectureDropdownsVM>> GetFaculties();
-        Task<IBaseResponse<NewLectureDropdownsVM>> GetDependentDropdownsValues();
+        Task<IBaseResponse<NewLectureDropdownsModel>> GetFaculties();
+        Task<IBaseResponse<NewLectureDropdownsModel>> GetDependentDropdownsValues();
     }
 }

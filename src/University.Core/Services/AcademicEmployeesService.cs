@@ -20,7 +20,7 @@ namespace University.Core.Services
             _facultiesRepository = facultiesRepository;
         }
 
-        public async Task<IBaseResponse<AcademicEmployee>> AddNewAcademicEmployee(NewAcademicEmployeeVM model)
+        public async Task<IBaseResponse<AcademicEmployee>> AddNewAcademicEmployee(NewAcademicEmployeeModel model)
         {
             try
             {
@@ -86,20 +86,20 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewAcademicEmployeeVM>> GetAcademicEmployeeById(int id)
+        public async Task<IBaseResponse<NewAcademicEmployeeModel>> GetAcademicEmployeeById(int id)
         {
             try
             {
                 var academicEmployeeDetails = await _academicEmployeesRepository.GetByIdAsync(id);
                 if (academicEmployeeDetails == null || academicEmployeeDetails.FacultyId == null)
                 {
-                    return new BaseResponse<NewAcademicEmployeeVM>()
+                    return new BaseResponse<NewAcademicEmployeeModel>()
                     {
                         Description = "Not found",
                         StatusCode = StatusCode.NotFound
                     };
                 }
-                var data = new NewAcademicEmployeeVM()
+                var data = new NewAcademicEmployeeModel()
                 {
                     Id = academicEmployeeDetails.Id,
                     FirstName = academicEmployeeDetails.FirstName,
@@ -110,7 +110,7 @@ namespace University.Core.Services
                     FacultyId = (int)academicEmployeeDetails.FacultyId,
                 };
 
-                return new BaseResponse<NewAcademicEmployeeVM>()
+                return new BaseResponse<NewAcademicEmployeeModel>()
                 {
                     Data = data,
                     StatusCode = StatusCode.OK
@@ -118,7 +118,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewAcademicEmployeeVM>()
+                return new BaseResponse<NewAcademicEmployeeModel>()
                 {
                     Description = $"[AcademicEmployeesService.GetAcademicEmployeeById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -203,16 +203,16 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewAcademicEmployeeDropdownsVM>> GetNewAcademicEmployeeDropdownsValues()
+        public async Task<IBaseResponse<NewAcademicEmployeeDropdownsModel>> GetNewAcademicEmployeeDropdownsValues()
         {
             try
             {
-                var academicEmployeeDropdownsValues = new NewAcademicEmployeeDropdownsVM()
+                var academicEmployeeDropdownsValues = new NewAcademicEmployeeDropdownsModel()
                 {
                     Faculties = (await _facultiesRepository.GetAllAsync()).OrderBy(n => n.Name).ToList()
                 };
 
-                return new BaseResponse<NewAcademicEmployeeDropdownsVM>()
+                return new BaseResponse<NewAcademicEmployeeDropdownsModel>()
                 {
                     Data = academicEmployeeDropdownsValues,
                     StatusCode = StatusCode.OK
@@ -220,7 +220,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewAcademicEmployeeDropdownsVM>()
+                return new BaseResponse<NewAcademicEmployeeDropdownsModel>()
                 {
                     Description = $"[AcademicEmployeesService.GetNewAcademicEmployeeDropdownsValues] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -228,7 +228,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<AcademicEmployee>> UpdateAcademicEmployee(NewAcademicEmployeeVM model)
+        public async Task<IBaseResponse<AcademicEmployee>> UpdateAcademicEmployee(NewAcademicEmployeeModel model)
         {
             try
             {

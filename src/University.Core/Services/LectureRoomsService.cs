@@ -20,7 +20,7 @@ namespace University.Core.Services
             _facultiesRepository = facultiesRepository;
         }
 
-        public async Task<IBaseResponse<LectureRoom>> AddNewLectureRoom(NewLectureRoomVM model)
+        public async Task<IBaseResponse<LectureRoom>> AddNewLectureRoom(NewLectureRoomModel model)
         {
             try
             {
@@ -49,20 +49,20 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewLectureRoomVM>> GetLectureRoomById(int id)
+        public async Task<IBaseResponse<NewLectureRoomModel>> GetLectureRoomById(int id)
         {
             try
             {
                 var lectureRoomDetails = await _lectureRoomsRepository.GetByIdAsync(id);
                 if (lectureRoomDetails == null || lectureRoomDetails.FacultyId == null)
                 {
-                    return new BaseResponse<NewLectureRoomVM>()
+                    return new BaseResponse<NewLectureRoomModel>()
                     {
                         Description = "Not found",
                         StatusCode = StatusCode.NotFound
                     };
                 }
-                var data = new NewLectureRoomVM()
+                var data = new NewLectureRoomModel()
                 {
                     Id = lectureRoomDetails.Id,
                     Name = lectureRoomDetails.Name,
@@ -70,7 +70,7 @@ namespace University.Core.Services
                     FacultyId = (int)lectureRoomDetails.FacultyId
                 };
 
-                return new BaseResponse<NewLectureRoomVM>()
+                return new BaseResponse<NewLectureRoomModel>()
                 {
                     Data = data,
                     StatusCode = StatusCode.OK
@@ -78,7 +78,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewLectureRoomVM>()
+                return new BaseResponse<NewLectureRoomModel>()
                 {
                     Description = $"[LectureRoomsService.GetLectureRoomById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -160,16 +160,16 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewLectureRoomDropdownsVM>> GetNewLectureRoomDropdownsValues()
+        public async Task<IBaseResponse<NewLectureRoomDropdownsModel>> GetNewLectureRoomDropdownsValues()
         {
             try
             {
-                var lectureRoomDropdownsValues = new NewLectureRoomDropdownsVM()
+                var lectureRoomDropdownsValues = new NewLectureRoomDropdownsModel()
                 {
                     Faculties = (await _facultiesRepository.GetAllAsync()).OrderBy(n => n.Name).ToList()
                 };
 
-                return new BaseResponse<NewLectureRoomDropdownsVM>()
+                return new BaseResponse<NewLectureRoomDropdownsModel>()
                 {
                     Data = lectureRoomDropdownsValues,
                     StatusCode = StatusCode.OK
@@ -177,7 +177,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewLectureRoomDropdownsVM>()
+                return new BaseResponse<NewLectureRoomDropdownsModel>()
                 {
                     Description = $"[LectureRoomsService.GetNewLectureRoomDropdownsValues] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -185,7 +185,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<LectureRoom>> UpdateLectureRoom(NewLectureRoomVM model)
+        public async Task<IBaseResponse<LectureRoom>> UpdateLectureRoom(NewLectureRoomModel model)
         {
             try
             {

@@ -22,7 +22,7 @@ namespace University.Core.Tests.Services
         {
             // Arrange
             var lectureId = 1;
-            var newLectureVM = new NewLectureVM
+            var newLectureVM = new NewLectureModel
             {
                 Id = lectureId,
                 LectureDate = new DateTime(2023, 7, 10),
@@ -67,7 +67,7 @@ namespace University.Core.Tests.Services
         {
             // Arrange
             var lectureId = 1;
-            var newLectureVM = new NewLectureVM
+            var newLectureVM = new NewLectureModel
             {
                 Id = lectureId,
                 LectureDate = new DateTime(2023, 7, 10),
@@ -92,7 +92,7 @@ namespace University.Core.Tests.Services
             Assert.Equal(StatusCode.NotFound, response.StatusCode);
             Assert.Equal("Not found", response.Description);
             _mockLecturesRepository.Verify(r => r.GetByIdAsync(lectureId), Times.Once);
-            _mockLecturesRepository.Verify(r => r.UpdateLectureAsync(It.IsAny<NewLectureVM>()), Times.Never);
+            _mockLecturesRepository.Verify(r => r.UpdateLectureAsync(It.IsAny<NewLectureModel>()), Times.Never);
         }
     }
 }

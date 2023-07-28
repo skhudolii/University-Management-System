@@ -3,11 +3,11 @@ using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.StudentVM
 {
-    public class NewStudentDropdownsVM : BaseDropdownsViewModel
+    public class NewStudentDropdownsModel : BaseDropdownsModel
     {
         public List<Group> Groups { get; set; }
 
-        public NewStudentDropdownsVM()
+        public NewStudentDropdownsModel()
         {
             Groups = new List<Group>();
         }

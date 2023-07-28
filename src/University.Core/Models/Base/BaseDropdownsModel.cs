@@ -2,11 +2,11 @@
 
 namespace University.Core.ViewModels.Base
 {
-    public class BaseDropdownsViewModel
+    public class BaseDropdownsModel
     {
         public List<Faculty> Faculties { get; set; }
 
-        public BaseDropdownsViewModel()
+        public BaseDropdownsModel()
         {
             Faculties = new List<Faculty>();
         }

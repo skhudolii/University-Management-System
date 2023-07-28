@@ -78,7 +78,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(NewLectureRoomVM lectureRoom)
+        public async Task<IActionResult> Create(NewLectureRoomModel lectureRoom)
         {
             if (!ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, NewLectureRoomVM lectureRoomVM)
+        public async Task<IActionResult> Edit(int id, NewLectureRoomModel lectureRoomVM)
         {
             if (id != lectureRoomVM.Id)
             {

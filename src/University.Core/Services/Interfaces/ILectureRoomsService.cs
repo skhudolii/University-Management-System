@@ -7,11 +7,11 @@ namespace University.Core.Services.Interfaces
     public interface ILectureRoomsService
     {
         Task<IBaseResponse<IEnumerable<LectureRoom>>> GetSortedLectureRoomsList(string sortOrder, string searchString);
-        Task<IBaseResponse<NewLectureRoomVM>> GetLectureRoomById(int id);
+        Task<IBaseResponse<NewLectureRoomModel>> GetLectureRoomById(int id);
         Task<IBaseResponse<LectureRoom>> GetLectureRoomWithIncludePropertiesById(int id);
-        Task<IBaseResponse<NewLectureRoomDropdownsVM>> GetNewLectureRoomDropdownsValues();
-        Task<IBaseResponse<LectureRoom>> AddNewLectureRoom(NewLectureRoomVM model);
-        Task<IBaseResponse<LectureRoom>> UpdateLectureRoom(NewLectureRoomVM model);
+        Task<IBaseResponse<NewLectureRoomDropdownsModel>> GetNewLectureRoomDropdownsValues();
+        Task<IBaseResponse<LectureRoom>> AddNewLectureRoom(NewLectureRoomModel model);
+        Task<IBaseResponse<LectureRoom>> UpdateLectureRoom(NewLectureRoomModel model);
         Task<IBaseResponse<bool>> DeleteLectureRoom(int id);
     }
 }

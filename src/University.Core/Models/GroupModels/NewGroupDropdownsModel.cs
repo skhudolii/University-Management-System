@@ -3,7 +3,7 @@ using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.GroupVM
 {
-    public class NewGroupDropdownsVM : BaseDropdownsViewModel
+    public class NewGroupDropdownsModel : BaseDropdownsModel
     {
     }
 }

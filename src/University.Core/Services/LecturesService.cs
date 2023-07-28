@@ -105,7 +105,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<Lecture>> AddNewLecture(NewLectureVM newLectureVM)
+        public async Task<IBaseResponse<Lecture>> AddNewLecture(NewLectureModel newLectureVM)
         {
             try
             {
@@ -127,20 +127,20 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewLectureVM>> GetLectureById(int id)
+        public async Task<IBaseResponse<NewLectureModel>> GetLectureById(int id)
         {
             try
             {
                 var lecture = await _lecturesRepository.GetByIdAsync(id, lg => lg.LecturesGroups);
                 if (lecture == null || lecture.FacultyId == null)
                 {
-                    return new BaseResponse<NewLectureVM>()
+                    return new BaseResponse<NewLectureModel>()
                     {
                         Description = "Not found",
                         StatusCode = StatusCode.NotFound
                     };
                 }
-                var data = new NewLectureVM()
+                var data = new NewLectureModel()
                 {
                     Id = lecture.Id,
                     LectureDate = lecture.LectureDate,
@@ -153,7 +153,7 @@ namespace University.Core.Services
                     GroupIds = lecture.LecturesGroups.Select(n => n.GroupId).ToList()
                 };
 
-                return new BaseResponse<NewLectureVM>()
+                return new BaseResponse<NewLectureModel>()
                 {
                     Data = data,
                     StatusCode = StatusCode.OK
@@ -161,7 +161,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewLectureVM>()
+                return new BaseResponse<NewLectureModel>()
                 {
                     Description = $"[LecturesService.GetLectureById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -169,7 +169,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<Lecture>> UpdateLecture(NewLectureVM newLectureVM)
+        public async Task<IBaseResponse<Lecture>> UpdateLecture(NewLectureModel newLectureVM)
         {
             try
             {

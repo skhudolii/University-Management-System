@@ -3,7 +3,7 @@ using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.LectureRoomVM
 {
-    public class NewLectureRoomDropdownsVM : BaseDropdownsViewModel
+    public class NewLectureRoomDropdownsModel : BaseDropdownsModel
     {
     }
 }

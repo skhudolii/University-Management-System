@@ -5,7 +5,7 @@ using University.Core.Attributes;
 
 namespace University.Core.ViewModels.LectureVM
 {
-    public class NewLectureVM : BaseViewModel
+    public class NewLectureModel : BaseModel
     {
         [Display(Name = "Lecture date")]        
         [DataType(DataType.Date)]

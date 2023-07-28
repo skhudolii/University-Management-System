@@ -3,7 +3,7 @@ using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.LectureRoomVM
 {
-    public class NewLectureRoomVM : BaseViewModel
+    public class NewLectureRoomModel : BaseModel
     {
         [Display(Name = "Lecture room name")]
         [Required(ErrorMessage = "{0} is required")]

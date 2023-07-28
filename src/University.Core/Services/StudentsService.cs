@@ -96,7 +96,7 @@ namespace University.Core.Services
             }
         }       
 
-        public async Task<IBaseResponse<Student>> AddNewStudent(NewStudentVM model)
+        public async Task<IBaseResponse<Student>> AddNewStudent(NewStudentModel model)
         {
             try
             {
@@ -127,20 +127,20 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewStudentVM>> GetStudentById(int id)
+        public async Task<IBaseResponse<NewStudentModel>> GetStudentById(int id)
         {            
             try
             {
                 var student = await _studentsRepository.GetByIdAsync(id, g => g.Group);
                 if (student == null || student.Group.FacultyId == null)
                 {
-                    return new BaseResponse<NewStudentVM>()
+                    return new BaseResponse<NewStudentModel>()
                     {
                         Description = "Not found",
                         StatusCode = StatusCode.NotFound
                     };
                 }
-                var data = new NewStudentVM()
+                var data = new NewStudentModel()
                 {
                     Id = student.Id,
                     FirstName = student.FirstName,
@@ -151,7 +151,7 @@ namespace University.Core.Services
                     FacultyId = student.Group.FacultyId
                 };
 
-                return new BaseResponse<NewStudentVM>()
+                return new BaseResponse<NewStudentModel>()
                 {
                     Data = data,
                     StatusCode = StatusCode.OK
@@ -159,7 +159,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewStudentVM>()
+                return new BaseResponse<NewStudentModel>()
                 {
                     Description = $"[StudentsService.GetStudentById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -167,7 +167,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<Student>> UpdateStudent(NewStudentVM model)
+        public async Task<IBaseResponse<Student>> UpdateStudent(NewStudentModel model)
         {
             try
             {

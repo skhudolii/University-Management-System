@@ -78,7 +78,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(NewAcademicEmployeeVM academicEmployeeVM)
+        public async Task<IActionResult> Create(NewAcademicEmployeeModel academicEmployeeVM)
         {
             if (!ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, NewAcademicEmployeeVM academicEmployeeVM)
+        public async Task<IActionResult> Edit(int id, NewAcademicEmployeeModel academicEmployeeVM)
         {
             if (id != academicEmployeeVM.Id)
             {

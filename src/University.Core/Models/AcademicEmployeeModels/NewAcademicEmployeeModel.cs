@@ -4,7 +4,7 @@ using University.Core.ViewModels.Base;
 
 namespace University.Core.ViewModels.AcademicEmployeeVM
 {
-    public class NewAcademicEmployeeVM : BaseViewModel
+    public class NewAcademicEmployeeModel : BaseModel
     {
         [Display(Name = "First name")]
         [Required(ErrorMessage = "{0} is required")]

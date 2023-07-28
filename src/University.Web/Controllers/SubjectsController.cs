@@ -77,7 +77,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(NewSubjectVM subject)
+        public async Task<IActionResult> Create(NewSubjectModel subject)
         {
             if (!ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace University.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, NewSubjectVM subjectVM)
+        public async Task<IActionResult> Edit(int id, NewSubjectModel subjectVM)
         {
             if (id != subjectVM.Id)
             {

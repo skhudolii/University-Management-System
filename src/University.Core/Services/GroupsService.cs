@@ -19,7 +19,7 @@ namespace University.Core.Services
             _facultiesRepository = facultiesRepository;
         }
 
-        public async Task<IBaseResponse<Group>> AddNewGroup(NewGroupVM model)
+        public async Task<IBaseResponse<Group>> AddNewGroup(NewGroupModel model)
         {
             try
             {
@@ -98,27 +98,27 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewGroupVM>> GetGroupById(int id)
+        public async Task<IBaseResponse<NewGroupModel>> GetGroupById(int id)
         {
             try
             {
                 var groupDetails = await _groupsRepository.GetByIdAsync(id);
                 if (groupDetails == null || groupDetails.FacultyId == null)
                 {
-                    return new BaseResponse<NewGroupVM>()
+                    return new BaseResponse<NewGroupModel>()
                     {
                         Description = "Not found",
                         StatusCode = StatusCode.NotFound
                     };
                 }
-                var data = new NewGroupVM()
+                var data = new NewGroupModel()
                 {
                     Id = groupDetails.Id,
                     Name = groupDetails.Name,
                     FacultyId = (int)groupDetails.FacultyId,
                 };
 
-                return new BaseResponse<NewGroupVM>()
+                return new BaseResponse<NewGroupModel>()
                 {
                     Data = data,
                     StatusCode = StatusCode.OK
@@ -126,7 +126,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewGroupVM>()
+                return new BaseResponse<NewGroupModel>()
                 {
                     Description = $"[GroupsService.GetGroupById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -164,16 +164,16 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewGroupDropdownsVM>> GetNewGroupDropdownsValues()
+        public async Task<IBaseResponse<NewGroupDropdownsModel>> GetNewGroupDropdownsValues()
         {
             try
             {
-                var groupDropdownsValues = new NewGroupDropdownsVM()
+                var groupDropdownsValues = new NewGroupDropdownsModel()
                 {
                     Faculties = (await _facultiesRepository.GetAllAsync()).OrderBy(n => n.Name).ToList()
                 };
 
-                return new BaseResponse<NewGroupDropdownsVM>()
+                return new BaseResponse<NewGroupDropdownsModel>()
                 {
                     Data = groupDropdownsValues,
                     StatusCode = StatusCode.OK
@@ -181,7 +181,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewGroupDropdownsVM>()
+                return new BaseResponse<NewGroupDropdownsModel>()
                 {
                     Description = $"[GroupsService.GetNewGroupDropdownsValues] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -189,7 +189,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<Group>> UpdateGroup(NewGroupVM model)
+        public async Task<IBaseResponse<Group>> UpdateGroup(NewGroupModel model)
         {
             try
             {

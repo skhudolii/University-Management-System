@@ -16,7 +16,7 @@ namespace University.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddNewLectureAsync(NewLectureVM model)
+        public async Task AddNewLectureAsync(NewLectureModel model)
         {
             var newLecture = new Lecture()
             {
@@ -61,7 +61,7 @@ namespace University.Infrastructure.Repositories
             return lectureDetails;
         }
 
-        public async Task UpdateLectureAsync(NewLectureVM model)
+        public async Task UpdateLectureAsync(NewLectureModel model)
         {
             var dbLecture = await _context.Lectures.FirstOrDefaultAsync(n => n.Id == model.Id);
 
@@ -87,7 +87,7 @@ namespace University.Infrastructure.Repositories
             await AddLectureGroupsAsync(model.Id, model);
         }
 
-        private async Task AddLectureGroupsAsync(int id, NewLectureVM model)
+        private async Task AddLectureGroupsAsync(int id, NewLectureModel model)
         {
             foreach (var groupId in model.GroupIds)
             {

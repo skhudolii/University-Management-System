@@ -19,7 +19,7 @@ namespace University.Core.Services
             _facultiesRepository = facultiesRepository;
         }
 
-        public async Task<IBaseResponse<Subject>> AddNewSubject(NewSubjectVM model)
+        public async Task<IBaseResponse<Subject>> AddNewSubject(NewSubjectModel model)
         {            
             try
             {
@@ -47,16 +47,16 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewSubjectDropdownsVM>> GetNewSubjectDropdownsValues()
+        public async Task<IBaseResponse<NewSubjectDropdownsModel>> GetNewSubjectDropdownsValues()
         {
             try
             {
-                var subjectDropdownsValues = new NewSubjectDropdownsVM()
+                var subjectDropdownsValues = new NewSubjectDropdownsModel()
                 {
                     Faculties = (await _facultiesRepository.GetAllAsync()).OrderBy(n => n.Name).ToList()
                 };
 
-                return new BaseResponse<NewSubjectDropdownsVM>()
+                return new BaseResponse<NewSubjectDropdownsModel>()
                 {
                     Data = subjectDropdownsValues,
                     StatusCode = StatusCode.OK
@@ -64,7 +64,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewSubjectDropdownsVM>()
+                return new BaseResponse<NewSubjectDropdownsModel>()
                 {
                     Description = $"[SubjectsService.GetNewSubjectDropdownsValues] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -72,27 +72,27 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<NewSubjectVM>> GetSubjectById(int id)
+        public async Task<IBaseResponse<NewSubjectModel>> GetSubjectById(int id)
         {
             try
             {
                 var subjectDetails = await _subjectsRepository.GetByIdAsync(id);
                 if (subjectDetails == null || subjectDetails.FacultyId == null)
                 {
-                    return new BaseResponse<NewSubjectVM>()
+                    return new BaseResponse<NewSubjectModel>()
                     {
                         Description = "Not found",
                         StatusCode = StatusCode.NotFound
                     };
                 }
-                var data = new NewSubjectVM()
+                var data = new NewSubjectModel()
                 {
                     Id = subjectDetails.Id,
                     Name = subjectDetails.Name,
                     FacultyId = (int)subjectDetails.FacultyId,
                 };
 
-                return new BaseResponse<NewSubjectVM>()
+                return new BaseResponse<NewSubjectModel>()
                 {
                     Data = data,
                     StatusCode = StatusCode.OK
@@ -100,7 +100,7 @@ namespace University.Core.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<NewSubjectVM>()
+                return new BaseResponse<NewSubjectModel>()
                 {
                     Description = $"[SubjectsService.GetSubjectById] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
@@ -180,7 +180,7 @@ namespace University.Core.Services
             }
         }
 
-        public async Task<IBaseResponse<Subject>> UpdateSubject(NewSubjectVM model)
+        public async Task<IBaseResponse<Subject>> UpdateSubject(NewSubjectModel model)
         {
             try
             {
