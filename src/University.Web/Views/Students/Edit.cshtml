@@ -1,0 +1,102 @@
+﻿@using University.Core.ViewModels.StudentVM;
+@model NewStudentModel
+
+@{
+    ViewData["Title"] = "Update student";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Update Student</h3>
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3 text-center">
+                            <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FacultyId" class="control-label"></label>
+                            <select asp-for="FacultyId" class="form-select" id="facultyId" asp-items="ViewBag.Faculties">
+                                <option disabled selected>--Select Faculty--</option>
+                            </select>
+                            <span asp-validation-for="FacultyId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="GroupId" class="control-label"></label>
+                            <select asp-for="GroupId" class="form-select" id="groupId" asp-items="ViewBag.Groups"></select>
+                            <span asp-validation-for="GroupId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ProfilePictureURL" class="control-label"></label>
+                            <input asp-for="ProfilePictureURL" class="form-control" />
+                            <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Update" class="btn btn-outline-success float-end" />
+                            <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $("#ProfilePictureURL").val();
+        })
+
+        $("#ProfilePictureURL").on("change", function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $(this).val();
+        })
+
+
+        $("#facultyId").change(function () {
+            GetGroupsByFacultyId();
+        });
+        var GetGroupsByFacultyId = function () {
+            $.ajax({
+                url: '@Url.Action("GetGroupsByFacultyId","Students")',
+                type: 'GET',
+                data: {
+                    facultyId: $('#facultyId').val(),
+                },
+                success: function (data) {
+                    $('#groupId').find('option').remove()
+                    $(data).each(
+                        function (index, item) {
+                            $('#groupId').append('<option value="' + item.id + '">' + item.name + '</option')
+                        }
+                    );
+                }
+            })
+        }
+    </script>
+}

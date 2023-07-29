@@ -1,0 +1,58 @@
+﻿@model SubjectsListViewModel
+
+@{
+    ViewData["Title"] = "List of Subjects";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+
+            <!-- Use the partial view for search form 'by name' -->
+            @{await Html.RenderPartialAsync("_SearchForm");}
+
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.NameSortParm" asp-route-currentFilter="@Model.CurrentFilter">Name</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PagedSubjects)
+                    {
+                        <tr class="text-center">
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Faculty.Name)
+                            </td>
+                            <td class="align-middle">
+                                <div class="btn-group">
+                                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit </a>
+                                    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details </a>
+                                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Delete </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Use the partial view for pagination -->
+            @await Html.PartialAsync("_Pagination", Model.PagedSubjects)
+
+        </div>
+    </div>
+</div>
+
+<!-- Use the partial view for 'Add New' button -->
+@await Html.PartialAsync("_CreateItem", "Subjects")
+
+

@@ -1,0 +1,74 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "Delete student";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Delete confirmation for @Model.FirstName @Model.LastName</h3>
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-10">
+
+                    <div class="mb-3 text-center">
+                        <img class="border-info rounded-circle" style="max-width: 150px" id="ProfilePicturePreview" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" readonly />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" readonly />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Group.Faculty" class="control-label"></label>
+                        <div class="form-control">
+                            <a asp-controller="Faculties" asp-action="Details" asp-route-id="@Model.Group.FacultyId">@Model.Group.Faculty.Name</a>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Group" class="control-label"></label>
+                        <div class="form-control">
+                            <a asp-controller="Groups" asp-action="Details" asp-route-id="@Model.GroupId">@Model.Group.Name</a>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" readonly />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProfilePictureURL" class="control-label"></label>
+                        <input asp-for="ProfilePictureURL" class="form-control" readonly />
+                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Confirm" class="btn btn-danger float-end" />
+                        </form>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $("#ProfilePictureURL").val();
+        })
+    </script>
+}

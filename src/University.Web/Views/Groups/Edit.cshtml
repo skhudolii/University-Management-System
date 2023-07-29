@@ -1,0 +1,43 @@
+﻿@using University.Core.ViewModels.GroupVM;
+@model NewGroupModel
+
+@{
+    ViewData["Title"] = "Update group";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Update Group</h3>
+            </p>
+            <div class="row justify-content-evenly">
+                <div class="col-10">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="FacultyId" class="col-form-label"></label>
+                            <select asp-for="FacultyId" class="form-select" asp-items="ViewBag.Faculties"></select>
+                            <span asp-validation-for="FacultyId" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Name" class="col-form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Update" class="btn btn-outline-success float-end" />
+                            <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

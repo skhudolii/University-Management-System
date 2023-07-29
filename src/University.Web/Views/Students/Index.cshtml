@@ -1,0 +1,77 @@
+﻿@model StudentsListViewModel
+
+@{
+    ViewData["Title"] = "List of Students";
+}
+
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-10">
+
+            <!-- Use the partial view for search form 'by name' -->
+            @{await Html.RenderPartialAsync("_SearchForm");}
+
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>Profile Picture</th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FirstNameSortParm" asp-route-currentFilter="@Model.CurrentFilter">First Name</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.LastNameSortParm" asp-route-currentFilter="@Model.CurrentFilter">Last Name</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.GroupSortParm" asp-route-currentFilter="@Model.CurrentFilter">Group</a>
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PagedStudents)
+                    {
+                        <tr class="text-center">
+                            <td class="align-middle">
+                                <a asp-action="Details" asp-route-id="@item.Id">
+                                    <img class="rounded-circle" src="@item.ProfilePictureURL" alt="@item.FirstName @item.LastName" style="max-width: 120px" />
+                                </a>
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td class="align-middle">
+                                <a asp-controller="Groups" asp-action="Details" asp-route-id="@item.Group.Id">
+                                    @Html.DisplayFor(modelItem => item.Group.Name)
+                                </a>
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Group.Faculty.Name)
+                            </td>
+
+                            <td class="align-middle">
+                                <div class="btn-group">
+                                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit </a>
+                                    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details </a>
+                                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Delete </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Use the partial view for pagination -->
+            @await Html.PartialAsync("_Pagination", Model.PagedStudents)
+
+        </div>
+    </div>
+</div>
+
+<!-- Use the partial view for 'Add New' button -->
+@await Html.PartialAsync("_CreateItem", "Students")

@@ -1,0 +1,58 @@
+﻿@using University.Core.ViewModels.FacultyVM;
+@model NewFacultyModel
+
+@{
+    ViewData["Title"] = "Add a new faculty";
+}
+
+<div class="container">
+    <div class="row justify-content-evenly">
+        <div class="col-10">
+            <p>
+                <h3 class="text-center">Add a new faculty</h3>
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3 text-center">
+                            <img id="LogoPreview" class="border-info" style="max-width: 250px" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Logo" class="control-label"></label>
+                            <input asp-for="Logo" class="form-control" />
+                            <span asp-validation-for="Logo" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Create" class="btn btn-outline-success float-end" />
+                            <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('LogoPreview');
+            output.src = $("#Logo").val();
+        })
+
+        $("#Logo").on("change", function () {
+            var output = document.getElementById('LogoPreview');
+            output.src = $(this).val();
+        })
+    </script>
+}

@@ -1,0 +1,88 @@
+﻿@model LecturesListViewModel
+
+@{
+    ViewData["Title"] = "List of Lectures";
+}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-10">
+
+            <form class="row ms-auto my-2 my-lg-0" asp-action="Index" method="get">
+                <div class="col-auto">
+                    <input type="text" class="form-control" name="SearchString" value="@Model.CurrentFilter"
+                           placeholder="By Teacher/Subject/Date..." />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" value="Search" class="btn btn-outline-primary"><i class="bi bi-search"></i></button>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
+                </div>
+            </form>
+
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th class="align-middle">
+                            <a asp-action="Index" asp-route-sortOrder="@Model.DateSortParm" asp-route-currentFilter="@Model.CurrentFilter">Lecture Date</a>
+                        </th>
+                        <th class="align-middle">
+                            Start Time<br />EndTime
+                        </th>
+                        <th class="align-middle">
+                            <a asp-action="Index" asp-route-sortOrder="@Model.SubjectSortParm" asp-route-currentFilter="@Model.CurrentFilter">Subject</a>
+                        </th>
+                        <th class="align-middle">
+                            <a asp-action="Index" asp-route-sortOrder="@Model.LectureRoomSortParm"]" asp-route-currentFilter="@Model.CurrentFilter">Lecture Room</a>
+                        </th>
+                        <th class="align-middle">
+                            <a asp-action="Index" asp-route-sortOrder="@Model.FacultySortParm" asp-route-currentFilter="@Model.CurrentFilter">Faculty</a>
+                        </th>
+                        <th class="align-middle">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PagedLectures)
+                    {
+                        <tr class="text-center">
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.LectureDate)
+                            </td>
+                            <td class="align-middle">
+                                @item.StartTime.ToString(@"hh\:mm")
+                                <br />
+                                @item.EndTime.ToString(@"hh\:mm")
+                            </td>
+                            <td class="align-middle">
+                                @item.Subject.Name
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.LectureRoom.Name)
+                            </td>
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Faculty.Name)
+                            </td>
+                            <td class="align-middle">
+                                <div class="btn-group">
+                                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit </a>
+                                    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details </a>
+                                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Delete </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Use the partial view for pagination -->
+            @await Html.PartialAsync("_Pagination", Model.PagedLectures)
+
+        </div>
+    </div>
+</div>
+
+<!-- Use the partial view for 'Add New' button -->
+@await Html.PartialAsync("_CreateItem", "Lectures")
+
+
