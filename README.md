@@ -83,7 +83,7 @@ This project is licensed under the [MIT License](LICENSE.txt).
 
 ## Screenshots
 ![Main Window](/screenshots/MainWindow.png "Main Window")
-![Main Window on Cellphone](/screenshots/MainWindowCellphone.png "Main Window on Cellphone")
+![Main Window on Cellphone](/screenshots/MainWindowCellPhone.png "Main Window on Cellphone")
 ![Faculty Details](/screenshots/FacultyDetails.png "Faculty Details")
 ![Teachers List](/screenshots/TeachersList.png "Teachers List")
 ![Delete Confirmation for Group](/screenshots/GroupDelete.png "Delete Confirmation for Group")
