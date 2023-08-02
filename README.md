@@ -80,3 +80,11 @@ Contributions to the University Management System are welcome! If you have any s
 ## License
 
 This project is licensed under the [MIT License](LICENSE.txt).
+
+## Screenshots
+![Main Window](/screenshots/MainWindow.png "Main Window")
+![Main Window on Cellphone](/screenshots/MainWindowCellPhone.png "Main Window on Cellphone")
+![Faculty Details](/screenshots/FacultyDetails.png "Faculty Details")
+![Teachers List](/screenshots/TeachersList.png "Teachers List")
+![Delete Confirmation for Group](/screenshots/GroupDelete.png "Delete Confirmation for Group")
+![Create Lecture on IPad Mini](/screenshots/LectureCreateIPadMini.png "Create Lecture on IPad Mini")
